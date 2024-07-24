@@ -156,6 +156,7 @@ class EventContoller extends Controller
         try{
             $event = Event::findOrFail($request->id);
             $event->delete();
+            return response()->json(['data' => $event]);
 
         }catch (\Exception $e) {
             return $e->getMessage();

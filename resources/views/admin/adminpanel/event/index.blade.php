@@ -226,11 +226,13 @@ $(document).on( 'click', '.editor-delete', function () {
         type : 'POST',
         dataType : 'json',
         success : function(result){
+            $('#example2').DataTable().ajax.reload();
             Swal.fire({
       title: "Deleted!",
       text: "Your file has been deleted.",
       icon: "success"
     });
+
 
         }
     });
