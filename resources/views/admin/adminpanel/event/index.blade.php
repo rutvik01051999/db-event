@@ -232,14 +232,8 @@ $(document).on( 'click', '.editor-delete', function () {
       text: "Your file has been deleted.",
       icon: "success"
     });
-
-
         }
     });
-
-    
-
-
   }
 });
 });
