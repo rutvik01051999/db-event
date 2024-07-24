@@ -165,7 +165,19 @@ class EventContoller extends Controller
     
      public function questionList($id){
         try{
-            $event = Event::findOrFail($id);
+            if(request()->ajax()){
+                $data = Event::where('status',1)->where('id',$id)->first();
+                return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                        return $actionBtn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+            return view('admin.adminpanel.question.index');
+
 
 
          }catch (\Exception $e) {
