@@ -13,6 +13,7 @@ class Question extends Model
         'name',
         'description',
         'required',
-        'option_types'
+        'option_types',
+        'option_name'
     ];
 }

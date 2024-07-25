@@ -85,7 +85,7 @@ td.editor-delete button {
         { 
             data: "id" ,
               "render": function ( data) {
-              return '<a class="dt-center" href="question/list/'+data+'"><i class="fa fa-eye"/></a>';}
+              return '<a class="dt-center" href="/question/list/'+data+'"><i class="fa fa-eye"/></a>';}
         },
         { 
             data: "id" ,
@@ -187,8 +187,8 @@ $(document).on( 'click', '.event-update', function () {
         type : 'POST',
         dataType : 'json',
         cache : false,
-  processData: false,
-  contentType: false,
+        processData: false,
+        contentType: false,
         success : function(result){
             
             $('#example2').DataTable().ajax.reload();

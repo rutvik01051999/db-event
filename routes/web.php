@@ -18,6 +18,9 @@ Route::controller(EventContoller::class)->group(function () {
     Route::post('event/delete', 'delete');
     Route::post('event/update', 'update');
     Route::get('question/list/{id}', 'questionList');
+    Route::post('question/update', 'questionUpdate');
+    Route::post('question/delete', 'questionDelete');
+
 });
 
 Route::controller(UserEventHandlingController::class)->group(function () {
