@@ -11,7 +11,7 @@
         <input type="hidden" name="event_id" value="{{$data->id}}">
         @csrf
 
-      @foreach($data->questions as $val)
+        @foreach($data->questions as $val)
       <div class="row row{{$val->id}}">
         <div class="col-sm-4">
         <!-- text input -->
@@ -56,19 +56,22 @@
         <div class="form-group">
           <label></label><br>
           <!-- <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red"
-          class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16">
-          <path
-            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
-          </svg> -->
+      class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16">
+      <path
+      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+      </svg> -->
 
-          <svg data-id="{{$val->id}}" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-trash-fill delete_button" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-</svg>
+          <svg data-id="{{$val->id}}" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red"
+          class="bi bi-trash-fill delete_button" viewBox="0 0 16 16">
+          <path
+            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+          <path
+            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+          </svg>
         </div>
         </div>
       </div>
-        @endforeach
+    @endforeach
 
         <div class="row ">
           <div class="col-sm-4">
@@ -174,25 +177,44 @@
     });
 
 
-$(document).on( 'click', '.delete_button', function () { 
-  var id = $(this).attr("data-id");
-  $.ajax({
-        url : "{{ url('question/delete') }}",
-        data : {
-            'id' : id,
-            "_token": "{{ csrf_token() }}",
-        },
-        
-        type : 'POST',
-        dataType : 'json',
-        success : function(result){
-          $('.row'+id).remove()
+    $(document).on('click', '.delete_button', function () {
+      var id = $(this).attr("data-id");
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          $.ajax({
+            url: "{{ url('question/delete') }}",
+            data: {
+              'id': id,
+              "_token": "{{ csrf_token() }}",
+            },
+
+            type: 'POST',
+            dataType: 'json',
+            success: function (result) {
+              $('.row' + id).remove()
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your record has been deleted.",
+                icon: "success"
+              });
+            }
+          });
         }
+      });
+
     });
 
-});
-
-});
+  });
 </script>
 @endsection
 @endsection
