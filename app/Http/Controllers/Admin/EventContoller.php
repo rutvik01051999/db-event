@@ -11,6 +11,7 @@ use App\Models\Event;
 use App\Http\Requests\EventStoreRequest;
 use DB;
 use App\Models\Question;
+use App\Models\PersonalInformation;
 use App\Models\Option;
 use DataTables;
 
@@ -45,7 +46,7 @@ class EventContoller extends Controller
         return view('admin.adminpanel.event.create', compact('option_type', 'category', 'departmen'));
     }
 
-    public function store(EventStoreRequest $request)
+    public function store(Request $request)
     {
         DB::beginTransaction();
         try {
@@ -54,6 +55,8 @@ class EventContoller extends Controller
                 $imageName = time() . '.' . $request->logo->getClientOriginalExtension();
                 // $path = $request->logo->store('images', 'public');
                 $request->logo->storeAs('public/images', $imageName);
+            }else{
+                $imageName =null;
             }
 
             $event = Event::create([
@@ -67,6 +70,53 @@ class EventContoller extends Controller
                 'event_url' => $url
             ]);
 
+            //for Personal information
+            foreach ($request->p_option_type as $key => $type) {
+                if ($type == 'input' || $type == 'textarea') {
+                    $question = PersonalInformation::create([
+                        'event_id' => $event->id,
+                        'name' => $request->p_quation[$key],
+                        'description' => $request->p_description,
+                        'required' => $request->p_required[$key],
+                        'option_types' => $type,
+                    ]);
+
+
+                    Option::create([
+                        'personal_information_id' => $question->id,
+                    ]);
+
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+                    $options = explode("~", $request->p_option[$key]);
+                    $question = PersonalInformation::create([
+                        'event_id' => $event->id,
+                        'name' => $request->p_quation[$key],
+                        'description' => $request->p_description,
+                        'required' => $request->p_required[$key],
+                        'option_types' => $type,
+                        'option_name' => $request->p_option[$key]
+
+                    ]);
+
+                    if (count($options) > 1) {
+                        foreach ($options as $val) {
+                            Option::create([
+                                'personal_information_id' => $question->id,
+                                'name' => $val
+                            ]);
+                        }
+                    } else {
+                        Option::create([
+                            'personal_information_id' => $question->id,
+                            'name' => $request->p_option[$key]
+                        ]);
+                    }
+                } else {
+
+                }
+            }
+
+            //for question 
             foreach ($request->option_type as $key => $type) {
                 // dd($request->all());
                 if ($type == 'input' || $type == 'textarea') {
@@ -111,7 +161,7 @@ class EventContoller extends Controller
 
                 }
             }
-
+            
             DB::commit();
             return redirect()->back()->with('success', config('const.success_message'));
 
@@ -176,7 +226,7 @@ class EventContoller extends Controller
 
         try {
 
-            $data = Event::with('questions')->where('status', 1)->where('id', $id)->first();
+            $data = Event::with('questions','personalinfo')->where('status', 1)->where('id', $id)->first();
             return view('admin.adminpanel.question.index', compact('data'));
 
         } catch (\Exception $e) {
@@ -189,8 +239,55 @@ class EventContoller extends Controller
         DB::beginTransaction();
         try {
             Question::where('event_id', $request->event_id)->delete();
+            PersonalInformation::where('event_id', $request->event_id)->delete();
+            //for personal info
+            foreach ($request->p_option_type as $key => $type) {
+                if ($type == 'input' || $type == 'textarea') {
+                    $question = PersonalInformation::create([
+                        'event_id' => $request->event_id,
+                        'name' => $request->p_quation[$key],
+                        'description' => $request->p_description,
+                        'required' => $request->p_required[$key],
+                        'option_types' => $type,
+                    ]);
+
+
+                    Option::create([
+                        'personal_information_id' => $question->id,
+                    ]);
+
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+                    $options = explode("~", $request->p_option[$key]);
+                    $question = PersonalInformation::create([
+                        'event_id' => $request->event_id,
+                        'name' => $request->p_quation[$key],
+                        'description' => $request->p_description,
+                        'required' => $request->p_required[$key],
+                        'option_types' => $type,
+                        'option_name' => $request->p_option[$key]
+
+                    ]);
+
+                    if (count($options) > 1) {
+                        foreach ($options as $val) {
+                            Option::create([
+                                'personal_information_id' => $question->id,
+                                'name' => $val
+                            ]);
+                        }
+                    } else {
+                        Option::create([
+                            'personal_information_id' => $question->id,
+                            'name' => $request->p_option[$key]
+                        ]);
+                    }
+                } else {
+
+                }
+            }
+
+            //for questions 
             foreach ($request->option_type as $key => $type) {
-                // dd($request->all());
                 if ($type == 'input' || $type == 'textarea') {
                     $question = Question::create([
                         'event_id' => $request->event_id,
@@ -230,10 +327,8 @@ class EventContoller extends Controller
                         ]);
                     }
                 } else {
-
                 }
             }
-
             DB::commit();
             return redirect()->back()->with('success', config('const.success_message'));
 

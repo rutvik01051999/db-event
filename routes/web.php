@@ -20,14 +20,10 @@ Route::controller(EventContoller::class)->group(function () {
     Route::get('question/list/{id}', 'questionList');
     Route::post('question/update', 'questionUpdate');
     Route::post('question/delete', 'questionDelete');
-
 });
 
 Route::controller(UserEventHandlingController::class)->group(function () {
     Route::get('{id}', 'index');
 });
-
-
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

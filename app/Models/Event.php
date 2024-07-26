@@ -24,5 +24,9 @@ class Event extends Model
     {
         return $this->hasMany(Question::class);
     }
+    public function personalinfo(): HasMany
+    {
+        return $this->hasMany(PersonalInformation::class);
+    }
     
 }
