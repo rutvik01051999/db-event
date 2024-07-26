@@ -5,7 +5,7 @@
     color: red;
   }
 </style>
-<br>
+
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
@@ -21,7 +21,7 @@
         <div class="card-header">
           <h3 class="card-title">Event Create</h3>
         </div>
-        <br>
+       
         @if ($errors->any())
       <div class="alert alert-danger">
         <ul>

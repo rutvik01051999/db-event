@@ -4,7 +4,13 @@
 
 </style>
 <br>
+@if (\Session::has('success'))
+      <div class="alert alert-success">
 
+      <span>{!! \Session::get('success') !!}</span>
+
+      </div>
+    @endif
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">

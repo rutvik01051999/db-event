@@ -11,7 +11,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::controller(EventContoller::class)->group(function () {
-    Route::get('/create', 'create');
+    Route::get('/create', 'create')->name('event.create');
     Route::post('/store', 'store');
     Route::get('/list', 'index')->name('event.list');
     Route::post('event/edit', 'edit');
