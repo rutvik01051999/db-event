@@ -342,4 +342,8 @@ class EventContoller extends Controller
       Question::where('id', $request->id)->delete();
       return response()->json(['data' => $request->id]);
     }
+    public function PersonalInfodelete(Request $request){
+        PersonalInformation::where('id', $request->id)->delete();
+        return response()->json(['data' => $request->id]);
+    }
 }

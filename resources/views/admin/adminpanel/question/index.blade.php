@@ -5,16 +5,17 @@
 </style>
 <br>
 @if (\Session::has('success'))
-      <div class="alert alert-success">
+  <div class="alert alert-success">
 
-      <span>{!! \Session::get('success') !!}</span>
+    <span>{!! \Session::get('success') !!}</span>
 
-      </div>
-    @endif
+  </div>
+@endif
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
-      <br>
+
+      <h3 class="event-name">{{$data->name}}</h3><br>
       <button type="button" class="btn btn-success add_button2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus "
           viewBox="0 0 16 16">
@@ -30,7 +31,7 @@
         <input type="hidden" name="event_id" value="{{$data->id}}">
         @csrf
 
-        @foreach($data->personalinfo as $val)
+      @foreach($data->personalinfo as $val)
       <div class="row row{{$val->id}}">
         <div class="col-sm-4">
         <!-- text input -->
@@ -75,7 +76,7 @@
         <div class="form-group">
           <label></label><br>
           <svg data-id="{{$val->id}}" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red"
-          class="bi bi-trash-fill delete_button" viewBox="0 0 16 16">
+          class="bi bi-trash-fill delete_button2" viewBox="0 0 16 16">
           <path
             d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
           <path
@@ -84,23 +85,21 @@
         </div>
         </div>
       </div>
-        @endforeach
+    @endforeach
 
         <div class="field_wrapper2"></div>
-
         <br>
-
         <button type="button" class="btn btn-success add_button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus "
-          viewBox="0 0 16 16">
-          <path
-            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
-          </path>
-        </svg>
-        Add Questions
-      </button><br><br>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus "
+            viewBox="0 0 16 16">
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4">
+            </path>
+          </svg>
+          Add Questions
+        </button><br><br>
 
-        @foreach($data->questions as $val)
+    @foreach($data->questions as $val)
       <div class="row row{{$val->id}}">
         <div class="col-sm-4">
         <!-- text input -->
@@ -154,7 +153,7 @@
         </div>
         </div>
       </div>
-        @endforeach
+    @endforeach
 
         <div class="field_wrapper"></div>
         <button type="submit" class="btn btn-primary">Update</button>
@@ -283,6 +282,47 @@
 
     });
 
+
+    $(document).on('click', '.delete_button2', function () {
+      var id = $(this).attr("data-id");
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          $.ajax({
+            url: "{{ url('personal/info/delete') }}",
+            data: {
+              'id': id,
+              "_token": "{{ csrf_token() }}",
+            },
+
+            type: 'POST',
+            dataType: 'json',
+            success: function (result) {
+              $('.row' + id).remove()
+              var array_count = $('input[name="quation[]"]').length;
+              console.log('array count' + array_count)
+              if (array_count == 0) {
+                $('.btn-primary').hide()
+                // $('.datacount').html('No data found')
+              }
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your record has been deleted.",
+                icon: "success"
+              });
+            }
+          });
+        }
+      });
+    });
   });
 </script>
 @endsection
