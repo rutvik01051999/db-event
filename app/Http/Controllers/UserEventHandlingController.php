@@ -9,11 +9,11 @@ class UserEventHandlingController extends Controller
 {
     public function index($id){
         try {
-          $event = Event::findOrFail($id);
-          
+          $data = Event::with('questions','personalinfo')->where('event_url',env('APP_URL') . '/' . $id)->first();
+          return view('user.event.form', compact('data'));
         }
         catch(\Exception $e){  
-
+          dd($e);
          }
     }
 }

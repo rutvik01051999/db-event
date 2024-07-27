@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class Question extends Model
 {
@@ -16,4 +18,8 @@ class Question extends Model
         'option_types',
         'option_name'
     ];
+    public function options(): HasMany
+    {
+        return $this->hasMany(Option::class,'question_id');
+    }
 }

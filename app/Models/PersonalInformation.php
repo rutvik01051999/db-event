@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class PersonalInformation extends Model
 {
@@ -16,4 +18,8 @@ class PersonalInformation extends Model
         'option_types',
         'option_name'
     ];
+    public function options(): HasMany
+    {
+        return $this->hasMany(Option::class,'personal_information_id');
+    }
 }
