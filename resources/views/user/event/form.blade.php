@@ -109,45 +109,66 @@
 </style>
 <div class="container">
     <div class="container mt-sm-5 my-1">
+        <form method="post" action="user/event/store">
+            @csrf
         <div class="question ml-sm-5 pl-sm-5 pt-2">
 
             @foreach ($data->personalinfo as $perinfo)
-            <div class="py-2 h5"><b>Q. {{$perinfo->name}}</b></div>
-            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-                 
-                @foreach ($perinfo->options as $option)
-                <label class="options">Small Business Owner or Employee
-                    <input type="radio" name="radio">
-                    <span class="checkmark"></span>
-                </label>
-                @endforeach
-              
-            </div>
+                <div class="py-2 h5"><b>Q. {{$perinfo->name}}</b></div>
+                <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+
+
+                    @if($perinfo->option_types == "input")
+
+                        <label class="options">
+                        </label>
+                        <input type="text" name="input_type[]">
+
+
+                    @elseif($perinfo->option_types == "radio")
+
+                        @foreach ($perinfo->options as $option)
+                            <label class="options">{{$option->name}}
+                                <input type="radio" name="radio[]">
+                                <span class="checkmark"></span>
+                            </label>
+                        @endforeach
+
+                    @elseif($perinfo->option_types == "checkbox")
+
+                        @foreach ($perinfo->options as $option)
+                            <label class="options">{{$option->name}}
+                            </label>
+                            <input type="checkbox" name="checkbox[]">
+                        @endforeach
+
+                    @else
+
+                    @endif  
+                </div>
             @endforeach
 
             @foreach ($data->questions as $questions)
-            <div class="py-2 h5"><b>Q. {{$questions->name}}</b></div>
-            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+                <div class="py-2 h5"><b>Q. {{$questions->name}}</b></div>
+                <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
 
-            @foreach ($questions->options as $option)
-                <label class="options">Small Business Owner or Employee
-                    <input type="radio" name="radio">
-                    <span class="checkmark"></span>
-                </label>
+                    @foreach ($questions->options as $option)
+                        <label class="options">Small Business Owner or Employee
+                            <input type="radio" name="radio">
+                            <span class="checkmark"></span>
+                        </label>
+                    @endforeach
+
+                </div>
             @endforeach
 
+        </div>
+        <div class="d-flex align-items-center pt-3">
+            <div class="ml-auto mr-sm-5">
+                <button class="btn btn-success">Submit</button>
             </div>
-            @endforeach
-
         </div>
-        <!-- <div class="d-flex align-items-center pt-3">
-        <div id="prev">
-            <button class="btn btn-primary">Previous</button>
-        </div>
-        <div class="ml-auto mr-sm-5">
-            <button class="btn btn-success">Next</button>
-        </div>
-    </div> -->
+        </form>
     </div>
 </div>
 @endsection
