@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\Departmen;
 use App\Models\Event;
 use App\Http\Requests\EventStoreRequest;
+use App\Http\Requests\EventUpdateRequest;
+use App\Http\Requests\QuetionInfoUpdateRequest;
 use DB;
 use App\Models\Question;
 use App\Models\PersonalInformation;
@@ -46,7 +48,7 @@ class EventContoller extends Controller
         return view('admin.adminpanel.event.create', compact('option_type', 'category', 'departmen'));
     }
 
-    public function store(Request $request)
+    public function store(EventStoreRequest $request)
     {
         DB::beginTransaction();
         try {
@@ -184,7 +186,7 @@ class EventContoller extends Controller
             return $e->getMessage();
         }
     }
-    public function update(Request $request)
+    public function update(EventUpdateRequest $request)
     {
         try {
             $event = Event::findOrFail($request->event_id);
@@ -234,7 +236,7 @@ class EventContoller extends Controller
         }
     }
 
-    public function questionUpdate(Request $request)
+    public function questionUpdate(QuetionInfoUpdateRequest $request)
     {
         DB::beginTransaction();
         try {

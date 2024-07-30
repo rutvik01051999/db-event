@@ -15,22 +15,22 @@
       <span>{!! \Session::get('success') !!}</span>
 
       </div>
-    @endif
+      @endif
 
       <div class="card card-warning">
         <div class="card-header">
           <h3 class="card-title">Event Create</h3>
         </div>
-       
+
         @if ($errors->any())
-      <div class="alert alert-danger">
+        <div class="alert alert-danger">
         <ul>
         @foreach ($errors->all() as $error)
-      <li>{{ $error }}</li>
-    @endforeach
+         <li>{{ $error }}</li>
+         @endforeach
         </ul>
-      </div>
-    @endif
+        </div>
+        @endif
         <!-- /.card-header -->
         <div class="card-body">
           <img src="{{ asset('storage/' . '1721644554.jpeg') }}" width="120px" hight="120px" alt="">
@@ -116,8 +116,9 @@
               <div class="col-sm-4">
                 <!-- text input -->
                 <div class="form-group">
-                  <label>quation</label>
-                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ...">
+                  <label>question</label>
+                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."
+                    value="Full Name">
                 </div>
               </div>
               <div class="col-sm-2">
@@ -167,7 +168,8 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label></label>
-                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ...">
+                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."
+                    value="Gender">
                 </div>
               </div>
               <div class="col-sm-2">
@@ -203,7 +205,12 @@
               <div class="col-sm-1">
                 <div class="form-group">
                   <label></label><br>
-                  <svg xmlns="http://www.w3.org/2000/svg" data-id = 1 width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" data-id=1 width="32" height="32" fill="red"
+                    class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z">
+                    </path>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -213,7 +220,8 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label></label>
-                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ...">
+                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."
+                    value="Age">
                 </div>
               </div>
               <div class="col-sm-2">
@@ -249,7 +257,12 @@
               <div class="col-sm-1">
                 <div class="form-group">
                   <label></label><br>
-                  <svg xmlns="http://www.w3.org/2000/svg" data-id = 2 width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" data-id=2 width="32" height="32" fill="red"
+                    class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z">
+                    </path>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -258,7 +271,8 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label></label>
-                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ...">
+                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."
+                    value="Address">
                 </div>
               </div>
               <div class="col-sm-2">
@@ -294,7 +308,12 @@
               <div class="col-sm-1">
                 <div class="form-group">
                   <label></label><br>
-                  <svg xmlns="http://www.w3.org/2000/svg" data-id = 3 width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" data-id=3 width="32" height="32" fill="red"
+                    class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z">
+                    </path>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -303,7 +322,8 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label></label>
-                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ...">
+                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."
+                    value="Address">
                 </div>
               </div>
               <div class="col-sm-2">
@@ -339,7 +359,12 @@
               <div class="col-sm-1">
                 <div class="form-group">
                   <label></label><br>
-                  <svg xmlns="http://www.w3.org/2000/svg" data-id = 4 width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" data-id=4 width="32" height="32" fill="red"
+                    class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z">
+                    </path>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -348,7 +373,8 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label></label>
-                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ...">
+                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."
+                    value="Pincode">
                 </div>
               </div>
               <div class="col-sm-2">
@@ -384,7 +410,12 @@
               <div class="col-sm-1">
                 <div class="form-group">
                   <label></label><br>
-                  <svg xmlns="http://www.w3.org/2000/svg" data-id = 5 width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" data-id=5 width="32" height="32" fill="red"
+                    class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z">
+                    </path>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -393,7 +424,8 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label></label>
-                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ...">
+                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."
+                    value="Area">
                 </div>
               </div>
               <div class="col-sm-2">
@@ -429,7 +461,12 @@
               <div class="col-sm-1">
                 <div class="form-group">
                   <label></label><br>
-                  <svg xmlns="http://www.w3.org/2000/svg" data-id = 6 width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" data-id=6 width="32" height="32" fill="red"
+                    class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z">
+                    </path>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -438,7 +475,8 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label></label>
-                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ...">
+                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."
+                    value="City">
                 </div>
               </div>
               <div class="col-sm-2">
@@ -474,7 +512,12 @@
               <div class="col-sm-1">
                 <div class="form-group">
                   <label></label><br>
-                  <svg xmlns="http://www.w3.org/2000/svg" data-id = 7 width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" data-id=7 width="32" height="32" fill="red"
+                    class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z">
+                    </path>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -483,7 +526,8 @@
                 <!-- text input -->
                 <div class="form-group">
                   <label></label>
-                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ...">
+                  <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."
+                    value="State">
                 </div>
               </div>
               <div class="col-sm-2">
@@ -519,11 +563,16 @@
               <div class="col-sm-1">
                 <div class="form-group">
                   <label></label><br>
-                  <svg xmlns="http://www.w3.org/2000/svg" data-id = 8 width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" data-id=8 width="32" height="32" fill="red"
+                    class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16">
+                    <path
+                      d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z">
+                    </path>
+                  </svg>
                 </div>
               </div>
             </div>
-            
+
             <div class="field_wrapper2"></div>
 
             <h3 class="">Questions</h3><br>
@@ -576,7 +625,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="field_wrapper">
 
             </div>
@@ -621,7 +670,7 @@
     $(addButton).click(function () {
       //Check maximum number of input fields
       if (x < maxField) {
-        var fieldHTML = '<div id="removecls' + x + '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control" name="option_type[]"> <option value="input">input</option> <option value="textarea">text area</option> <option value="checkbox">check box</option> <option value="dropdown">dropdown</option> <option value="radio">radio</option> <option value="file">file</option> </select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id ="'+x+'" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
+        var fieldHTML = '<div id="removecls' + x + '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control" name="option_type[]"> <option value="input">input</option> <option value="textarea">text area</option> <option value="checkbox">check box</option> <option value="dropdown">dropdown</option> <option value="radio">radio</option> <option value="file">file</option> </select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id =" ' + x  +'" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
         x++; //Increase field counter
         $(wrapper).append(fieldHTML); //Add field html
       } else {
@@ -632,7 +681,7 @@
     $(addButton2).click(function () {
       //Check maximum number of input fields
       if (y < maxField) {
-        var fieldHTML = '<div id="removecls' + y + '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="p_required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control" name="p_option_type[]"> <option value="input">input</option> <option value="textarea">text area</option> <option value="checkbox">check box</option> <option value="dropdown">dropdown</option> <option value="radio">radio</option> <option value="file">file</option> </select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id ="'+y+'" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
+        var fieldHTML = '<div id="removecls' + y + '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="p_required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control" name="p_option_type[]"> <option value="input">input</option> <option value="textarea">text area</option> <option value="checkbox">check box</option> <option value="dropdown">dropdown</option> <option value="radio">radio</option> <option value="file">file</option> </select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id ="' + y + '" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
         y++; //Increase field counter
         $(wrapper2).append(fieldHTML); //Add field html
       } else {
