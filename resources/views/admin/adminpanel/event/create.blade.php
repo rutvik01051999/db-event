@@ -16,7 +16,8 @@
 
       </div>
       @endif
-
+     <!-- #region -->
+      <br>
       <div class="card card-warning">
         <div class="card-header">
           <h3 class="card-title">Event Create</h3>
@@ -37,7 +38,7 @@
 
           <form id="event-details" method="post" action="store" enctype="multipart/form-data">
             @csrf
-            <h3 class="">Event Master:-</h3><br>
+            <h3 class="">Event Master</h3><br>
             <div class="row">
               <div class="col-sm-4">
                 <!-- text input -->
