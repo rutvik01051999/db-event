@@ -4,16 +4,26 @@
 
 </style>
 <br>
-@if (\Session::has('success'))
-  <div class="alert alert-success">
 
-    <span>{!! \Session::get('success') !!}</span>
-
-  </div>
-@endif
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
+
+    @if (Session::has('success'))
+    <div class="alert alert-success">
+    <span>{!! \Session::get('success') !!}</span>
+    </div>
+@endif
+
+@if ($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+  @endforeach
+    </ul>
+  </div>
+@endif
 
       <h3 class="event-name">{{$data->name}}</h3><br>
       <button type="button" class="btn btn-success add_button2">
@@ -31,7 +41,7 @@
         <input type="hidden" name="event_id" value="{{$data->id}}">
         @csrf
 
-      @foreach($data->personalinfo as $val)
+        @foreach($data->personalinfo as $val)
       <div class="row row{{$val->id}}">
         <div class="col-sm-4">
         <!-- text input -->
@@ -69,6 +79,8 @@
           <option value="dropdown" {{ ($val->option_types == 'dropdown') ? 'selected' : '' }}>dropdown</option>
           <option value="radio" {{ ($val->option_types == 'radio') ? 'selected' : '' }}>radio</option>
           <option value="file" {{ ($val->option_types == 'file') ? 'selected' : '' }}>file</option>
+          <option value="mobile" {{ ($val->option_types == 'mobile') ? 'selected' : '' }}>mobile with otp</option>
+          <option value="number" {{ ($val->option_types == 'number') ? 'selected' : '' }}>number</option>
           </select>
         </div>
         </div>
@@ -99,7 +111,7 @@
           Add Questions
         </button><br><br>
 
-    @foreach($data->questions as $val)
+        @foreach($data->questions as $val)
       <div class="row row{{$val->id}}">
         <div class="col-sm-4">
         <!-- text input -->
