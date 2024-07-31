@@ -8,7 +8,7 @@
             @if($perinfo->option_types == "input")
                 <div class="form-group">
                     <label for="formGroupExampleInput2">{{$perinfo->name}}</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                    <input type="text" class="form-control" id="formGroupExampleInput2" name="input_name{{$perinfo->id}}" placeholder="Another input">
                 </div><br>
 
             @elseif($perinfo->option_types == "dropdown")
@@ -17,7 +17,6 @@
                     <select id="inputState" class="form-control">
                     @foreach ($perinfo->options as $option)
                         <option selected>{{$option->name}}</option>
-                        <option>...</option>
                     @endforeach
                     </select>
                 </div><br>

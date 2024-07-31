@@ -25,6 +25,8 @@ Route::controller(EventContoller::class)->group(function () {
 
 Route::controller(UserEventHandlingController::class)->group(function () {
     Route::get('{id}', 'index');
+    Route::post('user/event/store', 'eventDataStore');
+
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

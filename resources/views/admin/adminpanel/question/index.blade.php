@@ -73,14 +73,9 @@
         <div class="form-group">
           <label></label>
           <select class="form-control" name="p_option_type[]">
-          <option value="input" {{ ($val->option_types == 'input') ? 'selected' : '' }}>input</option>
-          <option value="textarea" {{ ($val->option_types == 'textarea') ? 'selected' : '' }}>text area</option>
-          <option value="checkbox" {{ ($val->option_types == 'checkbox') ? 'selected' : '' }}>check box</option>
-          <option value="dropdown" {{ ($val->option_types == 'dropdown') ? 'selected' : '' }}>dropdown</option>
-          <option value="radio" {{ ($val->option_types == 'radio') ? 'selected' : '' }}>radio</option>
-          <option value="file" {{ ($val->option_types == 'file') ? 'selected' : '' }}>file</option>
-          <option value="mobile" {{ ($val->option_types == 'mobile') ? 'selected' : '' }}>mobile with otp</option>
-          <option value="number" {{ ($val->option_types == 'number') ? 'selected' : '' }}>number</option>
+          @foreach (config('per_option') as $key => $option)
+          <option value="{{$key}}" {{$val->option_types == $key ? 'selected' : '' }}>{{$option}}</option>
+          @endforeach    
           </select>
         </div>
         </div>
@@ -143,12 +138,11 @@
         <div class="form-group">
           <label></label>
           <select class="form-control" name="option_type[]">
-          <option value="input" {{ ($val->option_types == 'input') ? 'selected' : '' }}>input</option>
-          <option value="textarea" {{ ($val->option_types == 'textarea') ? 'selected' : '' }}>text area</option>
-          <option value="checkbox" {{ ($val->option_types == 'checkbox') ? 'selected' : '' }}>check box</option>
-          <option value="dropdown" {{ ($val->option_types == 'dropdown') ? 'selected' : '' }}>dropdown</option>
-          <option value="radio" {{ ($val->option_types == 'radio') ? 'selected' : '' }}>radio</option>
-          <option value="file" {{ ($val->option_types == 'file') ? 'selected' : '' }}>file</option>
+
+          @foreach (config('question_option') as $key => $option)
+          <option value="{{$key}}" {{$val->option_types == $key ? 'selected' : '' }}>{{$option}}</option>
+          @endforeach    
+
           </select>
         </div>
         </div>

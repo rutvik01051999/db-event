@@ -143,12 +143,9 @@
                 <div class="form-group">
                   <label>Select option type</label>
                   <select class="form-control" name="p_option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('per_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach                  
                   </select>
                 </div>
               </div>
@@ -194,12 +191,9 @@
                 <div class="form-group">
                   <label></label>
                   <select class="form-control" name="p_option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('per_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach       
                   </select>
                 </div>
               </div>
@@ -246,12 +240,9 @@
                 <div class="form-group">
                   <label></label>
                   <select class="form-control" name="p_option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('per_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach       
                   </select>
                 </div>
               </div>
@@ -297,12 +288,9 @@
                 <div class="form-group">
                   <label></label>
                   <select class="form-control" name="p_option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('per_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach       
                   </select>
                 </div>
               </div>
@@ -348,12 +336,9 @@
                 <div class="form-group">
                   <label></label>
                   <select class="form-control" name="p_option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('per_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach       
                   </select>
                 </div>
               </div>
@@ -399,12 +384,9 @@
                 <div class="form-group">
                   <label></label>
                   <select class="form-control" name="p_option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('per_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach       
                   </select>
                 </div>
               </div>
@@ -450,12 +432,9 @@
                 <div class="form-group">
                   <label></label>
                   <select class="form-control" name="p_option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('per_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach       
                   </select>
                 </div>
               </div>
@@ -501,12 +480,9 @@
                 <div class="form-group">
                   <label></label>
                   <select class="form-control" name="p_option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('per_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach       
                   </select>
                 </div>
               </div>
@@ -552,12 +528,9 @@
                 <div class="form-group">
                   <label></label>
                   <select class="form-control" name="p_option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('per_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach       
                   </select>
                 </div>
               </div>
@@ -606,12 +579,9 @@
                 <div class="form-group">
                   <label>Select option type</label>
                   <select class="form-control" name="option_type[]">
-                    <option value="input">input</option>
-                    <option value="textarea">text area</option>
-                    <option value="checkbox">check box</option>
-                    <option value="dropdown">dropdown</option>
-                    <option value="radio">radio</option>
-                    <option value="file">file</option>
+                  @foreach (config('question_option') as $key => $val)
+                  <option value="{{$key}}">{{$val}}</option>
+                  @endforeach       
                   </select>
                 </div>
               </div>
