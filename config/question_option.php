@@ -7,5 +7,6 @@ return [
  'dropdown'=>'dropdown' ,
  'radio'=>'radio' ,
  'file'=>'file',
- 'date'=>'date'  
+ 'date'=>'date',
+ 'rating'=>'rating'  
 ];

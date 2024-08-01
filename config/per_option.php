@@ -9,5 +9,6 @@ return [
  'file'=>'file' ,
  'mobile'=>'mobile with otp' ,
  'number'=>'number',
- 'date'=>'date'  
+ 'date'=>'date',
+ 'rating'=>'rating'  
 ];
