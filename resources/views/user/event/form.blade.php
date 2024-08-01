@@ -8,13 +8,13 @@
             @if($perinfo->option_types == "input")
                 <div class="form-group">
                     <label for="formGroupExampleInput2">{{$perinfo->name}}</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" name="input_name{{$perinfo->id}}" placeholder="Another input">
+                    <input type="text" class="form-control" id="formGroupExampleInput2" name="input_name{{$perinfo->id}}" placeholder="Another input" {{$perinfo->required == 1 ? 'required': ''}}>
                 </div><br>
 
             @elseif($perinfo->option_types == "dropdown")
                 <div class="form-group">
                     <label for="inputState">{{$perinfo->name}}</label>
-                    <select id="inputState" class="form-control">
+                    <select id="inputState" class="form-control" {{$perinfo->required == 1 ? 'required': ''}}>
                     @foreach ($perinfo->options as $option)
                         <option selected>{{$option->name}}</option>
                     @endforeach
@@ -27,7 +27,7 @@
 
                     @foreach ($perinfo->options as $option)
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1" {{$perinfo->required == 1 ? 'required': ''}}>
                             <label class="custom-control-label" for="customCheck1">{{$option->name}}</label>
                         </div>
                     @endforeach
@@ -40,7 +40,7 @@
 
                     @foreach ($perinfo->options as $option)
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" {{$perinfo->required == 1 ? 'required': ''}}>
                             <label class="form-check-label" for="exampleRadios1">
                                 {{$option->name}}
                             </label>
@@ -56,13 +56,13 @@
             @if($perinfo->option_types == "input")
                 <div class="form-group">
                     <label for="formGroupExampleInput2">{{$perinfo->name}}</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" {{$perinfo->required == 1 ? 'required': ''}}>
                 </div><br>
 
             @elseif($perinfo->option_types == "dropdown")
                 <div class="form-group">
                     <label for="inputState">{{$perinfo->name}}</label>
-                    <select id="inputState" class="form-control">
+                    <select id="inputState" class="form-control" {{$perinfo->required == 1 ? 'required': ''}}>
                     @foreach ($perinfo->options as $option)
                         <option selected>{{$option->name}}</option>
                     @endforeach
@@ -75,7 +75,7 @@
 
                     @foreach ($perinfo->options as $option)
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1" {{$perinfo->required == 1 ? 'required': ''}}>
                             <label class="custom-control-label" for="customCheck1">{{$option->name}}</label>
                         </div>
                     @endforeach
@@ -89,7 +89,7 @@
 
                     @foreach ($perinfo->options as $option)
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" {{$perinfo->required == 1 ? 'required': ''}}>
                             <label class="form-check-label" for="exampleRadios1">
                                 {{$option->name}}
                             </label>
