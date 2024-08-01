@@ -16,4 +16,7 @@ class UserEventHandlingController extends Controller
           dd($e);
          }
     }
+    public function eventDataStore(Request $request){
+      dd($request->all());
+    }
 }

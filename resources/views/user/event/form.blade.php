@@ -1,6 +1,9 @@
 @extends('layouts.user')
 @section('content')
 <div class="container">
+    <div class="event-name">
+        <h3>{{$data->name}}</h3>
+    </div><br>
     <form method="post" action="user/event/store">
         @csrf
 
@@ -8,7 +11,7 @@
             @if($perinfo->option_types == "input")
                 <div class="form-group">
                     <label for="formGroupExampleInput2">{{$perinfo->name}}</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" name="input_name{{$perinfo->id}}" placeholder="Another input" {{$perinfo->required == 1 ? 'required': ''}}>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" name="input_name{{$perinfo->id}}"  {{$perinfo->required == 1 ? 'required': ''}}>
                 </div><br>
 
             @elseif($perinfo->option_types == "dropdown")
@@ -56,7 +59,7 @@
             @if($perinfo->option_types == "input")
                 <div class="form-group">
                     <label for="formGroupExampleInput2">{{$perinfo->name}}</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input" {{$perinfo->required == 1 ? 'required': ''}}>
+                    <input type="text" class="form-control" id="formGroupExampleInput2"  {{$perinfo->required == 1 ? 'required': ''}}>
                 </div><br>
 
             @elseif($perinfo->option_types == "dropdown")
