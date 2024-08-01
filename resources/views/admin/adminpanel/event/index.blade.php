@@ -13,9 +13,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="alert alert-success" style="display:none;">
-
                 <span class="success-message"></span>
-
             </div>
             <div class="card">
                 <div class="card-header">
@@ -32,7 +30,7 @@
                                 <th>Url</th>
                                 <th>Start Date</th>
                                 <th>Close Date</th>
-                                <th>Quation list</th>
+                                <th>Question list</th>
                                 <th>Event edit</th>
                                 <th>Event delete</th>
                             </tr>
@@ -211,6 +209,17 @@
                     $('.success-message').html('')
                 }, 4000);
 
+            },
+            error: function (xhr) {
+                $('#errorMessages').html('');  // Clear previous errors
+                if (xhr.status === 422 || xhr.status === 400) {
+                    var errors = xhr.responseJSON.errors;
+                    $.each(errors, function (key, value) {
+                        $('#errorMessages').append('<p>' + value[0] + '</p>');
+                    });
+                } else {
+                    $('#errorMessages').append('<p>An unexpected error occurred.</p>');
+                }
             }
         });
     });
