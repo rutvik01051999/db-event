@@ -8,5 +8,6 @@ return [
  'radio'=>'radio' ,
  'file'=>'file' ,
  'mobile'=>'mobile with otp' ,
- 'number'=>'number'  
+ 'number'=>'number',
+ 'date'=>'date'  
 ];

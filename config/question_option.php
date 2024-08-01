@@ -6,5 +6,6 @@ return [
  'checkbox'=>'checkbox' ,
  'dropdown'=>'dropdown' ,
  'radio'=>'radio' ,
- 'file'=>'file' 
+ 'file'=>'file',
+ 'date'=>'date'  
 ];
