@@ -19,10 +19,10 @@ use DataTables;
 
 class EventContoller extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     public function index()
     {
 
@@ -57,8 +57,8 @@ class EventContoller extends Controller
                 $imageName = time() . '.' . $request->logo->getClientOriginalExtension();
                 // $path = $request->logo->store('images', 'public');
                 $request->logo->storeAs('public/images', $imageName);
-            }else{
-                $imageName =null;
+            } else {
+                $imageName = null;
             }
 
             $event = Event::create([
@@ -87,7 +87,6 @@ class EventContoller extends Controller
                     Option::create([
                         'personal_information_id' => $question->id,
                     ]);
-
                 } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
                     $options = explode("~", $request->p_option[$key]);
                     $question = PersonalInformation::create([
@@ -114,7 +113,6 @@ class EventContoller extends Controller
                         ]);
                     }
                 } else {
-
                 }
             }
 
@@ -133,7 +131,6 @@ class EventContoller extends Controller
                     Option::create([
                         'question_id' => $question->id,
                     ]);
-
                 } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
@@ -160,18 +157,15 @@ class EventContoller extends Controller
                         ]);
                     }
                 } else {
-
                 }
             }
-            
+
             DB::commit();
             return redirect()->back()->with('success', config('const.success_message'));
-
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }
-
     }
 
     public function edit(Request $request)
@@ -205,7 +199,6 @@ class EventContoller extends Controller
             }
             $event->save();
             return response()->json(['data' => $event]);
-
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -217,7 +210,6 @@ class EventContoller extends Controller
             $event = Event::findOrFail($request->id);
             $event->delete();
             return response()->json(['data' => $event]);
-
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -228,9 +220,8 @@ class EventContoller extends Controller
 
         try {
 
-            $data = Event::with('questions','personalinfo')->where('status', 1)->where('id', $id)->first();
+            $data = Event::with('questions', 'personalinfo')->where('status', 1)->where('id', $id)->first();
             return view('admin.adminpanel.question.index', compact('data'));
-
         } catch (\Exception $e) {
             return $e->getMessage();
         }
@@ -257,7 +248,6 @@ class EventContoller extends Controller
                     Option::create([
                         'personal_information_id' => $question->id,
                     ]);
-
                 } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
                     $options = explode("~", $request->p_option[$key]);
                     $question = PersonalInformation::create([
@@ -284,7 +274,6 @@ class EventContoller extends Controller
                         ]);
                     }
                 } else {
-
                 }
             }
 
@@ -302,7 +291,6 @@ class EventContoller extends Controller
                     Option::create([
                         'question_id' => $question->id,
                     ]);
-
                 } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
@@ -333,18 +321,19 @@ class EventContoller extends Controller
             }
             DB::commit();
             return redirect()->back()->with('success', config('const.success_message'));
-
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();
         }
     }
 
-    public function questionDelete(Request $request){
-      Question::where('id', $request->id)->delete();
-      return response()->json(['data' => $request->id]);
+    public function questionDelete(Request $request)
+    {
+        Question::where('id', $request->id)->delete();
+        return response()->json(['data' => $request->id]);
     }
-    public function PersonalInfodelete(Request $request){
+    public function PersonalInfodelete(Request $request)
+    {
         PersonalInformation::where('id', $request->id)->delete();
         return response()->json(['data' => $request->id]);
     }
