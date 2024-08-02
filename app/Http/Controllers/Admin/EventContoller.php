@@ -83,13 +83,13 @@ class EventContoller extends Controller
                         'option_types' => $type,
                     ]);
 
-
                     Option::create([
                         'personal_information_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->p_option[$key]);
+
                     $question = PersonalInformation::create([
                         'event_id' => $event->id,
                         'name' => $request->p_quation[$key],
@@ -99,6 +99,8 @@ class EventContoller extends Controller
                         'option_name' => $request->p_option[$key]
 
                     ]);
+
+
 
                     if (count($options) > 1) {
                         foreach ($options as $val) {
@@ -134,7 +136,7 @@ class EventContoller extends Controller
                         'question_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
                         'event_id' => $event->id,
@@ -258,7 +260,7 @@ class EventContoller extends Controller
                         'personal_information_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->p_option[$key]);
                     $question = PersonalInformation::create([
                         'event_id' => $request->event_id,
@@ -303,7 +305,7 @@ class EventContoller extends Controller
                         'question_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
                         'event_id' => $request->event_id,

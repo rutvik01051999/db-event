@@ -228,7 +228,7 @@
           </li>
           
           
-          <li class="nav-item {{ ( Request::is('list') ||  Request::is('create')  ? 'menu-is-opening menu-open' : '') }}">
+          <li class="nav-item {{ ( Request::is('list') ||  Request::is('create') || Request::is('question*') ? 'menu-is-opening menu-open' : '') }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-search"></i>
               <p>
@@ -244,7 +244,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('event.create')}}" class="nav-link {{ (Request::is('create') ? 'active' : '') }}">
+                <a href="{{route('event.create')}}" class="nav-link {{ (Request::is('create') || Request::is('question*') ? 'active' : '') }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create</p>
                 </a>
