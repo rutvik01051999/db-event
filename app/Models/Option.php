@@ -11,6 +11,7 @@ class Option extends Model
     protected $fillable = [
         'question_id',
         'personal_information_id',
-        'name'
+        'name',
+        'index_no'
     ];
 }
