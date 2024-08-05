@@ -7,25 +7,25 @@
         <form method="post" action="user/event/store">
             @csrf
 
-        @foreach ($data->personalinfo as $perinfo)
+        @foreach ($data->personalinfo as $key=>$perinfo)
             @if($perinfo->option_types == "input")
                 <div class="form-group">
-                    <label for="formGroupExampleInput2">{{$perinfo->name}}</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" name="input_name{{$perinfo->id}}"  {{$perinfo->required == 1 ? 'required': ''}}>
+                    <label for="name">{{$perinfo->name}}</label>
+                    <input type="text" class="form-control" id="name" name="per_{{$key}}"  {{$perinfo->required == 1 ? 'required': ''}}>
                 </div><br>
 
             @elseif($perinfo->option_types == "number")
                 <div class="form-group">
-                <label for="formGroupExampleNumber2">{{$perinfo->name}}</label>
-                <input type="number" class="form-control" id="formGroupExampleNumber2" name="input_name{{$perinfo->id}}"  {{$perinfo->required == 1 ? 'required': ''}}>
+                <label for="number">{{$perinfo->name}}</label>
+                <input type="number" class="form-control" id="number" name="per_{{$key}}"  {{$perinfo->required == 1 ? 'required': ''}}>
                 </div><br>
 
                 @elseif($perinfo->option_types == "dropdown")
                 <div class="form-group">
                     <label for="inputState">{{$perinfo->name}}</label>
-                    <select id="inputState" class="form-control" {{$perinfo->required == 1 ? 'required': ''}}>
+                    <select id="inputState" name="per_{{$key}}" class="form-control" {{$perinfo->required == 1 ? 'required': ''}}>
                     @foreach ($perinfo->options as $option)
-                        <option selected>{{$option->name}}</option>
+                        <option value="{{$option->id}}" selected>{{$option->name}}</option>
                     @endforeach
                     </select>
                 </div><br>
@@ -34,13 +34,12 @@
                 <div class="form-group">
                     <label for="inputState">{{$perinfo->name}}</label>
 
-                        @foreach ($perinfo->options as $option)
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                    {{ $perinfo->required == 1 ? 'required' : '' }}>
-                                <label class="custom-control-label" for="customCheck1">{{ $option->name }}</label>
-                            </div>
-                        @endforeach
+                    @foreach ($perinfo->options as $index=>$option)
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" name="checkbox_{{$index}}_{{$key}}" class="custom-control-input" value="{{$option->id}}" id="customCheck1" {{$perinfo->required == 1 ? 'required': ''}}>
+                            <label class="custom-control-label" for="customCheck1">{{$option->name}}</label>
+                        </div>
+                    @endforeach
 
                     </div><br>
                 @elseif($perinfo->option_types == 'radio')

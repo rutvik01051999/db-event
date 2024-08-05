@@ -16,7 +16,8 @@ class Question extends Model
         'description',
         'required',
         'option_types',
-        'option_name'
+        'option_name',
+        'index_no'
     ];
     public function options(): HasMany
     {

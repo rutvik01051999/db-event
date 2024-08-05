@@ -81,6 +81,7 @@ class EventContoller extends Controller
                         'description' => $request->p_description,
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
+                        'index_no'=>$key
                     ]);
 
                     Option::create([
@@ -96,17 +97,17 @@ class EventContoller extends Controller
                         'description' => $request->p_description,
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
-                        'option_name' => $request->p_option[$key]
+                        'option_name' => $request->p_option[$key],
+                        'index_no'=>$key
 
                     ]);
-
-
 
                     if (count($options) > 1) {
                         foreach ($options as $val) {
                             Option::create([
                                 'personal_information_id' => $question->id,
-                                'name' => $val
+                                'name' => $val,
+                                'index_no'=>$key
                             ]);
                         }
                     } else {
@@ -129,6 +130,7 @@ class EventContoller extends Controller
                         'description' => $request->description,
                         'required' => $request->required[$key],
                         'option_types' => $type,
+                        'index_no'=>$key
                     ]);
 
                     Option::create([
@@ -143,7 +145,8 @@ class EventContoller extends Controller
                         'description' => $request->description,
                         'required' => $request->required[$key],
                         'option_types' => $type,
-                        'option_name' => $request->option[$key]
+                        'option_name' => $request->option[$key],
+                        'index_no'=>$key
 
                     ]);
 
@@ -151,7 +154,8 @@ class EventContoller extends Controller
                         foreach ($options as $val) {
                             Option::create([
                                 'question_id' => $question->id,
-                                'name' => $val
+                                'name' => $val,
+                                'index_no'=>$key
                             ]);
                         }
                     } else {
@@ -246,6 +250,7 @@ class EventContoller extends Controller
                         'description' => $request->p_description,
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
+                        'index_no'=>$key
                     ]);
 
 
@@ -261,15 +266,17 @@ class EventContoller extends Controller
                         'description' => $request->p_description,
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
-                        'option_name' => $request->p_option[$key]
+                        'option_name' => $request->p_option[$key],
+                        'index_no'=>$key
 
                     ]);
 
                     if (count($options) > 1) {
-                        foreach ($options as $val) {
+                        foreach ($options as $key=>$val) {
                             Option::create([
                                 'personal_information_id' => $question->id,
-                                'name' => $val
+                                'name' => $val,
+                                'index_no'=>$key
                             ]);
                         }
                     } else {
@@ -291,6 +298,8 @@ class EventContoller extends Controller
                         'description' => $request->description,
                         'required' => $request->required[$key],
                         'option_types' => $type,
+                        'index_no'=>$key
+
                     ]);
 
                     Option::create([
@@ -305,15 +314,17 @@ class EventContoller extends Controller
                         'description' => $request->description,
                         'required' => $request->required[$key],
                         'option_types' => $type,
-                        'option_name' => $request->option[$key]
+                        'option_name' => $request->option[$key],
+                        'index_no'=>$key
 
                     ]);
 
                     if (count($options) > 1) {
-                        foreach ($options as $val) {
+                        foreach ($options as $key=>$val) {
                             Option::create([
                                 'question_id' => $question->id,
-                                'name' => $val
+                                'name' => $val,
+                                'index_no'=>$key
                             ]);
                         }
                     } else {
