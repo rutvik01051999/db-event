@@ -60,7 +60,6 @@ class LoginController extends Controller
             return $this->error($e->getMessage());
         }
     }
-
     public function logout()
     {
         Session::flush(); // Clear all session data
