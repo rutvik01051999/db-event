@@ -38,24 +38,27 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        try {
+            // Check with hono api 
+            $isValid = $this->authenticateWithHono($username, $password);
 
-        // Check with hono api 
-        $isValid = $this->authenticateWithHono($username, $password);
+            if ($isValid) {
+                // Generate token
+                $token = Str::random(60) . strtotime('now');
 
-        if ($isValid) {
-            // Generate token
-            $token = Str::random(60) . strtotime('now');
+                // Employee data
+                $userData = User::getUserDetails($username);
+                Session::put('user_data', $userData);
 
-            // Employee data
-            $userData = User::getUserDetails($username);
-            Session::put('user_data', $userData);
+                // Authentication passed
+                return redirect()->intended('dashboard');
+            }
 
-            // Authentication passed
-            return redirect()->intended('dashboard');
+            // Authentication failed
+            return redirect()->back()->withErrors(['message' => __('messages.INVALID_CREDENTIALS')]);
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage());
         }
-
-        // Authentication failed
-        return redirect()->back()->withErrors(['message' => __('messages.INVALID_CREDENTIALS')]);
     }
 
     public function logout()
