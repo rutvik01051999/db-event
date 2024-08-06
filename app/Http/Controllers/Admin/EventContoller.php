@@ -81,35 +81,40 @@ class EventContoller extends Controller
                         'description' => $request->p_description,
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
+                        'index_no'=>$key
                     ]);
-
 
                     Option::create([
                         'personal_information_id' => $question->id,
                     ]);
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->p_option[$key]);
+
                     $question = PersonalInformation::create([
                         'event_id' => $event->id,
                         'name' => $request->p_quation[$key],
                         'description' => $request->p_description,
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
-                        'option_name' => $request->p_option[$key]
+                        'option_name' => $request->p_option[$key],
+                        'index_no'=>$key
 
                     ]);
 
                     if (count($options) > 1) {
-                        foreach ($options as $val) {
+                        foreach ($options as $key2=> $val) {
                             Option::create([
                                 'personal_information_id' => $question->id,
-                                'name' => $val
+                                'name' => $val,
+                                'index_no'=>$key2
                             ]);
                         }
                     } else {
                         Option::create([
                             'personal_information_id' => $question->id,
-                            'name' => $request->p_option[$key]
+                            'name' => $request->p_option[$key],
+                            'index_no'=>$key
                         ]);
                     }
                 } else {
@@ -126,12 +131,14 @@ class EventContoller extends Controller
                         'description' => $request->description,
                         'required' => $request->required[$key],
                         'option_types' => $type,
+                        'index_no'=>$key
                     ]);
 
                     Option::create([
                         'question_id' => $question->id,
                     ]);
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
                         'event_id' => $event->id,
@@ -139,21 +146,24 @@ class EventContoller extends Controller
                         'description' => $request->description,
                         'required' => $request->required[$key],
                         'option_types' => $type,
-                        'option_name' => $request->option[$key]
+                        'option_name' => $request->option[$key],
+                        'index_no'=>$key
 
                     ]);
 
                     if (count($options) > 1) {
-                        foreach ($options as $val) {
+                        foreach ($options as $key2=> $val) {
                             Option::create([
                                 'question_id' => $question->id,
-                                'name' => $val
+                                'name' => $val,
+                                'index_no'=>$key2
                             ]);
                         }
                     } else {
                         Option::create([
                             'question_id' => $question->id,
-                            'name' => $request->option[$key]
+                            'name' => $request->option[$key],
+                            'index_no'=>$key
                         ]);
                     }
                 } else {
@@ -242,13 +252,15 @@ class EventContoller extends Controller
                         'description' => $request->p_description,
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
+                        'index_no'=>$key
                     ]);
 
 
                     Option::create([
                         'personal_information_id' => $question->id,
                     ]);
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->p_option[$key]);
                     $question = PersonalInformation::create([
                         'event_id' => $request->event_id,
@@ -256,21 +268,24 @@ class EventContoller extends Controller
                         'description' => $request->p_description,
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
-                        'option_name' => $request->p_option[$key]
+                        'option_name' => $request->p_option[$key],
+                        'index_no'=>$key
 
                     ]);
 
                     if (count($options) > 1) {
-                        foreach ($options as $val) {
+                        foreach ($options as $key2=>$val) {
                             Option::create([
                                 'personal_information_id' => $question->id,
-                                'name' => $val
+                                'name' => $val,
+                                'index_no'=>$key2
                             ]);
                         }
                     } else {
                         Option::create([
                             'personal_information_id' => $question->id,
-                            'name' => $request->p_option[$key]
+                            'name' => $request->p_option[$key],
+                            'index_no'=>$key
                         ]);
                     }
                 } else {
@@ -286,12 +301,15 @@ class EventContoller extends Controller
                         'description' => $request->description,
                         'required' => $request->required[$key],
                         'option_types' => $type,
+                        'index_no'=>$key
+
                     ]);
 
                     Option::create([
                         'question_id' => $question->id,
                     ]);
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox') {
+
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
                         'event_id' => $request->event_id,
@@ -299,21 +317,24 @@ class EventContoller extends Controller
                         'description' => $request->description,
                         'required' => $request->required[$key],
                         'option_types' => $type,
-                        'option_name' => $request->option[$key]
+                        'option_name' => $request->option[$key],
+                        'index_no'=>$key
 
                     ]);
 
                     if (count($options) > 1) {
-                        foreach ($options as $val) {
+                        foreach ($options as $key2=>$val) {
                             Option::create([
                                 'question_id' => $question->id,
-                                'name' => $val
+                                'name' => $val,
+                                'index_no'=>$key2
                             ]);
                         }
                     } else {
                         Option::create([
                             'question_id' => $question->id,
-                            'name' => $request->option[$key]
+                            'name' => $request->option[$key],
+                            'index_no'=>$key
                         ]);
                     }
                 } else {

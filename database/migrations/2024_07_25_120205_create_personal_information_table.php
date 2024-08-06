@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('required');
-            $table->enum('option_types', ['input', 'textarea', 'checkbox','dropdown','radio','file']);
+            $table->enum('option_types', ['input', 'textarea', 'checkbox','dropdown','radio','file','rating','number','date','mobile']);
             $table->string('option_name')->nullable();
             $table->timestamps();
         });
