@@ -232,7 +232,7 @@
           </li>
           
           
-          <li class="nav-item {{ ( Request::is('list') ||  Request::is('create')  ? 'menu-is-opening menu-open' : '') }}">
+          <li class="nav-item {{ ( Request::is('list') ||  Request::is('create') || Request::is('question*') ? 'menu-is-opening menu-open' : '') }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-search"></i>
               <p>
@@ -242,7 +242,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('event.list')}}" class="nav-link {{ (Request::is('list') ? 'active' : '') }}">
+                <a href="{{route('event.list')}}" class="nav-link {{ ( Request::is('list') ||  Request::is('question*') ? 'active' : '') }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>List</p>
                 </a>

@@ -21,8 +21,6 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
     });
 
-    // Auth::routes();
-
     Route::controller(EventContoller::class)->group(function () {
         Route::get('/create', 'create')->name('event.create');
         Route::post('/store', 'store');
@@ -35,10 +33,9 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::post('question/update', 'questionUpdate');
         Route::post('question/delete', 'questionDelete');
     });
-
-    Route::controller(UserEventHandlingController::class)->group(function () {
-        Route::get('{id}', 'index');
-        Route::post('user/event/store', 'eventDataStore');
-    });
+});
+Route::controller(UserEventHandlingController::class)->group(function () {
+    Route::get('{id}', 'index');
+    Route::post('user/event/store', 'eventDataStore');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

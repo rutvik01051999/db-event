@@ -17,6 +17,25 @@ class UserEventHandlingController extends Controller
          }
     }
     public function eventDataStore(Request $request){
-      dd($request->all());
+      dd(count($request->all()));
+      try {
+        $data = Event::with('questions','personalinfo')->where('id',$request->event_id)->first();
+        foreach ($data->personalinfo as $key => $val) {
+            if($val->option_types == 'input'){
+               dd('per_input_'.$key);
+            }else if($val->option_types == 'radio'){
+
+            }else{
+
+            }
+        }
+
+        foreach ($data->questions as $key => $val) {
+
+        }
+      }
+      catch(\Exception $e){  
+        dd($e);
+       }
     }
 }
