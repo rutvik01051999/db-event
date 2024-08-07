@@ -7,6 +7,7 @@
     </style>
 
     <div class="content-wrapper">
+        <br>
         <section class="content">
             <div class="container-fluid">
                 @if (\Session::has('success'))

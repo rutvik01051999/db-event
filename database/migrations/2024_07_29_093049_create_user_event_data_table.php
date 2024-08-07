@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('user_event_data', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('personal_information_id')->nullable()->after('id');
-            // $table->foreign('personal_information_id')->references('id')->on('personal_information')->onDelete('cascade');
-            // $table->unsignedBigInteger('questions_id')->nullable()->after('personal_information_id');
-            // $table->foreign('questions_id')->references('id')->on('questions')->onDelete('cascade');
-            // $table->unsignedBigInteger('questions_id')->nullable()->after('personal_information_id');
-            // $table->foreign('questions_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->integer('question_index')->nullable();
+            $table->integer('personal_index')->nullable();
+            $table->string('image')->nullable();
+            $table->string('input_text')->nullable();
+            $table->string('option_val')->nullable();
+            $table->enum('option_types', ['input', 'textarea', 'checkbox','dropdown','radio','file','rating','number','date','mobile']);
             $table->timestamps();
         });
     }
