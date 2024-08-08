@@ -9,21 +9,21 @@
   <section class="content">
     <div class="container-fluid">
 
-    @if (Session::has('success'))
-    <div class="alert alert-success">
-    <span>{!! \Session::get('success') !!}</span>
-    </div>
-@endif
+      @if (Session::has('success'))
+      <div class="alert alert-success">
+      <span>{!! \Session::get('success') !!}</span>
+      </div>
+    @endif
 
-@if ($errors->any())
-  <div class="alert alert-danger">
-    <ul>
-    @foreach ($errors->all() as $error)
-    <li>{{ $error }}</li>
-  @endforeach
-    </ul>
-  </div>
-@endif
+      @if ($errors->any())
+      <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+    @endforeach
+      </ul>
+      </div>
+    @endif
 
       <h3 class="event-name">{{$data->name}}</h3><br>
       <button type="button" class="btn btn-success add_button2">
@@ -74,9 +74,8 @@
           <label></label>
           <select class="form-control" name="p_option_type[]">
           @foreach (config('per_option') as $key => $option)
-          <option value="{{$key}}" {{$val->option_types == $key ? 'selected' : '' }}>{{$option}}</option>
-          @endforeach    
-          </select>
+        <option value="{{$key}}" {{$val->option_types == $key ? 'selected' : '' }}>{{$option}}</option>
+      @endforeach             </select>
         </div>
         </div>
         <div class="col-sm-1">
@@ -140,10 +139,8 @@
           <select class="form-control" name="option_type[]">
 
           @foreach (config('question_option') as $key => $option)
-          <option value="{{$key}}" {{$val->option_types == $key ? 'selected' : '' }}>{{$option}}</option>
-          @endforeach    
-
-          </select>
+        <option value="{{$key}}" {{$val->option_types == $key ? 'selected' : '' }}>{{$option}}</option>
+      @endforeach           </select>
         </div>
         </div>
         <div class="col-sm-1">
@@ -210,9 +207,18 @@
       $('.datacount').html('')
       //Check maximum number of input fields
       if (x < maxField) {
-        var fieldHTML = '<div id="removecls' + x + '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control" name="option_type[]"> <option value="input">input</option> <option value="textarea">text area</option> <option value="checkbox">check box</option> <option value="dropdown">dropdown</option> <option value="radio">radio</option> <option value="file">file</option> </select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
+        var fieldHTML = '<div id="removecls' + x + '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control question_option' + x + '" name="option_type[]"> </select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
+          $(wrapper).append(fieldHTML); //Add field html
+
+          @foreach (config('question_option') as $key => $option)
+                    var per_option = "{{$option}}";
+                    var key = "{{$key}}";
+                    $(".question_option" + x)
+                        .append($("<option></option>")
+                            .attr("value", key)
+                            .text(per_option));
+                @endforeach
         x++; //Increase field counter
-        $(wrapper).append(fieldHTML); //Add field html
       } else {
         alert('A maximum of ' + maxField + ' fields are allowed to be added. ');
       }
@@ -224,9 +230,19 @@
       $('.datacount').html('')
       //Check maximum number of input fields
       if (y < maxField) {
-        var fieldHTML = '<div id="removecls2' + y + '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="p_required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control" name="p_option_type[]"> <option value="input">input</option> <option value="textarea">text area</option> <option value="checkbox">check box</option> <option value="dropdown">dropdown</option> <option value="radio">radio</option> <option value="file">file</option> </select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
-        y++; //Increase field counter
+        var fieldHTML = '<div id="removecls2' + y + '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="p_required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control per_option' + y + '" name="p_option_type[]"> </select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
         $(wrapper2).append(fieldHTML); //Add field html
+
+        @foreach (config('per_option') as $key => $option)
+      var per_option = "{{$option}}";
+      var key = "{{$key}}";
+      $(".per_option" + y)
+        .append($("<option></option>")
+        .attr("value", key)
+        .text(per_option));
+      console.log(".per_option" + y)
+    @endforeach
+        y++; //Increase field counter
       } else {
         alert('A maximum of ' + maxField + ' fields are allowed to be added. ');
       }
