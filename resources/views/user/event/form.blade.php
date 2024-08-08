@@ -2,8 +2,9 @@
 @section('content')
     <div class="container">
         <div class="event-name">
-            <h3>{{ $data->name }}</h3>
+            <h2>{{ $data->name }}</h2>
         </div><br>
+        <h4>Personal Information:</h4><br>
         <form method="post" action="user/event/store" enctype = "multipart/form-data" id="userform">
             @csrf
 
@@ -22,6 +23,13 @@
                     <label for="file">{{$perinfo->name}}</label>
                     <input type="file" class="form-control" id="file" name="per_file_{{$perinfo->index_no}}"  {{$perinfo->required == 1 ? 'required': ''}}>
                 </div><br>
+
+            @elseif($perinfo->option_types == "textarea")
+            
+            <div class="form-group">
+                <label for="file">{{$perinfo->name}}</label>
+                <textarea id="w3review" class="form-control"  name="per_textarea_{{$perinfo->index_no}}" {{$perinfo->required == 1 ? 'required': ''}}></textarea>
+            </div><br>
 
             @elseif($perinfo->option_types == "number")
                 <div class="form-group">
@@ -75,7 +83,8 @@
                 @endif
             @endforeach
 
-        <h1>Question:</h1>
+        <h4>Question:</h4>
+        <br>
 
 
         @foreach ($data->questions as $key=> $perinfo)
@@ -84,6 +93,13 @@
                     <label for="formGroupExampleInput2">{{$perinfo->name}}</label>
                     <input type="text" class="form-control" id="formGroupExampleInput2" name="que_input_{{$perinfo->index_no}}"  {{$perinfo->required == 1 ? 'required': ''}}>
                 </div><br>
+            
+            @elseif($perinfo->option_types == "textarea")
+            
+            <div class="form-group">
+                <label for="file">{{$perinfo->name}}</label>
+                <textarea id="w3review" class="form-control" name="per_textarea_{{$perinfo->index_no}}"   {{$perinfo->required == 1 ? 'required': ''}}></textarea>
+            </div><br>
             
             @elseif($perinfo->option_types == "number")
                 <div class="form-group">
@@ -116,7 +132,7 @@
                         @foreach ($perinfo->options as $option)
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                    {{ $perinfo->required == 1 ? 'required' : '' }} name="que_checkbox_{{$option->index}}_{{$perinfo->index_no}}">
+                                     name="que_checkbox_{{$option->index}}_{{$perinfo->index_no}}">
                                 <label class="custom-control-label" for="customCheck1">{{ $option->name }}</label>
                             </div>
                         @endforeach
