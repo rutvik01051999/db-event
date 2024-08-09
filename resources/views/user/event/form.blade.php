@@ -98,7 +98,7 @@
             
             <div class="form-group">
                 <label for="file">{{$perinfo->name}}</label>
-                <textarea id="w3review" class="form-control" name="per_textarea_{{$perinfo->index_no}}"   {{$perinfo->required == 1 ? 'required': ''}}></textarea>
+                <textarea id="w3review" class="form-control" name="que_textarea_{{$perinfo->index_no}}"   {{$perinfo->required == 1 ? 'required': ''}}></textarea>
             </div><br>
             
             @elseif($perinfo->option_types == "number")

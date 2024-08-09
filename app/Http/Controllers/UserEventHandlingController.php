@@ -66,10 +66,18 @@ class UserEventHandlingController extends Controller
           } else {
 
           }
-        }else if($val->option_types == 'textarea'){
+        } else if ($val->option_types == 'textarea') {
+          if (isset($request['per_textarea_' . $val->index_no])) {
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'question_index' => $val->index_no,
+              'option_val' => $request['per_textarea_' . $val->index_no],
+              'option_types' => 'textarea'
+            ]);
+          } else {
 
-        } 
-        else {
+          }
+        } else {
 
         }
       }
@@ -115,10 +123,18 @@ class UserEventHandlingController extends Controller
 
           }
 
-        }else if($val->option_types == 'textarea'){
+        } else if ($val->option_types == 'textarea') {
+          if (isset($request['que_textarea_' . $val->index_no])) {
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'question_index' => $val->index_no,
+              'option_val' => $request['que_textarea_' . $val->index_no],
+              'option_types' => 'textarea'
+            ]);
+          } else {
 
-        } 
-        else {
+          }
+        } else {
 
         }
       }
