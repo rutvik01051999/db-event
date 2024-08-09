@@ -55,7 +55,21 @@ class UserEventHandlingController extends Controller
             'option_types' => 'checkbox'
           ]);
 
-        } else {
+        } else if ($val->option_types == 'number') {
+          if (isset($request['per_num_' . $val->index_no])) {
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'question_index' => $val->index_no,
+              'option_val' => $request['per_num_' . $val->index_no],
+              'option_types' => 'number'
+            ]);
+          } else {
+
+          }
+        }else if($val->option_types == 'textarea'){
+
+        } 
+        else {
 
         }
       }
@@ -89,7 +103,22 @@ class UserEventHandlingController extends Controller
             'option_val' => $string_version,
             'option_types' => 'checkbox'
           ]);
-        } else {
+        } else if ($val->option_types == 'number') {
+          if (isset($request['que_num_' . $val->index_no])) {
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'question_index' => $val->index_no,
+              'option_val' => $request['que_num_' . $val->index_no],
+              'option_types' => 'number'
+            ]);
+          } else {
+
+          }
+
+        }else if($val->option_types == 'textarea'){
+
+        } 
+        else {
 
         }
       }
