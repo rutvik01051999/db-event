@@ -53,9 +53,6 @@ body {
         <h4>Personal Information:</h4><br>
         <form method="post" action="user/event/store" enctype = "multipart/form-data" id="userform">
             @csrf
-
-       
-
         <input type="hidden" value="{{$data->id}}" name="event_id">
         @foreach ($data->personalinfo as $key=>$perinfo)
             @if($perinfo->option_types == "input")
@@ -65,12 +62,12 @@ body {
                 </div><br>
             
                 @elseif($perinfo->option_types == "rating")
-                <input type="hidden" name="perinfo_rating_{{$perinfo->index_no}}" value="">
+                <input type="hidden" name="perinfo_rating_{{$perinfo->index_no}}" id="perinfo_rating_{{$perinfo->index_no}}" value="">
             <div class="rating-box">
       <header>{{$perinfo->name}}</header>
       <div class="stars" data-id="1">
         @for($i=0;$i<5;$i++ )
-        <i class="fa-solid fa-star rstar{{$i+1}}{{$perinfo->index_no}}" data-id="{{$i+1}}_{{$perinfo->index_no}}"></i>
+        <i class="fa-solid fa-star perstar prstar{{$i+1}}{{$perinfo->index_no}}" data-id="{{$i+1}}_{{$perinfo->index_no}}"></i>
         @endfor
         
       </div>
@@ -162,12 +159,12 @@ body {
             </div><br>
 
             @elseif($perinfo->option_types == "rating")
-            <input type="hidden" name="que_rating_{{$perinfo->index_no}}" value="">
+            <input type="hidden" name="que_rating_{{$perinfo->index_no}}" id="que_rating_{{$perinfo->index_no}}" value="">
             <div class="rating-box">
       <header>{{$perinfo->name}}</header>
       <div class="stars" data-id="1">
         @for($i=0;$i<5;$i++ )
-        <i class="fa-solid fa-star rstar{{$i+1}}{{$perinfo->index_no}}" data-id="{{$i+1}}_{{$perinfo->index_no}}"></i>
+        <i class="fa-solid fa-star questar qrstar{{$i+1}}{{$perinfo->index_no}}" data-id="{{$i+1}}_{{$perinfo->index_no}}"></i>
         @endfor
       </div>
     </div>
@@ -216,7 +213,7 @@ body {
                     <label for="inputState">{{$perinfo->name}}</label>
                     @foreach ($perinfo->options as $option)
                         <div class="form-check">
-                            <input class="form-check-input" type="radio"  name="que_{{$perinfo->index_no}}" id="exampleRadios1{{$key}}" value="{{$option->index_no}}" {{$perinfo->required == 1 ? 'required': ''}}>
+                            <input class="form-check-input" type="radio"  name="que_radio_{{$perinfo->index_no}}" id="exampleRadios1{{$key}}" value="{{$option->index_no}}" {{$perinfo->required == 1 ? 'required': ''}}>
                             <label class="form-check-label" for="exampleRadios1{{$key}}">
                                 {{$option->name}}
                             </label>
@@ -245,66 +242,61 @@ body {
 
     });
 
-//form submit
-//     $("#userform").on("submit", function(event) {
-//     event.preventDefault();
 
-//     // Validate form, returning on failure.
-//     checked = $("input[type=checkbox]:checked").length;
-
-// if(!checked) {
-//     alert("You must check at least one checkbox.");
-//     return false;
-// }
-// this.submit();
-// });
-
- // Select all elements with the "i" tag and store them in a NodeList called "stars"
-//  const stars = document.querySelectorAll(".stars i");
-
-// // Loop through the "stars" NodeList
-// stars.forEach((star, index1) => {
-
-//   // Add an event listener that runs a function when the "click" event is triggered
-//   star.addEventListener("click", () => {
-//     console.log('1',star)
-   
-//     // Loop through the "stars" NodeList Again
-//     stars.forEach((star, index2) => {
-//         console.log('2',star)
-
-      
-//       // Add the "active" class to the clicked star and any stars with a lower index
-//       // and remove the "active" class from any stars with a higher index
-//       index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
-//     });
-//   });
-// });
-
-$('.fa-star').click(function () {
+$('.perstar').click(function () {
     let countstart=$(this).data("id") // will return the number 123
     let text = "How are you doing today?";
     const myArray = countstart.split("_");
     var index_star =myArray[0]
     var question_no =myArray[1]
     console.log(index_star,question_no,myArray)
+    $('#perinfo_rating_'+question_no).val(index_star)
     //remove star
 
     for(var j = 0; j<5; j++){
       var jcount = j+1 
-       console.log('.remove_rstar'+jcount+question_no)
-       $('.rstar'+jcount+question_no).removeClass('active')       
+       $('.prstar'+jcount+question_no).removeClass('active')       
     }
+
+    console.log('index',index_star)
 
 
     for(var i = 0; i<index_star; i++){
       var icount = i+1 
-       console.log('.rstart'+icount+question_no)
-       $('.rstar'+icount+question_no).addClass('active')       
+       console.log('.prstart'+icount+question_no)
+       $('.prstar'+icount+question_no).addClass('active')       
+    }
+});
+
+
+$('.questar').click(function () {
+    let countstart=$(this).data("id") // will return the number 123
+    const myArray = countstart.split("_");
+    var index_star =myArray[0]
+    var question_no =myArray[1]
+    console.log(index_star,question_no,myArray)
+    $('#que_rating_'+question_no).val(index_star)
+    //remove star
+
+    for(var j = 0; j<5; j++){
+      var jcount = j+1 
+    //    console.log('.remove_rstar'+jcount+question_no)
+       $('.qrstar'+jcount+question_no).removeClass('active')       
     }
 
+    console.log('index',index_star)
+
+
+    for(var i = 0; i<index_star; i++){
+      var icount = i+1 
+       console.log('.qrstart'+icount+question_no)
+       $('.qrstar'+icount+question_no).addClass('active')       
+    }
 });
-  });
+
+
+
+});
 </script>
 @endsection
 @endsection

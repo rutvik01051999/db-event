@@ -77,6 +77,29 @@ class UserEventHandlingController extends Controller
           } else {
 
           }
+        }else if($val->option_types == 'rating'){
+          if (isset($request['perinfo_rating_' . $val->index_no])) {
+            // dd($request['perinfo_rating_' . $val->index_no]);
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'personal_index' => $val->index_no,
+              'option_val' => $request['perinfo_rating_' . $val->index_no],
+              'option_types' => 'rating'
+            ]);
+          } else {
+
+          }
+        }else if($val->option_types == 'radio'){
+          if (isset($request['per_radio_' . $val->index_no])) {
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'personal_index' => $val->index_no,
+              'option_val' => $request['per_radio_' . $val->index_no],
+              'option_types' => 'radio'
+            ]);
+          } else {
+
+          }
         } else {
 
         }
@@ -134,7 +157,31 @@ class UserEventHandlingController extends Controller
           } else {
 
           }
-        } else {
+        }else if($val->option_types == 'rating'){
+          if (isset($request['que_rating_' . $val->index_no])) {
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'question_index' => $val->index_no,
+              'option_val' => $request['que_rating_' . $val->index_no],
+              'option_types' => 'rating'
+            ]);
+          } else {
+
+          }
+        }else if($val->option_types == 'radio'){
+          if (isset($request['que_radio_' . $val->index_no])) {
+            // dd($request['perinfo_rating_' . $val->index_no]);
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'personal_index' => $val->index_no,
+              'option_val' => $request['que_radio_' . $val->index_no],
+              'option_types' => 'radio'
+            ]);
+          } else {
+
+          }
+        }
+        else {
 
         }
       }
