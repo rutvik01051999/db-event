@@ -11,11 +11,11 @@
     <section class="content">
         <div class="container-fluid">
             @if (\Session::has('success'))
-                <div class="alert alert-success">
+            <div class="alert alert-success">
 
-                    <span>{!! \Session::get('success') !!}</span>
+                <span>{!! \Session::get('success') !!}</span>
 
-                </div>
+            </div>
             @endif
 
             <div class="card card-warning">
@@ -24,13 +24,13 @@
                 </div>
 
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
                 @endif
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -60,14 +60,14 @@
                                 <div class="form-group">
                                     <label>Title</label>
                                     <input type="text" class="form-control" name="event_title" id="eventTitle"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>Description</label>
                                     <input type="text" name="event_desc" class="form-control" id="eventDesc"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true">
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -97,7 +97,7 @@
                                 <div class="form-group">
                                     <label>Response</label>
                                     <input type="text" name="event_response" class="form-control"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." id="eventResponse" data-translatable="true" id="eventResponse">
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                                     <label>Category</label>
                                     <select class="form-control" name="category_name">
                                         @foreach ($category as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -117,7 +117,7 @@
                                     <label>Departmen</label>
                                     <select class="form-control" name="departmen_name">
                                         @foreach ($departmen as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -137,7 +137,7 @@
                                 <div class="form-group">
                                     <label>quation</label>
                                     <input type="text" name="p_quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" id="p_quation_1">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -154,7 +154,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label>Option</label>
-                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="p_option_1">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -162,10 +162,10 @@
                                     <label>Select option type</label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach    
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -187,7 +187,7 @@
                                 <div class="form-group">
                                     <label></label>
                                     <input type="text" name="p_quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" data-translatable="true" id="p_quation_2">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -204,7 +204,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label></label>
-                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="p_option_2">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -212,10 +212,10 @@
                                     <label></label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach   
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -238,7 +238,7 @@
                                 <div class="form-group">
                                     <label></label>
                                     <input type="text" name="p_quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" id="p_quation_3">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -255,7 +255,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label></label>
-                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="p_option_3">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -263,10 +263,10 @@
                                     <label></label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach   
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -288,7 +288,7 @@
                                 <div class="form-group">
                                     <label></label>
                                     <input type="text" name="p_quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" id="p_quation_4">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -305,7 +305,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label></label>
-                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="p_option_4">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -313,10 +313,10 @@
                                     <label></label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach   
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -338,7 +338,7 @@
                                 <div class="form-group">
                                     <label></label>
                                     <input type="text" name="p_quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" id="p_quation_5">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -355,7 +355,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label></label>
-                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="p_option_5">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -363,10 +363,10 @@
                                     <label></label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach   
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -388,7 +388,7 @@
                                 <div class="form-group">
                                     <label></label>
                                     <input type="text" name="p_quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" id="p_quation_6">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -405,7 +405,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label></label>
-                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="p_option_6">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -413,10 +413,10 @@
                                     <label></label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach   
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -438,7 +438,7 @@
                                 <div class="form-group">
                                     <label></label>
                                     <input type="text" name="p_quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" id="p_quation_7">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -455,7 +455,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label></label>
-                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="p_option_7">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -463,10 +463,10 @@
                                     <label></label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach   
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -488,7 +488,7 @@
                                 <div class="form-group">
                                     <label></label>
                                     <input type="text" name="p_quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" id="p_quation_8">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -505,7 +505,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label></label>
-                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="p_option_8">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -513,10 +513,10 @@
                                     <label></label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach   
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -538,7 +538,7 @@
                                 <div class="form-group">
                                     <label></label>
                                     <input type="text" name="p_quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" id="p_quation_9">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -555,7 +555,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label></label>
-                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="p_option_9">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -563,10 +563,10 @@
                                     <label></label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach   
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -592,7 +592,7 @@
                                 <div class="form-group">
                                     <label>quation</label>
                                     <input type="text" name="quation[]" class="form-control quation"
-                                        placeholder="Enter ...">
+                                        placeholder="Enter ..." data-translatable="true" id="q_quation_1">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -609,7 +609,7 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label>Option</label>
-                                    <input type="text" name="option[]" class="form-control" placeholder="Enter ...">
+                                    <input type="text" name="option[]" class="form-control" placeholder="Enter ..." data-translatable="true" id="q_option_1">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -617,10 +617,10 @@
                                     <label>Select option type</label>
                                     <select class="form-control" name="option_type[]">
                                         @foreach (config('question_option') as $key => $option)
-                                            <option value="{{$key}}">
-                                                {{$option}}
-                                            </option>
-                                        @endforeach    
+                                        <option value="{{$key}}">
+                                            {{$option}}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -650,17 +650,17 @@
 @section('content-js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script>
-    $(document).ready(function () {
-        setTimeout(function () {
+    $(document).ready(function() {
+        setTimeout(function() {
             $('.alert-danger').remove()
             $('.alert-success').remove()
         }, 4000);
 
-        $(function () {
+        $(function() {
             $(".datepicker").datepicker({
                 minDate: 0,
                 dateFormat: 'yy-mm-dd',
-                onSelect: function (date) {
+                onSelect: function(date) {
                     console.log(date)
                 }
             });
@@ -681,7 +681,7 @@
             //Check maximum number of input fields
             if (x < maxField) {
                 var fieldHTML = '<div id="removecls' + x +
-                    '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control question_option' + x + '"" name="option_type[]"></select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id ="' +
+                    '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="quation[]" class="form-control quation" placeholder="Enter ..." data-translatable="true" id="q_quation_' + (x + 1) + '"> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="option[]" class="form-control" placeholder="Enter ..."  data-translatable="true" id="q_option_' + (x + 1) + '"> </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control question_option' + x + '"" name="option_type[]"></select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id ="' +
                     x +
                     '" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
                 $(wrapper).append(fieldHTML); //Add field html
@@ -693,6 +693,9 @@
                             .attr("value", key)
                             .text(per_option));
                 @endforeach
+
+                // Add newly added input fields to translatable fields
+                onLoad();
                 x++; //Increase field counter
             } else {
                 alert('A maximum of ' + maxField + ' fields are allowed to be added. ');
@@ -703,7 +706,7 @@
             //Check maximum number of input fields
             if (y < maxField) {
                 var fieldHTML = '<div class="removecls2' + y +
-                    '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..."> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="p_required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..." > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control per_option' + y + '" name="p_option_type[]"></select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id ="' +
+                    '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..." data-translatable="true" id="p_quation_' + (y + 1)  + '"></div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="p_required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..."  data-translatable="true" id="p_option_' + (y + 1) + '" > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control per_option' + y + '" name="p_option_type[]"></select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id ="' +
                     y +
                     '" width="32" height="32" fill="red" class="bi bi-x-circle-fill remove_button2" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></div> </div> </div></div>'; //New input field html 
 
@@ -718,6 +721,10 @@
                             .text(per_option));
                     console.log(".per_option" + y)
                 @endforeach
+                
+                // Add newly added input fields to translatable fields
+                onLoad();
+                
                 y++; //Increase field counter
             } else {
                 alert('A maximum of ' + maxField + ' fields are allowed to be added. ');
@@ -759,8 +766,18 @@
         control = new google.elements.transliteration.TransliterationControl(
             options
         );
-        control.makeTransliteratable(["eventTitle"]);
-        control.makeTransliteratable(["eventDesc"]);
+
+        // Add input with data-translatable="true" to translatable fields
+        let translatableFields = document.querySelectorAll('[data-translatable="true"]');
+        let translatableFieldIds = [];
+
+        translatableFields.forEach((field) => {
+            translatableFieldIds.push(field.id);
+        });
+
+        console.log(translatableFieldIds);
+
+        control.makeTransliteratable(translatableFieldIds);
     }
 
     function languageChangeHandler() {
