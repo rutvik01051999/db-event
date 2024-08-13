@@ -88,7 +88,7 @@ class EventContoller extends Controller
                         'personal_information_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile' || $type == 'mobile_otp') {
                     $options = explode("~", $request->p_option[$key]);
 
                     $question = PersonalInformation::create([
@@ -239,6 +239,7 @@ class EventContoller extends Controller
 
     public function questionUpdate(QuetionInfoUpdateRequest $request)
     {
+        // dd($request->all());
         DB::beginTransaction();
         try {
             Question::where('event_id', $request->event_id)->delete();
@@ -260,7 +261,7 @@ class EventContoller extends Controller
                         'personal_information_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile' || $type == 'mobile_otp') {
                     $options = explode("~", $request->p_option[$key]);
                     $question = PersonalInformation::create([
                         'event_id' => $request->event_id,

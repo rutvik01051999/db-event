@@ -20,7 +20,7 @@ class UserEventHandlingController extends Controller
   }
   public function eventDataStore(Request $request)
   {
-    // dd($request->all());
+    dd($request->all());
     DB::beginTransaction();
     try {
       $data = Event::with('questions', 'personalinfo')->where('id', $request->event_id)->first();
@@ -107,6 +107,17 @@ class UserEventHandlingController extends Controller
               'personal_index' => $val->index_no,
               'option_val' => $request['per_dropdown_' . $val->index_no],
               'option_types' => 'dropdown'
+            ]);
+          } else {
+
+          }
+        }else if($val->option_types == 'mobile_otp'){
+          if (isset($request['per_mobile_otp_' . $val->index_no])) {
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'personal_index' => $val->index_no,
+              'option_val' => $request['per_mobile_otp_' . $val->index_no],
+              'option_types' => 'mobile_otp'
             ]);
           } else {
 

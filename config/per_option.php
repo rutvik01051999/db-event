@@ -7,8 +7,9 @@ return [
  'dropdown'=>'dropdown' ,
  'radio'=>'radio' ,
  'file'=>'file' ,
- 'mobile'=>'mobile with otp' ,
+ 'mobile'=>'mobile without otp' ,
  'number'=>'number',
  'date'=>'date',
- 'rating'=>'rating'  
+ 'rating'=>'rating',
+ 'mobile_otp'=>'mobile with otp'
 ];
