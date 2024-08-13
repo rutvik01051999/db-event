@@ -54,6 +54,8 @@ body {
         <form method="post" action="user/event/store" enctype = "multipart/form-data" id="userform">
             @csrf
         <input type="hidden" value="{{$data->id}}" name="event_id">
+
+      
         @foreach ($data->personalinfo as $key=>$perinfo)
             @if($perinfo->option_types == "input")
                 <div class="form-group">
@@ -72,6 +74,23 @@ body {
         
       </div>
     </div>
+            <br>
+
+
+            @elseif($perinfo->option_types == "mobile_otp")
+            <div class="form-group">
+            <div class="row">
+                <div class="col">
+                <label for="name">{{$perinfo->name}}</label>
+                <input type="text" class="form-control" id="mobile_otp" name="per_mobile_otp_{{$perinfo->index_no}}">
+                </div>
+                <div class="col">
+                <label for="name"></label>
+                <br>
+                <button type="button" class="btn btn-primary get_otp">get otp</button>
+                </div>
+            </div>
+            </div>
             <br>
 
             @elseif($perinfo->option_types == "file")
@@ -266,6 +285,27 @@ $('.perstar').click(function () {
        console.log('.prstart'+icount+question_no)
        $('.prstar'+icount+question_no).addClass('active')       
     }
+});
+
+
+$('.get_otp').click(function () {
+    $.ajax({
+                // headers: {
+                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // },
+                url: "{{ url('api/send/number') }}",
+                data: {
+                    'id': 78,
+                    "_token": "{{ csrf_token() }}",
+                },
+
+                type: 'POST',
+                dataType: 'json',
+                success: function (result) {
+
+                   
+                }
+            });
 });
 
 
