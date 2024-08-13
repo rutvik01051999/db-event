@@ -147,6 +147,7 @@
                     $('.model-append').html(result.html)
                     $('#eventeditmodel').modal('show');
 
+                    onLoad();
                 }
             });
         });
@@ -260,6 +261,57 @@
             }
         });
     });
+
+    // Multiple languages
+    var control;
+
+    google.load("elements", "1", {
+        packages: "transliteration",
+    });
+
+    function onLoad() {
+        var options = {
+        sourceLanguage: google.elements.transliteration.LanguageCode.ENGLISH,
+        destinationLanguage: ["hi", "gu", "mr"],
+        shortcutKey: "ctrl+g",
+        transliterationEnabled: false,
+        };
+
+        control = new google.elements.transliteration.TransliterationControl(
+        options
+        );
+
+        // Fetch all modal input which have data-translatable attribute true and add transliteration
+        let translatableFields = $(document).find('[data-translatable="true"]');
+        let translatableFieldIds = [];
+
+        translatableFields.each(function () {
+        translatableFieldIds.push(this.id);
+        });
+
+        console.log(translatableFieldIds);
+
+        control.makeTransliteratable(translatableFieldIds);
+    }
+
+    // On select language inside modal
+    $(document).on("change", "#languageDropDown", languageChangeHandler);
+    
+
+    function languageChangeHandler() {
+        var dropdown = document.getElementById("languageDropDown");
+        if (dropdown.options[dropdown.selectedIndex].value == "en") {
+        control.disableTransliteration();
+        } else {
+        control.enableTransliteration();
+
+        control.setLanguagePair(
+            google.elements.transliteration.LanguageCode.ENGLISH,
+            dropdown.options[dropdown.selectedIndex].value
+        );
+        }
+    }
+    google.setOnLoadCallback(onLoad);
 </script>
 @endsection
 @endsection
