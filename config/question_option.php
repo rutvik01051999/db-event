@@ -8,5 +8,6 @@ return [
  'radio'=>'radio' ,
  'file'=>'file',
  'date'=>'date',
- 'rating'=>'rating'  
+ 'rating'=>'rating',  
+ 'number'=>'number'
 ];

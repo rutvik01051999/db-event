@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class UserEventData extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'event_id',
+        'question_index',
+        'personal_index',
+        'image',
+        'input_text',
+        'option_val',
+        'option_types'
+    ];
 }

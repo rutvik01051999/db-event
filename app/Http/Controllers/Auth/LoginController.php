@@ -34,6 +34,7 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
+        // dd($validator);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
