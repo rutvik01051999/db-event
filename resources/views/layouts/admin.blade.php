@@ -21,7 +21,7 @@
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.css') }}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
@@ -205,7 +205,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="dist/img/avatar10.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         @if (Session::has('user_data'))
@@ -302,6 +302,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+      <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -348,6 +351,7 @@
     <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
+    <script type="text/javascript" src="{{ asset('dist/js/custom.js') }}"></script>
     @yield('content-js')
 </body>
 

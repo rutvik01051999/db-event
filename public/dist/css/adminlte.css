@@ -53010,3 +53010,10 @@ a.text-muted:hover {
   border-color: #4b545c !important;
 }
 /*# sourceMappingURL=adminlte.css.map */
+
+
+
+/* Our custom CSS */
+.was-validated .form-control:invalid, .form-control.is-invalid {
+  background-image: none !important;
+}
