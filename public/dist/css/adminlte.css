@@ -53017,3 +53017,7 @@ a.text-muted:hover {
 .was-validated .form-control:invalid, .form-control.is-invalid {
   background-image: none !important;
 }
+
+.fs-18 {
+  font-size: 18px;
+}

@@ -23,8 +23,8 @@ class EventUpdateRequest extends FormRequest
     {
         return [
             'event_title' => 'required',
-            'start_date' => 'required|date_format:Y-m-d',
-            'end_date' => 'required|date_format:Y-m-d|after:event_start',
+            'event_start' => 'required|date_format:Y-m-d',
+            'event_end' => 'required|date_format:Y-m-d|after:event_start',
         ];
     }
 }

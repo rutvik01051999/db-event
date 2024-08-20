@@ -18,7 +18,8 @@ class Event extends Model
         'close_date',
         'category_id',
         'department_id',
-        'event_url'
+        'event_url',
+        'response'
     ];
     public function questions(): HasMany
     {

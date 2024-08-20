@@ -1,247 +1,80 @@
 @extends('layouts.admin')
 @section('content')
-<style>
-    td.editor-edit button,
-    td.editor-delete button {
-        background: transparent;
-        border: none;
-        color: inherit;
-    }
-</style>
-<br>
-<div class="content-wrapper"><br>
-    <section class="content">
-        <div class="container-fluid">
-            <div class="alert alert-success" style="display:none;">
-                <span class="success-message"></span>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">DataTable with default features</h3>
-                </div>
+    <style>
+        td.editor-edit button,
+        td.editor-delete button {
+            background: transparent;
+            border: none;
+            color: inherit;
+        }
+    </style>
+    <br>
+    <div class="content-wrapper">
 
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="example2" class="table table-bordered">
-                        <thead>
-                            <tr>
-                                {{-- <th>No</th> --}}
-                                <th>Event name</th>
-                                <th>Url</th>
-                                <th>Start Date</th>
-                                <th>Close Date</th>
-                                <th>Question list</th>
-                                <th>Event edit</th>
-                                <th>Event delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
-
-                <div class="model-append">
-
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2 align-items-center">
+                    <div class="col-sm-9">
+                        <h1>Events</h1>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        <span>{{ session()->get('success') }}</span>
+                    </div>
+                @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $err)
+                                <li>{{ $err }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        {{ $dataTable->table() }}
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="model-append">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    @push('scripts')
+        {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    @endpush
+
 @section('content-js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-<script>
-    var url = '{{ env('APP_URL') }}';
-    console.log(name)
+    <script>
+        var url = '{{ env('APP_URL') }}';
 
-
-    var table = $('#example2').DataTable({
-
-        processing: true,
-        serverSide: true,
-        order: [[1, 'asc']],
-        page: 2,
-
-        "pageLength": 4,
-
-
-        'aoColumnDefs': [{
-            'bSortable': false,
-            'aTargets': [-1, -2] /* 1st one, start by the right */
-        }],
-
-        ajax: "{{ route('event.list') }}",
-        columns: [
-            //  {data: 'id', name: 'id'},
-            { data: 'name', name: 'name' },
-            //   {data: 'image', name: 'image'},
-
-            {
-                data: "event_url",
-                "render": function (data) {
-                    return '<a href="' + data + '">' + data + '</a>';
-                }
-            },
-            { data: 'start_date', name: 'start_date' },
-            { data: 'close_date', name: 'close_date' },
-            // {
-            //     data: "id",
-            //     className: 'dt-center editor-edit',
-            //     defaultContent: '<button data-id='+data+'><i class="fa fa-edit"/></button>',
-            // },
-            {
-                data: "id",
-                "render": function (data) {
-                    return '<a class="dt-center" href="/question/list/' + data + '"><i class="fa fa-eye"/></a>';
-                }
-            },
-            {
-                data: "id",
-                "render": function (data) {
-                    return '<button class="dt-center editor-edit" data-id=' + data + '><i class="fa fa-edit"/></button>';
-                }
-            },
-            {
-                data: "id",
-                "render": function (data) {
-                    return '<button class="dt-center editor-delete" data-id=' + data + '><i class="fa fa-trash"/></button>';
-                }
-            },
-        ]
-    });
-
-
-
-    //       table
-    // .on('order.dt search.dt', function () {
-    //     let i = 1;
-
-    //     table
-    //         .cells(null, 0, { search: 'applied', order: 'applied' })
-    //         .every(function (cell) {
-    //             this.data(i++);
-    //         });
-    // })
-    // .draw();
-
-
-    //edit event
-    $(document).ready(function () {
-
-        $(document).on('click', '.editor-edit', function () {
-            var id = $(this).attr("data-id");
-            $.ajax({
-                // headers: {
-                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                // },
-                url: "{{ url('event/edit') }}",
-                data: {
-                    'id': id,
-                    "_token": "{{ csrf_token() }}",
-                },
-
-                type: 'POST',
-                dataType: 'json',
-                success: function (result) {
-
-                    $('.model-append').html(result.html)
-                    $('#eventeditmodel').modal('show');
-
-                    onLoad();
-                }
-            });
-        });
-    });
-
-    //datepicker
-    $(function () {
-        $("body").delegate(".datepicker", "focusin", function () {
-            // $(this).datepicker();
-            $(".datepicker").datepicker({
-                minDate: 0,
-                dateFormat: 'yy-mm-dd',
-                onSelect: function (date) {
-                    console.log(date)
-                }
-            });
-        });
-
-
-    });
-
-
-
-    $(document).on('click', '.event-update', function () {
-        var id = $(this).attr("data-id");
-        var formData = new FormData(); // Currently empty
-        // var _token = $("#_token").val().trim();
-        // console.log(_token);
-        var files = $('#logo')[0].files[0];
-        formData.append('logo', files);
-
-        formData.append('event_title', $("#event_title").val());
-        formData.append('event_id', $("#event_id").val());
-        formData.append('start_date', $("#datepicker").val());
-        formData.append('end_date', $("#datepicker2").val());
-        formData.append('event_response', $("#event_response").val());
-        formData.append('category_name', $("#category_name").val());
-        formData.append('departmen_name', $("#departmen_name").val());
-
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: "{{ url('event/update') }}",
-            data: formData,
-
-            type: 'POST',
-            dataType: 'json',
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function (result) {
-
-                $('#example2').DataTable().ajax.reload();
-                $('#eventeditmodel').modal('hide');
-                $('.alert-success').show()
-                $('.success-message').html('Event has been updated')
-                setTimeout(function () {
-                    $('.alert-success').hide()
-                    $('.success-message').html('')
-                }, 4000);
-
-            },
-            error: function (xhr) {
-                $('#errorMessages').html('');  // Clear previous errors
-                if (xhr.status === 422 || xhr.status === 400) {
-                    var errors = xhr.responseJSON.errors;
-                    $.each(errors, function (key, value) {
-                        $('#errorMessages').append('<p>' + value[0] + '</p>');
-                    });
-                } else {
-                    $('#errorMessages').append('<p>An unexpected error occurred.</p>');
-                }
+        //edit event
+        $(document).ready(function() {
+            
+            window.showTable = function() {
+                window.LaravelDataTables["event-table"].draw();
             }
-        });
-    });
 
-    $(document).on('click', '.editor-delete', function () {
-        var id = $(this).attr("data-id");
-
-
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-
+            $(document).on('click', '.editor-edit', function() {
+                var id = $(this).attr("data-id");
                 $.ajax({
-                    url: "{{ url('event/delete') }}",
+                    // headers: {
+                    //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    // },
+                    url: "{{ url('event/edit') }}",
                     data: {
                         'id': id,
                         "_token": "{{ csrf_token() }}",
@@ -249,69 +82,114 @@
 
                     type: 'POST',
                     dataType: 'json',
-                    success: function (result) {
-                        $('#example2').DataTable().ajax.reload();
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        });
+                    success: function(result) {
+
+                        $('.model-append').html(result.html)
+                        $('#eventeditmodel').modal('show');
+
+                        onLoad();
                     }
                 });
-            }
-        });
-    });
-
-    // Multiple languages
-    var control;
-
-    google.load("elements", "1", {
-        packages: "transliteration",
-    });
-
-    function onLoad() {
-        var options = {
-        sourceLanguage: google.elements.transliteration.LanguageCode.ENGLISH,
-        destinationLanguage: ["hi", "gu", "mr"],
-        shortcutKey: "ctrl+g",
-        transliterationEnabled: false,
-        };
-
-        control = new google.elements.transliteration.TransliterationControl(
-        options
-        );
-
-        // Fetch all modal input which have data-translatable attribute true and add transliteration
-        let translatableFields = $(document).find('[data-translatable="true"]');
-        let translatableFieldIds = [];
-
-        translatableFields.each(function () {
-        translatableFieldIds.push(this.id);
+            });
         });
 
-        console.log(translatableFieldIds);
+        //datepicker
+        $(function() {
+            $("body").delegate(".datepicker", "focusin", function() {
+                // $(this).datepicker();
+                $(".datepicker").datepicker({
+                    minDate: 0,
+                    dateFormat: 'yy-mm-dd',
+                    onSelect: function(date) {
+                        console.log(date)
+                    }
+                });
+            });
+        });
 
-        control.makeTransliteratable(translatableFieldIds);
-    }
+        $(document).on('click', '.editor-delete', function() {
+            var id = $(this).attr("data-id");
 
-    // On select language inside modal
-    $(document).on("change", "#languageDropDown", languageChangeHandler);
-    
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ url('event/delete') }}",
+                        data: {
+                            'id': id,
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function(result) {
+                            // Reload table
+                            window.showTable();
 
-    function languageChangeHandler() {
-        var dropdown = document.getElementById("languageDropDown");
-        if (dropdown.options[dropdown.selectedIndex].value == "en") {
-        control.disableTransliteration();
-        } else {
-        control.enableTransliteration();
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Event has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    });
+                }
+            });
+        });
 
-        control.setLanguagePair(
-            google.elements.transliteration.LanguageCode.ENGLISH,
-            dropdown.options[dropdown.selectedIndex].value
-        );
+        // Multiple languages
+        var control;
+
+        google.load("elements", "1", {
+            packages: "transliteration",
+        });
+
+        function onLoad() {
+            var options = {
+                sourceLanguage: google.elements.transliteration.LanguageCode.ENGLISH,
+                destinationLanguage: ["hi", "gu", "mr"],
+                shortcutKey: "ctrl+g",
+                transliterationEnabled: false,
+            };
+
+            control = new google.elements.transliteration.TransliterationControl(
+                options
+            );
+
+            // Fetch all modal input which have data-translatable attribute true and add transliteration
+            let translatableFields = $(document).find('[data-translatable="true"]');
+            let translatableFieldIds = [];
+
+            translatableFields.each(function() {
+                translatableFieldIds.push(this.id);
+            });
+            control.makeTransliteratable(translatableFieldIds);
         }
-    }
-    google.setOnLoadCallback(onLoad);
-</script>
+
+        // On select language inside modal
+        $(document).on("change", "#languageDropDown", languageChangeHandler);
+
+
+        function languageChangeHandler() {
+            var dropdown = document.getElementById("languageDropDown");
+            if (dropdown.options[dropdown.selectedIndex].value == "en") {
+                control.disableTransliteration();
+            } else {
+                control.enableTransliteration();
+
+                control.setLanguagePair(
+                    google.elements.transliteration.LanguageCode.ENGLISH,
+                    dropdown.options[dropdown.selectedIndex].value
+                );
+            }
+        }
+        google.setOnLoadCallback(onLoad);
+    </script>
 @endsection
 @endsection

@@ -25,11 +25,13 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/create', 'create')->name('event.create');
         Route::post('/store', 'store');
         Route::get('/list', 'index')->name('event.list');
-        Route::post('event/edit', 'edit');
+        // Route::post('event/edit', 'edit');
+        Route::get('event/edit/{id}', 'edit')->name('event.edit');
+        Route::get('event/show/{id}', 'show')->name('event.show');
         Route::post('event/delete', 'delete');
         Route::post('personal/info/delete', 'PersonalInfodelete');
-        Route::post('event/update', 'update');
-        Route::get('question/list/{id}', 'questionList');
+        Route::post('event/update/{id}', 'update')->name('event.update');
+        Route::get('question/list/{id}', 'questionList')->name('question.list');
         Route::post('question/update', 'questionUpdate');
         Route::post('question/delete', 'questionDelete');
     });

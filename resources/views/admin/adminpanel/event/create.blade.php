@@ -73,14 +73,14 @@
                                     <div class="form-group">
                                         <label>Start event</label>
                                         <input type="text" name="event_start" class="form-control datepicker"
-                                            placeholder="Start event" id="datepicker">
+                                            placeholder="Start event" id="event_start" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>End event</label>
                                         <input type="text" name="event_end" class="form-control datepicker"
-                                            placeholder="End event" id="datepicker2">
+                                            placeholder="End event" id="event_end" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -666,17 +666,6 @@
                 $('.alert-success').remove()
             }, 4000);
 
-            $(function() {
-                $(".datepicker").datepicker({
-                    minDate: 0,
-                    dateFormat: 'yy-mm-dd',
-                    onSelect: function(date) {
-                        console.log(date)
-                    }
-                });
-
-            });
-
             var maxField = 100; //Input fields increment limitation
             var addButton = $('.add_button'); //Add button selector
             var addButton2 = $('.add_button2'); //Add button selector
@@ -880,7 +869,7 @@
                     required: true
                 },
                 'p_option[]': {
-                    required: true
+                    required: false
                 },
                 'p_option_type[]': {
                     required: true
@@ -892,7 +881,7 @@
                     required: true
                 },
                 'option[]': {
-                    required: true
+                    required: false
                 },
                 'option_type[]': {
                     required: true
@@ -944,6 +933,26 @@
                     required: "Please enter the option type"
                 }
             },
+        });
+
+        // DatePicker for end date & start date
+        let endDatePickr = $('#event_end').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            minDate: 0,
+            autoClose: true,
+        });
+
+        $('#event_start').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            minDate: 0,
+            autoClose: true,
+            onSelect: function(selected) {
+                endDatePickr.datepicker("option", "minDate", selected);
+            }
         });
     </script>
 @endsection
