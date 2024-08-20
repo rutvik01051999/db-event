@@ -71,10 +71,9 @@ body {
         @for($i=0;$i<5;$i++ )
         <i class="fa-solid fa-star perstar prstar{{$i+1}}{{$perinfo->index_no}}" data-id="{{$i+1}}_{{$perinfo->index_no}}"></i>
         @endfor
-        
       </div>
-    </div>
-            <br>
+       </div>
+        <br>
 
 
             @elseif($perinfo->option_types == "mobile_otp")
@@ -88,6 +87,21 @@ body {
                 <label for="name"></label>
                 <br>
                 <button type="button" class="btn btn-primary get_otp">get otp</button>
+                </div>
+            </div>
+            </div>
+            <br>
+
+            <div class="form-group">
+            <div class="row">
+                <div class="col">
+                <label for="name">Enter Your Otp:</label>
+                <input type="number" class="form-control" id="mobile_get_otp" name="per_get_mobile_otp_{{$perinfo->index_no}}">
+                </div>
+                <div class="col">
+                <label for="name"></label>
+                <br>
+                <button type="button" class="btn btn-primary get_otp_check">Verify Otp</button>
                 </div>
             </div>
             </div>
@@ -210,7 +224,7 @@ body {
                 <div class="form-group">
                     <label for="inputState">{{$perinfo->name}}</label>
                     <input type="text" name="event_end" class="form-control datepicker" name="que_date_{{$perinfo->index_no}}" placeholder="Enter ..."
-                    id="datepicker2">
+                    id="datepicker2" readonly>
             </div><br>
 
             @elseif($perinfo->option_types == "checkbox")
@@ -247,10 +261,8 @@ body {
     </form>
 </div>
 @section('content-js')
+
 <script>
-  $(document).ready(function () {
-   
-    $(function () {
       $(".datepicker").datepicker({
         minDate: 0,
         dateFormat: 'yy-mm-dd',
@@ -258,6 +270,10 @@ body {
           console.log(date)
         }
       });
+  $(document).ready(function () {
+   
+    $(function () {
+    
 
     });
 
@@ -289,13 +305,14 @@ $('.perstar').click(function () {
 
 
 $('.get_otp').click(function () {
+    var mobile_num = $('#mobile_otp').val()
     $.ajax({
                 // headers: {
                 //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 // },
                 url: "{{ url('api/send/number') }}",
                 data: {
-                    'id': 78,
+                    'mobile_num': mobile_num,
                     "_token": "{{ csrf_token() }}",
                 },
 
@@ -303,6 +320,41 @@ $('.get_otp').click(function () {
                 dataType: 'json',
                 success: function (result) {
 
+                   
+                }
+            });
+});
+
+
+
+$('.get_otp_check').click(function () {
+    var mobile_num = $('#mobile_otp').val()
+    var otp = $('#mobile_get_otp').val()
+    if(!mobile_num){
+       alert('please enter mobile number')
+    }
+    if(!otp){
+        alert('please enter valid otp')
+    }
+    $.ajax({
+                // headers: {
+                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // },
+                url: "{{ url('api/check/otp') }}",
+                data: {
+                    'mobile_num': mobile_num,
+                    "otp":otp,
+                    "_token": "{{ csrf_token() }}",
+                },
+
+                type: 'POST',
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result.number)
+                    if(result.number == 'valid'){
+                        $("#mobile_otp").prop('disabled', true);
+                        $("#mobile_get_otp").prop('disabled', true);
+                    }
                    
                 }
             });
