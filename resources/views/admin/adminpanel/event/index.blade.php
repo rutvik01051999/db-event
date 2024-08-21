@@ -13,7 +13,7 @@
 
         <section class="content">
             <div class="container-fluid">
-                
+
                 @if (session()->has('success'))
                     <div class="alert alert-success">
                         <span>{{ session()->get('success') }}</span>
@@ -31,7 +31,9 @@
                 @endif
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        {{ $dataTable->table() }}
+                        {{ $dataTable->table([
+                            'class' => 'table table-bordered table-striped table-condensed table-hover dataTable dtr-inline',
+                        ]) }}
                     </div>
                     <!-- /.card-body -->
 
@@ -53,7 +55,7 @@
 
         //edit event
         $(document).ready(function() {
-            
+
             window.showTable = function() {
                 window.LaravelDataTables["event-table"].draw();
             }

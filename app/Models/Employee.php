@@ -8,10 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 
-class User extends Authenticatable
+class Employee extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'employee';
+    protected $primaryKey = 'EMPLOYEECODE';
+    public $timestamps = false;
+    protected $connection = 'matrix_db';
     /**
      * Get user data at login time
      *
@@ -35,8 +39,7 @@ class User extends Authenticatable
         'contact_no',
         'address',
         'emp_code',
-        'designation',
-        'username'
+        'designation'
     ];
 
     /**
@@ -60,5 +63,35 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // User Data
+    public static function getUserDetails($userName): array
+    {
+        $selectable = [
+            'DISPLAYNAME',
+            'EMPLOYEECODE',
+            'CENTERCODE',
+            'DESKCODE',
+            'DESKS',
+            'PHONERES',
+            'MOBILE',
+            'EMAIL',
+            'EMPLOYEEID',
+            'DESIGNATION',
+            'GROUPCODE',
+            'PHONEOFF',
+            'CENTERNAME',
+            'PHONEOFF',
+            'picture_new',
+            'KEYBOARD',
+            'default_theme',
+            'mycloud_last_login'
+        ];
+
+        $query = self::select($selectable);
+        // DBCL user
+        $result = $query->where('PHONERES', $userName)->first()->toArray();
+        return $result;
     }
 }

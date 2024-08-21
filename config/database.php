@@ -66,7 +66,7 @@ return [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
             'host' => env('DB_MATRIX_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
+            'port' => env('DB_MATRIX_PORT', '3306'),
             'database' => env('DB_MATRIX_DATABASE', 'laravel'),
             'username' => env('DB_MATRIX_USERNAME', 'root'),
             'password' => env('DB_MATRIX_PASSWORD', ''),

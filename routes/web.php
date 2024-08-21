@@ -5,18 +5,24 @@ use App\Http\Controllers\Admin\EventContoller;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserEventHandlingController;
+use Illuminate\Support\Facades\Auth;
 
-Route::redirect('/', '/login');
+Auth::routes([
+    'register' => false,
+    'reset' => false,
+    'verify' => false,
+]);
 
-// Auth
-Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'showLoginForm')->name('login');
-    Route::post('/login', 'userLogin');
-    Route::post('/logout', 'logout')->name('logout');
+Route::get('/', function () {
+    if (Auth::guest()) {
+        return redirect()->route('login');
+    } else {
+        return redirect()->route('dashboard');
+    }
 });
 
 // Dashboard
-Route::middleware(['custom.auth'])->group(function () {
+Route::middleware(['web'])->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
     });
@@ -37,7 +43,7 @@ Route::middleware(['custom.auth'])->group(function () {
     });
 });
 Route::controller(UserEventHandlingController::class)->group(function () {
-    Route::get('{id}', 'index');
+    Route::get('user/event/{id}', 'index')->name('user.event.form');
     Route::post('user/event/store', 'eventDataStore');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

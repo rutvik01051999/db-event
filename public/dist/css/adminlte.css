@@ -53021,3 +53021,11 @@ a.text-muted:hover {
 .fs-18 {
   font-size: 18px;
 }
+
+.fw-bold {
+  font-weight: bold;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}

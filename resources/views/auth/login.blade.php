@@ -1,94 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Log in</title>
+@section('content')
+    <div class="card shadow-lg">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+                <div class="form-group mb-3">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="Username">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-</head>
-
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
-            <div class="card-header text-center">
-                <a href="" class="h1"><b>Login</b></a>
-            </div>
-            <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-                @if ($errors->has('message'))
-                    <div class="alert alert-danger">{{ $errors->first('message') }}
-                    </div>
-                @endif
-                <form action="{{ url('/login') }}" method="post">
-                    @csrf
-
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Alias" name="username">
-                        <div class="input-group-append">
-                            {{-- <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div> --}}
-                        </div>
-                    </div>
                     @error('username')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
+                </div>
 
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password">
-                        <div class="input-group-append">
-                            {{-- <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div> --}}
-                        </div>
+                <div class="form-group mb-3">
+                    {{-- Password with show and hide eye icon --}}
+                    
+                    <label for="password">
+                        Password
+                    </label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="{{ __('Password') }}" autocomplete="current-password">
+                        <span class="input-group-text cursor-pointer"
+                            onclick="togglePassword('password', this)">
+                            <i class="fa fa-eye-slash"></i>
+                        </span>
                     </div>
+
                     @error('password')
-                        <div class="alert alert-danger">{{ $message }}</div>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
-                    <div class="row">
-                        <div class="col-8">
-                            {{-- <div class="icheck-primary">
-                                <input type="checkbox" id="remember" name="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div> --}}
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
+                </div>
 
 
-
-            </div>
-            <!-- /.card-body -->
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-md btn-primary">Sign In</button>
+                </div>
+            </form>
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.login-box -->
-
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-</body>
-
-</html>
+@endsection
