@@ -12,4 +12,6 @@ use Illuminate\Support\Facades\Route;
 // Login
 Route::post('login', [AuthenticateApiController::class, 'userLogin']);
 Route::post('send/number', [MobileOtpController::class, 'getNumber']);
+Route::post('check/otp', [MobileOtpController::class, 'otpCheck']);
+
 

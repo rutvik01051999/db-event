@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class MobileVerification extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'otp',
+        'mobile'
+    ];
 }
