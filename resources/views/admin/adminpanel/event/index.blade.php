@@ -1,16 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <style>
-        td.editor-edit button,
-        td.editor-delete button {
-            background: transparent;
-            border: none;
-            color: inherit;
-        }
-    </style>
-    <br>
     <div class="content-wrapper">
-
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2 align-items-center">

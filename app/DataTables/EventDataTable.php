@@ -51,7 +51,7 @@ class EventDataTable extends BaseDataTable
                     ->minifiedAjax()
                     ->parameters($this->parameters)
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                        
@@ -64,7 +64,7 @@ class EventDataTable extends BaseDataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('id')->visible(false),
             Column::make('name'),
             Column::make('url'),
             Column::make('start_date'),

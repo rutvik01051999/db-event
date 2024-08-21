@@ -63,7 +63,7 @@ class EventContoller extends Controller
 
             //for Personal information
             foreach ($request->p_option_type as $key => $type) {
-                if ($type == 'input' || $type == 'textarea') {
+                if ($type == 'input' || $type == 'textarea' || $type == 'zipcode') {
                     $question = PersonalInformation::create([
                         'event_id' => $event->id,
                         'name' => $request->p_quation[$key],
@@ -237,16 +237,15 @@ class EventContoller extends Controller
             PersonalInformation::where('event_id', $request->event_id)->delete();
             //for personal info
             foreach ($request->p_option_type as $key => $type) {
-                if ($type == 'input' || $type == 'textarea') {
+                if ($type == 'input' || $type == 'textarea' || $type == 'zipcode') {
                     $question = PersonalInformation::create([
                         'event_id' => $request->event_id,
                         'name' => $request->p_quation[$key],
-                        'description' => $request->p_description,
+                        'description' => $request->p_description ?? null,
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
-                        'index_no'=>$key
+                        'index_no' => $key
                     ]);
-
 
                     Option::create([
                         'personal_information_id' => $question->id,

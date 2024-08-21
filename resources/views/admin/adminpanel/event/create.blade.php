@@ -860,6 +860,7 @@
                     required: true
                 },
                 logo: {
+                    required: true,
                     extension: "jpg|jpeg|png|gif" // Adjust based on allowed file types
                 },
                 'p_quation[]': {
@@ -906,6 +907,7 @@
                 category_name: "Please select a category",
                 departmen_name: "Please select a department",
                 logo: {
+                    required: "Please upload a logo",
                     extension: "Please upload a valid image file (jpg, jpeg, png, gif)"
                 },
                 'p_quation[]': {
