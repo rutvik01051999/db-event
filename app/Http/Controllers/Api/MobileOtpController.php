@@ -10,7 +10,7 @@ class MobileOtpController extends Controller
 {
     public function getNumber(Request $request){
         $numbers = $request->mobile_num;
-        $otp = mt_rand(0001, 9999);
+        $otp = mt_rand(000001, 999999);
         $message = $otp." Thank you to connect Bhaskar Group. -Bhaskar Group";
 
         if(strlen($numbers)>10 || strlen($numbers)<10){

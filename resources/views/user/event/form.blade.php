@@ -45,7 +45,96 @@ body {
 .stars i.active {
   color: #ff9c1a;
 }
+
+.otp-field {
+  flex-direction: row;
+  column-gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.otp-field input {
+  height: 45px;
+  width: 42px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1.125rem;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+.otp-field input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.otp-field input::-webkit-inner-spin-button,
+.otp-field input::-webkit-outer-spin-button {
+  display: none;
+}
+
+.resend {
+  font-size: 12px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: black;
+  font-size: 12px;
+  text-align: right;
+  font-family: monospace;
+}
+
+.footer a {
+  color: black;
+  text-decoration: none;
+}
 </style>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+      <section class="container-fluid bg-body-tertiary d-block">
+  <div class="row justify-content-center">
+      <div class="col-12 col-md-6 col-lg-4" style="min-width: 500px;">
+        <div class="card">
+          <div class="card-body p-5 text-center">
+            <h4>Verify</h4>
+            <p>Your code was sent to you via email</p>
+
+            <div class="otp-field mb-4">
+              <input type="number" />
+              <input type="number" disabled />
+              <input type="number" disabled />
+              <input type="number" disabled />
+              <input type="number" disabled />
+              <input type="number" disabled />
+            </div>
+
+            <button class="btn btn-primary mb-3">
+              Verify
+            </button>
+
+            <p class="resend text-muted mb-0">
+              Didn't receive code? <a href="">Request again</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+      </div>
+    </div>
+  </div>
+</div>
+
+
     <div class="container">
         <div class="event-name">
             <h2>{{ $data->name }}</h2>
@@ -92,20 +181,6 @@ body {
             </div>
             <br>
 
-            <div class="form-group">
-            <div class="row">
-                <div class="col">
-                <label for="name">Enter Your Otp:</label>
-                <input type="number" class="form-control" id="mobile_get_otp" name="per_get_mobile_otp_{{$perinfo->index_no}}">
-                </div>
-                <div class="col">
-                <label for="name"></label>
-                <br>
-                <button type="button" class="btn btn-primary get_otp_check">Verify Otp</button>
-                </div>
-            </div>
-            </div>
-            <br>
 
             @elseif($perinfo->option_types == "file")
             
@@ -261,8 +336,79 @@ body {
     </form>
 </div>
 @section('content-js')
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
 
 <script>
+const inputs = document.querySelectorAll(".otp-field > input");
+const button = document.querySelector(".btn");
+
+window.addEventListener("load", () => inputs[0].focus());
+button.setAttribute("disabled", "disabled");
+
+inputs[0].addEventListener("paste", function (event) {
+  event.preventDefault();
+
+  const pastedValue = (event.clipboardData || window.clipboardData).getData(
+    "text"
+  );
+  const otpLength = inputs.length;
+
+  for (let i = 0; i < otpLength; i++) {
+    if (i < pastedValue.length) {
+      inputs[i].value = pastedValue[i];
+      inputs[i].removeAttribute("disabled");
+      inputs[i].focus;
+    } else {
+      inputs[i].value = ""; // Clear any remaining inputs
+      inputs[i].focus;
+    }
+  }
+});
+
+inputs.forEach((input, index1) => {
+  input.addEventListener("keyup", (e) => {
+    const currentInput = input;
+    const nextInput = input.nextElementSibling;
+    const prevInput = input.previousElementSibling;
+
+    if (currentInput.value.length > 1) {
+      currentInput.value = "";
+      return;
+    }
+
+    if (
+      nextInput &&
+      nextInput.hasAttribute("disabled") &&
+      currentInput.value !== ""
+    ) {
+      nextInput.removeAttribute("disabled");
+      nextInput.focus();
+    }
+
+    if (e.key === "Backspace") {
+      inputs.forEach((input, index2) => {
+        if (index1 <= index2 && prevInput) {
+          input.setAttribute("disabled", true);
+          input.value = "";
+          prevInput.focus();
+        }
+      });
+    }
+
+    button.classList.remove("active");
+    button.setAttribute("disabled", "disabled");
+
+    const inputsNo = inputs.length;
+    if (!inputs[inputsNo - 1].disabled && inputs[inputsNo - 1].value !== "") {
+      button.classList.add("active");
+      button.removeAttribute("disabled");
+
+      return;
+    }
+  });
+});
+     $('#myModal').modal('show'); 
+     
       $(".datepicker").datepicker({
         minDate: 0,
         dateFormat: 'yy-mm-dd',
@@ -270,13 +416,7 @@ body {
           console.log(date)
         }
       });
-  $(document).ready(function () {
-   
-    $(function () {
-    
-
-    });
-
+      
 
 $('.perstar').click(function () {
     let countstart=$(this).data("id") // will return the number 123
@@ -319,8 +459,16 @@ $('.get_otp').click(function () {
                 type: 'POST',
                 dataType: 'json',
                 success: function (result) {
+                 console.log(result.number)
+            
 
-                   
+                 $('#myModal').modal('show'); 
+
+                 if(result.number == 'invalid'){
+
+                 }else{
+
+                 }
                 }
             });
 });
@@ -386,9 +534,6 @@ $('.questar').click(function () {
     }
 });
 
-
-
-});
 </script>
 @endsection
 @endsection
