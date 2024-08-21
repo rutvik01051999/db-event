@@ -23,7 +23,12 @@ class EventDataTable extends BaseDataTable
     {
         return (new EloquentDataTable($query))
             ->editColumn('url', function($event) {
-                return '<a href="' . $event->event_url . '" target="_blank">' . $event->event_url . '</a>';
+                $url = $event->event_url;
+                $parseUrl = parse_url($url);
+                $path = $parseUrl['path'] ?? '';
+                $id = str_replace(['/', '.php'], ['', ''], $path);
+
+                return '<a href="' . route('user.event.form',['id' => $id]) . '" target="_blank">' . route('user.event.form',['id' => $id]) . '</a>';
             })
             ->addColumn('action', function ($event) {
                 return view('admin.adminpanel.event.action', compact('event'));
@@ -51,10 +56,9 @@ class EventDataTable extends BaseDataTable
                     ->minifiedAjax()
                     ->parameters($this->parameters)
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
-                       
                     ]);
     }
 
@@ -64,9 +68,9 @@ class EventDataTable extends BaseDataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('id')->visible(false)->searchable(false),
             Column::make('name'),
-            Column::make('url'),
+            Column::make('url')->sortable(false)->searchable(false),
             Column::make('start_date'),
             Column::make('close_date'),
             Column::computed('action')

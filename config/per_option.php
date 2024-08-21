@@ -11,5 +11,6 @@ return [
  'number'=>'number',
  'date'=>'date',
  'rating'=>'rating',
- 'mobile_otp'=>'mobile with otp'
+ 'mobile_otp'=>'mobile with otp',
+ 'zipcode'=>'zipcode',
 ];
