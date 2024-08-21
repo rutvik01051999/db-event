@@ -27,16 +27,16 @@ class MobileOtpController extends Controller
         }
 
         $d = date("Y-m-d H:i:s");
-        $url = "https://api.infobip.com/sms/1/text/query?username=missedcall&password=missedcall@123&to=".urlencode($numbers)."&text=".urlencode($message)."&from=BHASKR&indiaDltPrincipalEntityId=1101693520000011534&indiaDltContentTemplateId=1107161141043932938";
+        // $url = "https://api.infobip.com/sms/1/text/query?username=missedcall&password=missedcall@123&to=".urlencode($numbers)."&text=".urlencode($message)."&from=BHASKR&indiaDltPrincipalEntityId=1101693520000011534&indiaDltContentTemplateId=1107161141043932938";
     
-        $postpara ="";
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url );
-        curl_setopt($ch, CURLOPT_POST, 1 );
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postpara);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $postResult = curl_exec($ch);
-        curl_close($ch);
+        // $postpara ="";
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, $url );
+        // curl_setopt($ch, CURLOPT_POST, 1 );
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $postpara);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // $postResult = curl_exec($ch);
+        // curl_close($ch);
 
         return response()->json([
           'number' => 'valid',
@@ -45,7 +45,6 @@ class MobileOtpController extends Controller
     }
 
     public function otpCheck(Request $request){
-      // dd($request->all());
        $latestOtp = MobileVerification::where('mobile','91'.$request->mobile_num)->latest()->first();     
        if(!$latestOtp){
         return response()->json([
