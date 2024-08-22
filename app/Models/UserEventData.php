@@ -17,4 +17,14 @@ class UserEventData extends Model
         'option_val',
         'option_types'
     ];
+
+    /**
+     * Get the user's attachments.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function attachments()
+    {
+        return $this->morphMany(Attachment::class, 'attachmentable');
+    }
 }

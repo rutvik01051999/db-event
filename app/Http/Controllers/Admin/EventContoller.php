@@ -77,7 +77,7 @@ class EventContoller extends Controller
                         'personal_information_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile' || $type == 'mobile_otp') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'multiple_file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile' || $type == 'mobile_otp') {
                     $options = explode("~", $request->p_option[$key]);
 
                     $question = PersonalInformation::create([
@@ -112,7 +112,6 @@ class EventContoller extends Controller
 
             //for question 
             foreach ($request->option_type as $key => $type) {
-                // dd($request->all());
                 if ($type == 'input' || $type == 'textarea') {
                     $question = Question::create([
                         'event_id' => $event->id,
@@ -127,7 +126,7 @@ class EventContoller extends Controller
                         'question_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'multiple_file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
                         'event_id' => $event->id,
@@ -163,7 +162,6 @@ class EventContoller extends Controller
             return redirect()->route('event.list')->with('success', config('const.success_message'));
         } catch (\Exception $e) {
             DB::rollback();
-            dd($e);
             return redirect()->back()->withInput()->withErrors($e->getMessage());
         }
     }
@@ -230,7 +228,6 @@ class EventContoller extends Controller
 
     public function questionUpdate(QuetionInfoUpdateRequest $request)
     {
-        // dd($request->all());
         DB::beginTransaction();
         try {
             Question::where('event_id', $request->event_id)->delete();
@@ -251,7 +248,7 @@ class EventContoller extends Controller
                         'personal_information_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile' || $type == 'mobile_otp') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'multiple_file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile' || $type == 'mobile_otp') {
                     $options = explode("~", $request->p_option[$key]);
                     $question = PersonalInformation::create([
                         'event_id' => $request->event_id,
@@ -300,7 +297,7 @@ class EventContoller extends Controller
                         'question_id' => $question->id,
                     ]);
 
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'multiple_file' || $type == 'rating' || $type == 'date' || $type == 'number'|| $type == 'mobile') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
                         'event_id' => $request->event_id,
@@ -348,5 +345,48 @@ class EventContoller extends Controller
     {
         PersonalInformation::where('id', $request->id)->delete();
         return response()->json(['data' => $request->id]);
+    }
+
+    public function setCorrectAnswer($id) {
+        $event = Event::where('id', $id)->withWhereHas('questions', function($q) { 
+            return $q->whereIn('option_types', ['checkbox','dropdown','radio']); 
+        })
+        ->first();
+        
+        if(!$event) {
+            abort(404, 'Event not found');
+        }
+
+        return view('admin.event.set_correct_answer', compact('event'));
+    }
+
+    public function saveCorrectAnswer(Request $request, $id) {
+        $correctAnswerIds = $request->option_id ?? [];
+
+        if ($correctAnswerIds) {
+            $options = Event::where('id', $id)->with('questions.options')->get()->first()->questions->pluck('options')->flatten();
+            foreach ($options as $option) {
+                $option->update(['is_correct' => false]);
+            }
+            Option::whereIn('id', $correctAnswerIds)->update(['is_correct' => true]);
+        }
+
+        return redirect()->route('event.list')->with('success', 'Correct answer updated successfully');
+    }
+
+    public function changeStatus(Request $request, $id)
+    {
+        $status = $request->status;
+        $event = Event::find($id);
+
+        if (!$event) {
+            return response()->json(['message' => 'Event not found'], 404);
+        }
+
+        $event->update([
+            'status' => $status,
+        ]);
+
+        return response()->json(['message' => 'Event status updated successfully'], 200);
     }
 }

@@ -1,4 +1,14 @@
 @extends('layouts.user')
 @section('content')
-<h1 style="text-align:center;">Thank you</h1>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-lg">
+            <div class="card-body">
+                <h5>
+                    {{ $data->response }}
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

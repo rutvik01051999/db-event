@@ -16,21 +16,13 @@
 </head>
 
 <body class="login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ URL::to('/') }}"><b>Matrix</b> DB Event</a>
-        </div>
-
+    <div class="container">
         @yield('content')
     </div>
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>  
-
-    {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
 
     <script src="{{ asset('dist/js/adminlte.min.js?v=3.2.0') }}"></script>
 
