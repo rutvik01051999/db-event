@@ -48,21 +48,23 @@
                                 <div class="col-sm-4">
                                     <!-- text input -->
                                     <div class="form-group">
-                                        <label>Title</label>
+                                        <label>Title
+                                            <span class="text-danger">*</span>
+                                        </label>
                                         <input type="text" class="form-control" name="event_title" id="eventTitle"
                                             placeholder="Title" data-translatable="true">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Description</label>
+                                        <label>Description <span class="text-danger">*</span></label>
                                         <input type="text" name="event_desc" class="form-control" id="eventDesc"
                                             placeholder="Description" data-translatable="true">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Logo</label>
+                                        <label>Logo <span class="text-danger">*</span></label>
                                         <input type="file" name="logo" class="form-control" placeholder="Logo">
                                     </div>
                                 </div>
@@ -71,21 +73,21 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Start event</label>
+                                        <label>Start event<span class="text-danger">*</span></label>
                                         <input type="text" name="event_start" class="form-control datepicker"
                                             placeholder="Start event" id="event_start" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>End event</label>
+                                        <label>End event<span class="text-danger">*</span></label>
                                         <input type="text" name="event_end" class="form-control datepicker"
                                             placeholder="End event" id="event_end" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Response</label>
+                                        <label>Response<span class="text-danger">*</span></label>
                                         <input type="text" name="event_response" class="form-control"
                                             placeholder="Response" id="eventResponse" data-translatable="true"
                                             id="eventResponse">
@@ -95,7 +97,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Category</label>
+                                        <label>Category<span class="text-danger">*</span></label>
                                         <select class="form-control" name="category_name">
                                             @foreach ($category as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -105,7 +107,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Departmen</label>
+                                        <label>Department <span class="text-danger">*</span></label>
                                         <select class="form-control" name="departmen_name">
                                             @foreach ($departmen as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -125,9 +127,10 @@
                                 <div class="col-sm-4">
                                     <!-- text input -->
                                     <div class="form-group">
-                                        <label>Quation</label>
+                                        <label>Question</label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_1">
+                                            placeholder="Question" data-translatable="true" id="p_quation_1"
+                                            value="Full Name">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -145,7 +148,8 @@
                                     <div class="form-group">
                                         <label>Option</label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_1">
+                                            placeholder="Value (Add multiple value with ~ separated)"
+                                            data-translatable="true" id="p_option_1">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -179,8 +183,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" data-translatable="true"
-                                            id="p_quation_2">
+                                            placeholder="Question" data-translatable="true" data-translatable="true"
+                                            id="p_quation_2" value="Gender">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -198,7 +202,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_2">
+                                            placeholder="Value (Add multiple value with ~ separated)"
+                                            data-translatable="true" id="p_option_2" value="Male ~ Female ~ Others">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -206,7 +211,8 @@
                                         <label></label>
                                         <select class="form-control" name="p_option_type[]">
                                             @foreach (config('per_option') as $key => $option)
-                                                <option value="{{ $key }}">
+                                                <option value="{{ $key }}"
+                                                    @if ('radio' == $key) selected @endif>
                                                     {{ $option }}
                                                 </option>
                                             @endforeach
@@ -233,7 +239,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_3">
+                                            placeholder="Question" data-translatable="true" id="p_quation_3"
+                                            value="Age">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -251,7 +258,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_3">
+                                            placeholder="Value (Add multiple value with ~ separated)"
+                                            data-translatable="true" id="p_option_3">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -285,7 +293,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_4">
+                                            placeholder="Question" data-translatable="true" id="p_quation_4"
+                                            value="Address">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -303,7 +312,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_4">
+                                            placeholder="Value (Add multiple value with ~ separated)"
+                                            data-translatable="true" id="p_option_4">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -311,7 +321,8 @@
                                         <label></label>
                                         <select class="form-control" name="p_option_type[]">
                                             @foreach (config('per_option') as $key => $option)
-                                                <option value="{{ $key }}">
+                                                <option value="{{ $key }}"
+                                                    @if ('textarea' == $key) selected @endif>
                                                     {{ $option }}
                                                 </option>
                                             @endforeach
@@ -337,7 +348,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_5">
+                                            placeholder="Question" data-translatable="true" id="p_quation_5"
+                                            value="Pincode">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -355,7 +367,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_5">
+                                            placeholder="Value (Add multiple value with ~ separated)"
+                                            data-translatable="true" id="p_option_5">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -363,7 +376,8 @@
                                         <label></label>
                                         <select class="form-control" name="p_option_type[]">
                                             @foreach (config('per_option') as $key => $option)
-                                                <option value="{{ $key }}">
+                                                <option value="{{ $key }}"
+                                                    @if ('pincode' == $key) selected @endif>
                                                     {{ $option }}
                                                 </option>
                                             @endforeach
@@ -389,7 +403,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_6">
+                                            placeholder="Question" data-translatable="true" id="p_quation_6"
+                                            value="Area">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -407,7 +422,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_6">
+                                            placeholder="Value (Add multiple value with ~ separated)"
+                                            data-translatable="true" id="p_option_6">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -441,7 +457,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_7">
+                                            placeholder="Question" data-translatable="true" id="p_quation_7"
+                                            value="State">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -459,7 +476,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_7">
+                                            placeholder="Value (Add multiple value with ~ separated)"
+                                            data-translatable="true" id="p_option_7">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -493,7 +511,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_8">
+                                            placeholder="Question" data-translatable="true" id="p_quation_8"
+                                            value="City">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -511,7 +530,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_8">
+                                            placeholder="Value (Add multiple value with ~ separated)"
+                                            data-translatable="true" id="p_option_8">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -545,7 +565,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_9">
+                                            placeholder="Question" data-translatable="true" id="p_quation_9"
+                                            value="Mobile No">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -563,7 +584,8 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_9">
+                                            placeholder="Value (Add multiple value with ~ separated)"
+                                            data-translatable="true" id="p_option_9">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -599,9 +621,9 @@
                                 <div class="col-sm-4">
                                     <!-- text input -->
                                     <div class="form-group">
-                                        <label>Quation</label>
+                                        <label>Question</label>
                                         <input type="text" name="quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="q_quation_1">
+                                            placeholder="Question" data-translatable="true" id="q_quation_1">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">

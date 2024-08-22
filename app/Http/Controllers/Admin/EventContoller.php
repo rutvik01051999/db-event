@@ -63,7 +63,7 @@ class EventContoller extends Controller
 
             //for Personal information
             foreach ($request->p_option_type as $key => $type) {
-                if ($type == 'input' || $type == 'textarea' || $type == 'zipcode') {
+                if ($type == 'input' || $type == 'textarea' || $type == 'pincode') {
                     $question = PersonalInformation::create([
                         'event_id' => $event->id,
                         'name' => $request->p_quation[$key],
@@ -237,7 +237,7 @@ class EventContoller extends Controller
             PersonalInformation::where('event_id', $request->event_id)->delete();
             //for personal info
             foreach ($request->p_option_type as $key => $type) {
-                if ($type == 'input' || $type == 'textarea' || $type == 'zipcode') {
+                if ($type == 'input' || $type == 'textarea' || $type == 'pincode') {
                     $question = PersonalInformation::create([
                         'event_id' => $request->event_id,
                         'name' => $request->p_quation[$key],
@@ -332,7 +332,7 @@ class EventContoller extends Controller
                 }
             }
             DB::commit();
-            return redirect()->back()->with('success', config('const.success_message'));
+            return redirect()->back()->with('success', 'Event updated successfully');
         } catch (\Exception $e) {
             DB::rollback();
             return $e->getMessage();

@@ -158,8 +158,9 @@
                 @if ($perinfo->option_types == 'input')
                     <div class="form-group">
                         <label for="name">{{ $perinfo->name }}</label>
-                        <input type="text" class="form-control" id="name" name="per_input_{{ $perinfo->index_no }}"
-                            {{ $perinfo->required == 1 ? 'required' : '' }}>
+                        <input type="text" class="form-control {{ strtolower($perinfo->name) }}" id="name"
+                            name="per_input_{{ $perinfo->index_no }}" {{ $perinfo->required == 1 ? 'required' : '' }}
+                            @if ('area' == strtolower($perinfo->name)) readonly @endif>
                     </div><br>
                 @elseif($perinfo->option_types == 'rating')
                     <input type="hidden" name="perinfo_rating_{{ $perinfo->index_no }}"
@@ -253,6 +254,12 @@
                                 </label>
                             </div>
                         @endforeach
+                    </div><br>
+                @elseif ($perinfo->option_types == 'pincode')
+                    <div class="form-group">
+                        <label for="pincode">{{ $perinfo->name }}</label>
+                        <input type="text" class="form-control pincode" id="pincode-{{ $perinfo->index_no }}"
+                            name="per_pincode_{{ $perinfo->index_no }}" {{ $perinfo->required == 1 ? 'required' : '' }}>
                     </div><br>
                 @endif
             @endforeach
@@ -420,7 +427,7 @@
 
 
 
-        $('#myModal').modal('show');
+        // $('#myModal').modal('show');
 
 
 
@@ -556,6 +563,63 @@
                 $('.qrstar' + icount + question_no).addClass('active')
             }
         });
+
+        // on pincode change .pincode
+        $('.pincode').change(function() {
+            var pincode = $(this).val();
+
+            if (pincode.length == 0) {
+                // Remove the select dropdown
+                $('.addresses').closest('.form-group').remove();
+
+                // Reset the value
+                $('.area').val('');
+            }
+
+            // If pincode is 6 digits then call api else return
+            if (pincode.length != 6) {
+                return;
+            }
+
+            let url = "https://api.postalpincode.in/pincode/" + pincode;
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function(response) {
+                    response = response[0];
+                    if (response.Status == 'Success') {
+                        let addresses = response.PostOffice;
+
+                        // Remove the select dropdown
+                        $('.addresses').remove();
+
+                        // Reset the value
+                        $('.area').val('');
+
+                        // Create the select dropdown for addresses
+                        let select =
+                            '<div class="form-group mt-3"><label for="addresses">Select Area</label>';
+                        select += '<select class="form-select addresses" name="addresses">';
+
+                        for (let i = 0; i < addresses.length; i++) {
+                            select += '<option value="' + addresses[i].Name + '">' + addresses[i].Name +
+                                '</option>';
+                        }
+
+                        select += '</select></div>';
+
+                        // Append the select dropdown after the current element
+                        $('.pincode').closest('.form-group').after(select);
+                    }
+                }
+            });
+        });
+
+        // On change addresses .addresses set value to area field
+        $(document).on('change', '.addresses', function() {
+            $('.area').val($(this).val());
+        })
     </script>
 @endsection
 @endsection
