@@ -127,7 +127,7 @@
                                     <div class="form-group">
                                         <label>Quation</label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_1">
+                                            placeholder="Quation" value="Full Name" data-translatable="true" id="p_quation_1">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -179,7 +179,7 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" data-translatable="true"
+                                            placeholder="Quation" value="Gender" data-translatable="true" data-translatable="true"
                                             id="p_quation_2">
                                     </div>
                                 </div>
@@ -198,7 +198,7 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_option[]" class="form-control"
-                                            placeholder="Option" data-translatable="true" id="p_option_2">
+                                            placeholder="Option" value="male~female~other" data-translatable="true" id="p_option_2">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -206,7 +206,7 @@
                                         <label></label>
                                         <select class="form-control" name="p_option_type[]">
                                             @foreach (config('per_option') as $key => $option)
-                                                <option value="{{ $key }}">
+                                                <option value="{{ $key }}" {{ $key == "radio" ? "selected" : "" }}>
                                                     {{ $option }}
                                                 </option>
                                             @endforeach
@@ -233,7 +233,7 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_3">
+                                            placeholder="Quation" value="Age" data-translatable="true" id="p_quation_3">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -259,7 +259,7 @@
                                         <label></label>
                                         <select class="form-control" name="p_option_type[]">
                                             @foreach (config('per_option') as $key => $option)
-                                                <option value="{{ $key }}">
+                                                <option value="{{ $key }}" {{ $key == "number" ? "selected" : "" }}>
                                                     {{ $option }}
                                                 </option>
                                             @endforeach
@@ -285,7 +285,7 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_4">
+                                            placeholder="Quation" value="Address" data-translatable="true" id="p_quation_4">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -337,7 +337,7 @@
                                     <div class="form-group">
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
-                                            placeholder="Quation" data-translatable="true" id="p_quation_5">
+                                            placeholder="Quation" value="Pincode" data-translatable="true" id="p_quation_5">
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -363,7 +363,7 @@
                                         <label></label>
                                         <select class="form-control" name="p_option_type[]">
                                             @foreach (config('per_option') as $key => $option)
-                                                <option value="{{ $key }}">
+                                                <option value="{{ $key }}" {{ $key == "number" ? "selected" : "" }}>
                                                     {{ $option }}
                                                 </option>
                                             @endforeach
