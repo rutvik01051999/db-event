@@ -15,7 +15,8 @@ class UserEventData extends Model
         'image',
         'input_text',
         'option_val',
-        'option_types'
+        'option_types',
+        'personal_id'
     ];
 
     /**
