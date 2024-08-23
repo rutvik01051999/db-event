@@ -95,6 +95,7 @@
                                                     <button type="button" class="btn btn-primary get_otp">Get OTP</button>
                                                 </div>
                                             </div>
+                                            <div class="mobile_otp_error" style="color: red;"></div>
                                         </div>
                                     </div>
                                 @elseif($perinfo->option_types == 'file' || $perinfo->option_types == 'multiple_file')
