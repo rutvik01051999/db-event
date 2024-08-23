@@ -54,7 +54,7 @@
 
                 <div class="card shadow-lg">
                     <div class="card-header text-center">
-                        <h6 class="m-0 font-weight-bold text-primary">Personal Information hhhhh</h6>
+                        <h4 class="m-0 font-weight-bold text-primary">Personal Information</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -92,7 +92,7 @@
                                                     name="per_mobile_otp_{{ $perinfo->index_no }}"
                                                     {{ $perinfo->required == 1 ? 'required' : '' }}>
                                                 <div class="input-group-append">
-                                                    <button type="button" class="btn btn-primary get_otp">get otp</button>
+                                                    <button type="button" class="btn btn-primary get_otp">Get OTP</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -186,10 +186,20 @@
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
                                             <label for="pincode">{{ $perinfo->name }}</label>
+                                            <span class="pincode-loader" style="display:none;"><i
+                                                    class="fas fa-spinner fa-pulse"></i></span>
                                             <input type="text" class="form-control pincode"
                                                 id="pincode-{{ $perinfo->index_no }}"
                                                 name="per_pincode_{{ $perinfo->index_no }}"
                                                 {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12 addresses-div" style="display:none">
+                                        <div class="form-group">
+                                            <label for="addresses">Select Area</label>
+                                            <select class="form-select addresses" name="addresses">
+                                            </select>
                                         </div>
                                     </div>
                                 @endif
@@ -198,7 +208,7 @@
                     </div>
 
                     <div class="card-header text-center">
-                        <h6 class="m-0 font-weight-bold text-primary">Questions</h6>
+                        <h4 class="m-0 font-weight-bold text-primary">Questions</h4>
                     </div>
 
                     <div class="card-body">
@@ -464,16 +474,8 @@
         });
 
         // on pincode change .pincode
-        $('.pincode').change(function() {
+        $('.pincode').on('input', function() {
             var pincode = $(this).val();
-
-            if (pincode.length == 0) {
-                // Remove the select dropdown
-                $('.addresses').closest('.form-group').remove();
-
-                // Reset the value
-                $('.area').val('');
-            }
 
             // If pincode is 6 digits then call api else return
             if (pincode.length != 6) {
@@ -485,32 +487,37 @@
             $.ajax({
                 type: "GET",
                 url: url,
+                beforeSend: function() {
+                    // Show loader while waiting for response
+                    $('.pincode-loader').show();
+                },
                 success: function(response) {
+                    // Hide loader
+                    $('.pincode-loader').hide();
+
                     response = response[0];
                     if (response.Status == 'Success') {
                         let addresses = response.PostOffice;
 
-                        // Remove the select dropdown
-                        $('.addresses').remove();
+                        // Show addresses in dropdown
+                        $('.addresses-div').show();
 
-                        // Reset the value
-                        $('.area').val('');
+                        let addressDropdownEle = $('.addresses'); 
 
                         // Create the select dropdown for addresses
-                        let select =
-                            '<div class="form-group mt-3"><label for="addresses">Select Area</label>';
-                        select += '<select class="form-select addresses" name="addresses">';
+                        let select = '';
 
                         for (let i = 0; i < addresses.length; i++) {
                             select += '<option value="' + addresses[i].Name + '">' + addresses[i].Name +
                                 '</option>';
                         }
 
-                        select += '</select></div>';
-
-                        // Append the select dropdown after the current element
-                        $('.pincode').closest('.form-group').after(select);
+                        addressDropdownEle.html(select);
                     }
+                },
+                error: function(xhr, status, error) {
+                    // Hide loader
+                    $('.pincode-loader').hide();
                 }
             });
         });

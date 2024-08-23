@@ -31,9 +31,7 @@
                 @endif
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        {{ $dataTable->table([
-                            'class' => 'table table-bordered table-striped table-condensed table-hover dataTable dtr-inline',
-                        ]) }}
+                        {{ $dataTable->table(['class' => 'w-100']) }}
                     </div>
                     <!-- /.card-body -->
 

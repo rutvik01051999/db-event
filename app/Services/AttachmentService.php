@@ -42,7 +42,7 @@ class AttachmentService
 
             return $attachment;
         } catch (\Exception $e) {
-            Log::error('Error saving attachment: ' . $e->getMessage());
+            Log::error('Error saving attachment: ' . $e);
             return null;
         }
     }
