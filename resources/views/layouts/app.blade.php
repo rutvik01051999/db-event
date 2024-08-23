@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.css?v=3.2.0') }}">
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body class="login-page">
@@ -20,11 +24,13 @@
         @yield('content')
     </div>
 
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('dist/js/adminlte.min.js?v=3.2.0') }}"></script>
     <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
 
-    <script src="{{ asset('dist/js/adminlte.min.js?v=3.2.0') }}"></script>
+
+    @yield('content-js')
 
     <script>
         function togglePassword(id, element) {
@@ -38,9 +44,6 @@
             }
         }
     </script>
-
-    @yield('content-js')
-
 </body>
 
 </html>

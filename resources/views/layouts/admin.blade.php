@@ -7,8 +7,8 @@
     <title>DB Event | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    {{-- <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> --}}
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
@@ -30,16 +30,16 @@
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 
-    <link rel="stylesheet" href="{{ asset('../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}"> --}}
     <meta name="csrf-token" id="_token" content="{{ csrf_token() }}">
 
     <!-- Multiple language -->
     <script type="text/javascript" src="{{ asset('dist/js/main_transliteration.js') }}"></script>
     <script type="text/javascript" src="{{ asset('dist/js/transliteration.I.js') }}"></script>
 
-    @vite(['resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -118,7 +118,7 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
 
-    <script src="{{ asset('../../plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    {{-- <script src="{{ asset('../../plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('../../plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
@@ -129,7 +129,7 @@
     <script src="{{ asset('../../plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('../../plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script> --}}
 
     <script type="text/javascript" src="{{ asset('dist/js/custom.js') }}"></script>
     @yield('content-js')

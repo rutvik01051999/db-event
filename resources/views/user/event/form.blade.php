@@ -1,9 +1,4 @@
 @extends('layouts.app')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-<style>
-    /* Import Google font - Poppins */
-    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-</style>
 @section('content')
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -91,15 +86,12 @@
                                 @elseif($perinfo->option_types == 'mobile_otp')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label for="name">{{ $perinfo->name }}</label>
-                                                    <input type="text" class="form-control" id="mobile_otp"
-                                                        name="per_mobile_otp_{{ $perinfo->index_no }}">
-                                                </div>
-                                                <div class="col">
-                                                    <label for="name"></label>
-
+                                            <label for="name">{{ $perinfo->name }}</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="mobile_otp"
+                                                    name="per_mobile_otp_{{ $perinfo->index_no }}"
+                                                    {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                                <div class="input-group-append">
                                                     <button type="button" class="btn btn-primary get_otp">get otp</button>
                                                 </div>
                                             </div>
@@ -295,7 +287,7 @@
                             @endif
                         @endforeach
                     </div>
-                    <div class="text-center">
+                    <div class="text-center mb-5">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
             </form>
@@ -304,12 +296,7 @@
 @endsection
 
 @section('content-js')
-    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
-        integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous">
-    </script> --}}
-
     <script>
-        jQuery.noConflict();
         const inputs = document.querySelectorAll(".otp-field > input");
         const button = document.querySelector(".btn");
 
