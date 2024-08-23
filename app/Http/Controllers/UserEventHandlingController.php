@@ -32,111 +32,118 @@ class UserEventHandlingController extends Controller
     DB::beginTransaction();
     try {
       $data = Event::with('questions', 'personalinfo')->where('id', $request->event_id)->first();
-      foreach ($data->personalinfo as $key => $val) {
 
-        if ($val->option_types == 'input') {
-          if (isset($request['per_input_' . $val->index_no])) {
-            UserEventData::create([
-              'event_id' => $request->event_id,
-              'personal_index' => $val->index_no,
-              'option_val' => $request['per_input_' . $val->index_no],
-              'option_types' => 'input'
-            ]);
-          }
-        } else if ($val->option_types == 'checkbox') {
-          $checkbox = array();
-          foreach ($val->options as $key2 => $val2) {
-            if (isset($request['per_checkbox_' . $val2->index_no . '_' . $val->index_no])) {
-              $checkbox[] = $request['per_checkbox_' . $val2->index_no . '_' . $val->index_no];
-            }
-          }
-          $string_version = implode(',', $checkbox);
-          //$destination_array = explode(',', $string_version);
-          UserEventData::create([
-            'event_id' => $request->event_id,
-            'personal_index' => $val->index_no,
-            'option_val' => $string_version,
-            'option_types' => 'checkbox'
-          ]);
-        } else if ($val->option_types == 'number') {
-          if (isset($request['per_num_' . $val->index_no])) {
-            UserEventData::create([
-              'event_id' => $request->event_id,
-              'question_index' => $val->index_no,
-              'option_val' => $request['per_num_' . $val->index_no],
-              'option_types' => 'number'
-            ]);
-          }
-        } else if ($val->option_types == 'textarea') {
-          if (isset($request['per_textarea_' . $val->index_no])) {
-            UserEventData::create([
-              'event_id' => $request->event_id,
-              'question_index' => $val->index_no,
-              'option_val' => $request['per_textarea_' . $val->index_no],
-              'option_types' => 'textarea'
-            ]);
-          }
-        } else if ($val->option_types == 'rating') {
-          if (isset($request['perinfo_rating_' . $val->index_no])) {
-            UserEventData::create([
-              'event_id' => $request->event_id,
-              'personal_index' => $val->index_no,
-              'option_val' => $request['perinfo_rating_' . $val->index_no],
-              'option_types' => 'rating'
-            ]);
-          }
-        } else if ($val->option_types == 'radio') {
-          if (isset($request['per_radio_' . $val->index_no])) {
-            UserEventData::create([
-              'event_id' => $request->event_id,
-              'personal_index' => $val->index_no,
-              'option_val' => $request['per_radio_' . $val->index_no],
-              'option_types' => 'radio'
-            ]);
-          }
-        } else if ($val->option_types == 'dropdown') {
-          if (isset($request['per_dropdown_' . $val->index_no])) {
-            UserEventData::create([
-              'event_id' => $request->event_id,
-              'personal_index' => $val->index_no,
-              'option_val' => $request['per_dropdown_' . $val->index_no],
-              'option_types' => 'dropdown'
-            ]);
-          }
-        } else if ($val->option_types == 'mobile_otp') {
-          if (isset($request['per_mobile_otp_' . $val->index_no])) {
-            UserEventData::create([
-              'event_id' => $request->event_id,
-              'personal_index' => $val->index_no,
-              'option_val' => $request['per_mobile_otp_' . $val->index_no],
-              'option_types' => 'mobile_otp'
-            ]);
-          }
-        } else if ($val->option_types == 'file' || $val->option_types == 'multiple_file') {
-          if (isset($request['per_file_' . $val->index_no])) {
-            $files = $request['per_file_' . $val->index_no] ?? [];
+      // foreach ($data->personalinfo as $key => $val) {
 
-            $userEvent = UserEventData::create([
-              'event_id' => $request->event_id,
-              'personal_index' => $val->index_no,
-              'option_val' => '',
-              'option_types' => $val->option_types
-            ]);
-            $filePaths = [];
-            foreach ($files as $key => $file) {
-              $attachment = AttachmentService::save($file, 'user-uploaded-file', 'users/uploaded-files', $userEvent);
+      //   if ($val->option_types == 'input') {
+      //     if (isset($request['per_input_' . $val->index_no])) {
+      //       UserEventData::create([
+      //         'event_id' => $request->event_id,
+      //         'personal_index' => $val->index_no,
+      //         'option_val' => $request['per_input_' . $val->index_no],
+      //         'option_types' => 'input'
+      //       ]);
+      //     }
+      //   } else if ($val->option_types == 'checkbox') {
+      //     $checkbox = array();
+      //     foreach ($val->options as $key2 => $val2) {
+      //       if (isset($request['per_checkbox_' . $val2->index_no . '_' . $val->index_no])) {
+      //         $checkbox[] = $request['per_checkbox_' . $val2->index_no . '_' . $val->index_no];
+      //       }
+      //     }
+      //     $string_version = implode(',', $checkbox);
+      //     //$destination_array = explode(',', $string_version);
+      //     UserEventData::create([
+      //       'event_id' => $request->event_id,
+      //       'personal_index' => $val->index_no,
+      //       'option_val' => $string_version,
+      //       'option_types' => 'checkbox'
+      //     ]);
+      //   } else if ($val->option_types == 'number') {
+      //     if (isset($request['per_num_' . $val->index_no])) {
+      //       UserEventData::create([
+      //         'event_id' => $request->event_id,
+      //         'question_index' => $val->index_no,
+      //         'option_val' => $request['per_num_' . $val->index_no],
+      //         'option_types' => 'number'
+      //       ]);
+      //     }
+      //   } else if ($val->option_types == 'textarea') {
+      //     if (isset($request['per_textarea_' . $val->index_no])) {
+      //       UserEventData::create([
+      //         'event_id' => $request->event_id,
+      //         'question_index' => $val->index_no,
+      //         'option_val' => $request['per_textarea_' . $val->index_no],
+      //         'option_types' => 'textarea'
+      //       ]);
+      //     }
+      //   } else if ($val->option_types == 'rating') {
+      //     if (isset($request['perinfo_rating_' . $val->index_no])) {
+      //       UserEventData::create([
+      //         'event_id' => $request->event_id,
+      //         'personal_index' => $val->index_no,
+      //         'option_val' => $request['perinfo_rating_' . $val->index_no],
+      //         'option_types' => 'rating'
+      //       ]);
+      //     }
+      //   } else if ($val->option_types == 'radio') {
+      //     if (isset($request['per_radio_' . $val->index_no])) {
+      //       UserEventData::create([
+      //         'event_id' => $request->event_id,
+      //         'personal_index' => $val->index_no,
+      //         'option_val' => $request['per_radio_' . $val->index_no],
+      //         'option_types' => 'radio'
+      //       ]);
+      //     }
+      //   } else if ($val->option_types == 'dropdown') {
+      //     if (isset($request['per_dropdown_' . $val->index_no])) {
+      //       UserEventData::create([
+      //         'event_id' => $request->event_id,
+      //         'personal_index' => $val->index_no,
+      //         'option_val' => $request['per_dropdown_' . $val->index_no],
+      //         'option_types' => 'dropdown'
+      //       ]);
+      //     }
+      //   } else if ($val->option_types == 'mobile_otp') {
+      //     if (isset($request['per_mobile_otp_' . $val->index_no])) {
+      //       UserEventData::create([
+      //         'event_id' => $request->event_id,
+      //         'personal_index' => $val->index_no,
+      //         'option_val' => $request['per_mobile_otp_' . $val->index_no],
+      //         'option_types' => 'mobile_otp'
+      //       ]);
+      //     }
+      //   } else if ($val->option_types == 'file' || $val->option_types == 'multiple_file') {
+      //     if (isset($request['per_file_' . $val->index_no])) {
+      //       $files = $request['per_file_' . $val->index_no] ?? [];
 
-              if ($attachment) {
-                $filePaths[] = $attachment->file_path;
-              }
-            }
+      //       $userEvent = UserEventData::create([
+      //         'event_id' => $request->event_id,
+      //         'personal_index' => $val->index_no,
+      //         'option_val' => '',
+      //         'option_types' => $val->option_types
+      //       ]);
+      //       $filePaths = [];
+      //       foreach ($files as $key => $file) {
+      //         $attachment = AttachmentService::save($file, 'user-uploaded-file', 'users/uploaded-files', $userEvent);
 
-            $userEvent->update([
-              'option_val' => json_encode($filePaths)
-            ]);
-          }
-        }
-      }
+      //         if ($attachment) {
+      //           $filePaths[] = $attachment->file_path;
+      //         }
+      //       }
+
+      //       $userEvent->update([
+      //         'option_val' => json_encode($filePaths)
+      //       ]);
+      //     }
+      //   }
+      // }
+
+      //store personal info of user
+      
+
+
+      //end here
 
       foreach ($data->questions as $key => $val) {
         if ($val->option_types == 'input') {
