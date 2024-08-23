@@ -17,7 +17,8 @@ class PersonalInformation extends Model
         'required',
         'option_types',
         'option_name',
-        'index_no'
+        'index_no',
+        'input_name'
     ];
     public function options(): HasMany
     {

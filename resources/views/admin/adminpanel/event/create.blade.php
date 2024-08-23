@@ -130,7 +130,7 @@
                                         <label>Question</label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
                                             placeholder="Question" data-translatable="true" id="p_quation_1"
-                                            value="Full Name">
+                                            value="Full Name" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -184,7 +184,7 @@
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
                                             placeholder="Question" data-translatable="true" data-translatable="true"
-                                            id="p_quation_2" value="Gender">
+                                            id="p_quation_2" value="Gender" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -240,7 +240,7 @@
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
                                             placeholder="Question" data-translatable="true" id="p_quation_3"
-                                            value="Age">
+                                            value="Age" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -294,7 +294,7 @@
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
                                             placeholder="Question" data-translatable="true" id="p_quation_4"
-                                            value="Address">
+                                            value="Address" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -349,7 +349,7 @@
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
                                             placeholder="Question" data-translatable="true" id="p_quation_5"
-                                            value="Pincode">
+                                            value="Pincode" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -404,7 +404,7 @@
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
                                             placeholder="Question" data-translatable="true" id="p_quation_6"
-                                            value="Area">
+                                            value="Area" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -458,7 +458,7 @@
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
                                             placeholder="Question" data-translatable="true" id="p_quation_7"
-                                            value="State">
+                                            value="State" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -512,7 +512,7 @@
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
                                             placeholder="Question" data-translatable="true" id="p_quation_8"
-                                            value="City">
+                                            value="City" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -566,7 +566,7 @@
                                         <label></label>
                                         <input type="text" name="p_quation[]" class="form-control quation"
                                             placeholder="Question" data-translatable="true" id="p_quation_9"
-                                            value="Mobile No">
+                                            value="Mobile No" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">

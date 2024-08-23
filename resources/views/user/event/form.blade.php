@@ -64,15 +64,15 @@
                                         <div class="form-group mb-3">
                                             <label for="name">{{ $perinfo->name }}</label>
                                             <input type="text" class="form-control {{ strtolower($perinfo->name) }}"
-                                                id="name" name="per_input_{{ $perinfo->index_no }}"
+                                                id="name" name="{{$perinfo->input_name}}"
                                                 {{ $perinfo->required == 1 ? 'required' : '' }}
                                                 @if ('area' == strtolower($perinfo->name)) readonly @endif>
                                         </div>
                                     </div>
                                 @elseif($perinfo->option_types == 'rating')
                                     <div class="col-md-6 col-sm-12">
-                                        <input type="hidden" name="perinfo_rating_{{ $perinfo->index_no }}"
-                                            id="perinfo_rating_{{ $perinfo->index_no }}" value="">
+                                        <input type="hidden" name="{{$perinfo->input_name}}"
+                                            id="perinfo_rating_{{ $perinfo->index_no }}"  value="">
                                         <div class="rating-box">
                                             <header>{{ $perinfo->name }}</header>
                                             <div class="stars" data-id="1">
@@ -89,7 +89,7 @@
                                             <label for="name">{{ $perinfo->name }}</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" id="mobile_otp"
-                                                    name="per_mobile_otp_{{ $perinfo->index_no }}"
+                                                    name="{{$perinfo->input_name}}"
                                                     {{ $perinfo->required == 1 ? 'required' : '' }}>
                                                 <div class="input-group-append">
                                                     <button type="button" class="btn btn-primary get_otp">get otp</button>
@@ -102,7 +102,7 @@
                                         <div class="form-group mb-3">
                                             <label for="file">{{ $perinfo->name }}</label>
                                             <input type="file" class="form-control" id="file"
-                                                name="per_file_{{ $perinfo->index_no }}[]"
+                                                name="{{$perinfo->input_name}}[]"
                                                 {{ $perinfo->required == 1 ? 'required' : '' }}
                                                 @if ($perinfo->option_types == 'multiple_file') multiple @endif>
                                         </div>
@@ -111,7 +111,7 @@
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
                                             <label for="file">{{ $perinfo->name }}</label>
-                                            <textarea id="w3review" class="form-control" name="per_textarea_{{ $perinfo->index_no }}" rows="1"
+                                            <textarea id="w3review" class="form-control" name="{{$perinfo->input_name}}" rows="1"
                                                 {{ $perinfo->required == 1 ? 'required' : '' }}></textarea>
                                         </div>
                                     </div>
@@ -120,7 +120,7 @@
                                         <div class="form-group mb-3">
                                             <label for="number">{{ $perinfo->name }}</label>
                                             <input type="number" class="form-control" id="number"
-                                                name="per_num_{{ $perinfo->index_no }}"
+                                                name="{{$perinfo->input_name}}"
                                                 {{ $perinfo->required == 1 ? 'required' : '' }}>
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@
                                         <div class="form-group mb-3">
                                             <label for="mobile">{{ $perinfo->name }}</label>
                                             <input type="number" class="form-control" id="mobile"
-                                                name="per_mobile_{{ $perinfo->index_no }}"
+                                                name="{{$perinfo->input_name}}"
                                                 {{ $perinfo->required == 1 ? 'required' : '' }}>
                                         </div>
                                     </div>
@@ -137,7 +137,7 @@
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
                                             <label for="inputState">{{ $perinfo->name }}</label>
-                                            <select id="inputState" name="per_dropdown_{{ $perinfo->index_no }}"
+                                            <select id="inputState" name="{{$perinfo->input_name}}"
                                                 class="form-control" {{ $perinfo->required == 1 ? 'required' : '' }}>
                                                 @foreach ($perinfo->options as $option)
                                                     <option value="" selected>select option</option>
@@ -153,7 +153,7 @@
                                             @foreach ($perinfo->options as $index => $option)
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox"
-                                                        name="per_checkbox_{{ $option->index_no }}_{{ $perinfo->index_no }}"
+                                                        name="{{$perinfo->input_name}}"
                                                         class="custom-control-input" value="{{ $option->index_no }}"
                                                         id="checkbox-{{ $option->id }}">
                                                     <label class="custom-control-label"
@@ -170,7 +170,7 @@
                                                 @foreach ($perinfo->options as $option)
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio"
-                                                            name="per_radio_{{ $perinfo->index_no }}"
+                                                            name="{{$perinfo->input_name}}"
                                                             id="radio-{{ $option->id }}"
                                                             value="{{ $option->index_no }}"
                                                             {{ $perinfo->required == 1 ? 'required' : '' }}>
@@ -188,7 +188,7 @@
                                             <label for="pincode">{{ $perinfo->name }}</label>
                                             <input type="text" class="form-control pincode"
                                                 id="pincode-{{ $perinfo->index_no }}"
-                                                name="per_pincode_{{ $perinfo->index_no }}"
+                                                name="{{$perinfo->input_name}}"
                                                 {{ $perinfo->required == 1 ? 'required' : '' }}>
                                         </div>
                                     </div>
