@@ -25,6 +25,7 @@ Route::get('/', function () {
 Route::middleware(['web'])->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
+        Route::get('dashboard/count', 'counts')->name('dashboard.counts');
     });
 
     Route::controller(EventContoller::class)->group(function () {
@@ -40,10 +41,14 @@ Route::middleware(['web'])->group(function () {
         Route::get('question/list/{id}', 'questionList')->name('question.list');
         Route::post('question/update', 'questionUpdate');
         Route::post('question/delete', 'questionDelete');
+        Route::get('event/set-correct-answer/{id}', 'setCorrectAnswer')->name('event.set-correct-answer');
+        Route::post('event/set-correct-answer/{id}', 'saveCorrectAnswer')->name('event.save-correct-answer');
+        Route::post('event/change-status/{id}', 'changeStatus')->name('event.change-status');
     });
 });
 Route::controller(UserEventHandlingController::class)->group(function () {
     Route::get('user/event/{id}', 'index')->name('user.event.form');
-    Route::post('user/event/store', 'eventDataStore');
+    Route::post('user/event/store', 'eventDataStore')->name('user.event.submit');
+    Route::post('user/event/save-location', 'saveLocation')->name('user.event.save-location');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

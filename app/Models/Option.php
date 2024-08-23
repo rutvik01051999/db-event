@@ -12,6 +12,7 @@ class Option extends Model
         'question_id',
         'personal_information_id',
         'name',
-        'index_no'
+        'index_no',
+        'is_correct',
     ];
 }

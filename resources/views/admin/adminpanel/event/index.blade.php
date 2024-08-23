@@ -182,6 +182,39 @@
             }
         }
         google.setOnLoadCallback(onLoad);
+
+        function changeStatus(id, status) {
+            let url = "{{ route('event.change-status', ':id') }}";
+            url = url.replace(':id', id);
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    status: status
+                },
+                success: function(response, status, xhr) {
+                    if (xhr.status === 200) {
+                        Swal.fire({
+                            title: response.title,
+                            text: response.message,
+                            icon: 'success'
+                        });
+                        window.showTable();
+                        return;
+                    }
+                    window.showTable();
+                },
+                error: function(response) {
+                    Swal.fire({
+                        title: response.responseJSON.title,
+                        text: response.responseJSON.message,
+                        icon: 'error'
+                    });
+                }
+            });
+        }
     </script>
 @endsection
 @endsection

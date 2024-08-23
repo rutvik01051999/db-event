@@ -19,7 +19,8 @@ class Event extends Model
         'category_id',
         'department_id',
         'event_url',
-        'response'
+        'response',
+        'status'
     ];
     public function questions(): HasMany
     {
