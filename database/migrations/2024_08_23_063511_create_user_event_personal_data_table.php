@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('user_event_personal_data', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name');
-            $table->string('gender');
-            $table->string('age');
-            $table->string('address');
-            $table->string('pincode');
-            $table->string('area');
-            $table->string('state');
-            $table->string('city');
-            $table->string('mobile_number');
+            $table->string('full_name')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('age')->nullable();
+            $table->string('address')->nullable();
+            $table->string('pincode')->nullable();
+            $table->string('area')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('mobile_number')->nullable();
             $table->timestamps();
         });
     }

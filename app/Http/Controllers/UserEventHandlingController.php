@@ -9,6 +9,7 @@ use App\Models\UserEventLocation;
 use App\Services\AttachmentService;
 use Carbon\Carbon;
 use DB;
+use App\Models\UserEventPersonalData;
 
 class UserEventHandlingController extends Controller
 {
@@ -31,6 +32,7 @@ class UserEventHandlingController extends Controller
   {
     DB::beginTransaction();
     try {
+      // dd($request->all());
       $data = Event::with('questions', 'personalinfo')->where('id', $request->event_id)->first();
 
       // foreach ($data->personalinfo as $key => $val) {
@@ -140,8 +142,23 @@ class UserEventHandlingController extends Controller
       // }
 
       //store personal info of user
-      
+      $user_per_data = UserEventPersonalData::where('mobile_number', $request->mobile_number)->first();
+      if ($user_per_data) {
+        $user_per_data->delete();
+      } else {
+      }
+      $user_per_info = UserEventPersonalData::create([
+        'full_name' => $request->full_name,
+        'gender' => $request->gender,
+        'age' => $request->age,
+        'mobile_number' => $request->mobile_number,
+        'pincode' => $request->pincode,
+        'area' => $request->area,
+        'state' => $request->state,
+        'city' => $request->city
+      ]);
 
+      // dd($user_per_info);
 
       //end here
 
@@ -152,7 +169,8 @@ class UserEventHandlingController extends Controller
               'event_id' => $request->event_id,
               'question_index' => $val->index_no,
               'option_val' => $request['que_input_' . $val->index_no],
-              'option_types' => 'input'
+              'option_types' => 'input',
+              'personal_id'=>$user_per_info->id
             ]);
           }
         } else if ($val->option_types == 'checkbox') {
@@ -168,7 +186,9 @@ class UserEventHandlingController extends Controller
             'event_id' => $request->event_id,
             'personal_index' => $val->index_no,
             'option_val' => $string_version,
-            'option_types' => 'checkbox'
+            'option_types' => 'checkbox',
+            'personal_id'=>$user_per_info->id
+
           ]);
         } else if ($val->option_types == 'number') {
           if (isset($request['que_num_' . $val->index_no])) {
@@ -176,7 +196,9 @@ class UserEventHandlingController extends Controller
               'event_id' => $request->event_id,
               'question_index' => $val->index_no,
               'option_val' => $request['que_num_' . $val->index_no],
-              'option_types' => 'number'
+              'option_types' => 'number',
+              'personal_id'=>$user_per_info->id
+
             ]);
           }
         } else if ($val->option_types == 'textarea') {
@@ -185,7 +207,9 @@ class UserEventHandlingController extends Controller
               'event_id' => $request->event_id,
               'question_index' => $val->index_no,
               'option_val' => $request['que_textarea_' . $val->index_no],
-              'option_types' => 'textarea'
+              'option_types' => 'textarea',
+              'personal_id'=>$user_per_info->id
+
             ]);
           }
         } else if ($val->option_types == 'rating') {
@@ -194,7 +218,9 @@ class UserEventHandlingController extends Controller
               'event_id' => $request->event_id,
               'question_index' => $val->index_no,
               'option_val' => $request['que_rating_' . $val->index_no],
-              'option_types' => 'rating'
+              'option_types' => 'rating',
+              'personal_id'=>$user_per_info->id
+
             ]);
           }
         } else if ($val->option_types == 'radio') {
@@ -203,7 +229,9 @@ class UserEventHandlingController extends Controller
               'event_id' => $request->event_id,
               'question_index' => $val->index_no,
               'option_val' => $request['que_radio_' . $val->index_no],
-              'option_types' => 'radio'
+              'option_types' => 'radio',
+              'personal_id'=>$user_per_info->id
+
             ]);
           }
         } else if ($val->option_types == 'dropdown') {
@@ -212,7 +240,9 @@ class UserEventHandlingController extends Controller
               'event_id' => $request->event_id,
               'question_index' => $val->index_no,
               'option_val' => $request['que_dropdown_' . $val->index_no],
-              'option_types' => 'dropdown'
+              'option_types' => 'dropdown',
+              'personal_id'=>$user_per_info->id
+
             ]);
           }
         }
@@ -220,6 +250,7 @@ class UserEventHandlingController extends Controller
       DB::commit();
       return view('user.event.thankyou', compact('data'));
     } catch (\Exception $e) {
+      dd($e);
       DB::rollback();
     }
   }
