@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Departmen;
+use App\Models\Department;
 
-class DepartmenSeeder extends Seeder
+class DepartmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -130,6 +130,10 @@ class DepartmenSeeder extends Seeder
             ],
         ];
 
-        Departmen::insert($departments);
+        foreach ($departments as $key => $department) {
+            Department::updateOrCreate([
+                'name' => $department['name'],
+            ]);
+        }
     }
 }

@@ -70,53 +70,53 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Start event<span class="text-danger">*</span></label>
-                                    <input type="text" name="event_start" class="form-control datepicker"
-                                        placeholder="Start event" id="event_start" readonly>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Start event<span class="text-danger">*</span></label>
+                                        <input type="text" name="event_start" class="form-control datepicker"
+                                            placeholder="Start event" id="event_start" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>End event<span class="text-danger">*</span></label>
+                                        <input type="text" name="event_end" class="form-control datepicker"
+                                            placeholder="End event" id="event_end" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Response<span class="text-danger">*</span></label>
+                                        <input type="text" name="event_response" class="form-control"
+                                            placeholder="Response" id="eventResponse" data-translatable="true"
+                                            id="eventResponse">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>End event<span class="text-danger">*</span></label>
-                                    <input type="text" name="event_end" class="form-control datepicker"
-                                        placeholder="End event" id="event_end" readonly>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Category<span class="text-danger">*</span></label>
+                                        <select class="form-control" name="category_name" id="category_name">
+                                            @foreach ($category as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Response<span class="text-danger">*</span></label>
-                                    <input type="text" name="event_response" class="form-control"
-                                        placeholder="Response" id="eventResponse" data-translatable="true"
-                                        id="eventResponse">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Department <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="department_name" id="department_name">
+                                            @foreach ($department as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Category<span class="text-danger">*</span></label>
-                                    <select class="form-control" name="category_name">
-                                        @foreach ($category as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Department <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="departmen_name">
-                                        @foreach ($departmen as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
 
                                 </div>
                             </div>
@@ -897,111 +897,111 @@
         }
     });
 
-    // Validation
-    var formformValidaor = $("form#event-details").validate({
-        rules: {
-            event_title: {
-                required: true,
-                minlength: 2
+        // Validation
+        var formformValidaor = $("form#event-details").validate({
+            rules: {
+                event_title: {
+                    required: true,
+                    minlength: 2
+                },
+                event_desc: {
+                    required: true
+                },
+                event_start: {
+                    required: true,
+                    date: true
+                },
+                event_end: {
+                    required: true,
+                    date: true,
+                    greaterThan: "#event_start" // Custom rule to ensure end date is after start date
+                },
+                event_response: {
+                    required: true
+                },
+                category_name: {
+                    required: true
+                },
+                departmen_name: {
+                    required: true
+                },
+                logo: {
+                    required: true,
+                    extension: "jpg|jpeg|png|gif" // Adjust based on allowed file types
+                },
+                'p_quation[]': {
+                    required: true
+                },
+                'p_required[]': {
+                    required: true
+                },
+                'p_option[]': {
+                    required: false
+                },
+                'p_option_type[]': {
+                    required: true
+                },
+                'quation[]': {
+                    required: true
+                },
+                'required[]': {
+                    required: true
+                },
+                'option[]': {
+                    required: false
+                },
+                'option_type[]': {
+                    required: true
+                }
             },
-            event_desc: {
-                required: true
+            messages: {
+                event_title: {
+                    required: "Please enter the event title",
+                    minlength: "Event title must be at least 2 characters long"
+                },
+                event_desc: "Please enter the event description",
+                event_start: {
+                    required: "Please select the start date",
+                    date: "Please enter a valid date"
+                },
+                event_end: {
+                    required: "Please select the end date",
+                    date: "Please enter a valid date",
+                    greaterThan: "End date must be after the start date"
+                },
+                event_response: "Please enter the event response",
+                category_name: "Please select a category",
+                departmen_name: "Please select a department",
+                logo: {
+                    required: "Please upload a logo",
+                    extension: "Please upload a valid image file (jpg, jpeg, png, gif)"
+                },
+                'p_quation[]': {
+                    required: "Please enter the quation"
+                },
+                'p_required[]': {
+                    required: "Please enter the required"
+                },
+                'p_option[]': {
+                    required: "Please enter the option"
+                },
+                'p_option_type[]': {
+                    required: "Please enter the option type"
+                },
+                'quation[]': {
+                    required: "Please enter the quation"
+                },
+                'required[]': {
+                    required: "Please enter the required"
+                },
+                'option[]': {
+                    required: "Please enter the option"
+                },
+                'option_type[]': {
+                    required: "Please enter the option type"
+                }
             },
-            event_start: {
-                required: true,
-                date: true
-            },
-            event_end: {
-                required: true,
-                date: true,
-                greaterThan: "#event_start" // Custom rule to ensure end date is after start date
-            },
-            event_response: {
-                required: true
-            },
-            category_name: {
-                required: true
-            },
-            departmen_name: {
-                required: true
-            },
-            logo: {
-                required: true,
-                extension: "jpg|jpeg|png|gif" // Adjust based on allowed file types
-            },
-            'p_quation[]': {
-                required: true
-            },
-            'p_required[]': {
-                required: true
-            },
-            'p_option[]': {
-                required: false
-            },
-            'p_option_type[]': {
-                required: true
-            },
-            'quation[]': {
-                required: true
-            },
-            'required[]': {
-                required: true
-            },
-            'option[]': {
-                required: false
-            },
-            'option_type[]': {
-                required: true
-            }
-        },
-        messages: {
-            event_title: {
-                required: "Please enter the event title",
-                minlength: "Event title must be at least 2 characters long"
-            },
-            event_desc: "Please enter the event description",
-            event_start: {
-                required: "Please select the start date",
-                date: "Please enter a valid date"
-            },
-            event_end: {
-                required: "Please select the end date",
-                date: "Please enter a valid date",
-                greaterThan: "End date must be after the start date"
-            },
-            event_response: "Please enter the event response",
-            category_name: "Please select a category",
-            departmen_name: "Please select a department",
-            logo: {
-                required: "Please upload a logo",
-                extension: "Please upload a valid image file (jpg, jpeg, png, gif)"
-            },
-            'p_quation[]': {
-                required: "Please enter the quation"
-            },
-            'p_required[]': {
-                required: "Please enter the required"
-            },
-            'p_option[]': {
-                required: "Please enter the option"
-            },
-            'p_option_type[]': {
-                required: "Please enter the option type"
-            },
-            'quation[]': {
-                required: "Please enter the quation"
-            },
-            'required[]': {
-                required: "Please enter the required"
-            },
-            'option[]': {
-                required: "Please enter the option"
-            },
-            'option_type[]': {
-                required: "Please enter the option type"
-            }
-        },
-    });
+        });
 
     // DatePicker for end date & start date
     let endDatePickr = $('#event_end').datepicker({
