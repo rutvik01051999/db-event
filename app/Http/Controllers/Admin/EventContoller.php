@@ -432,7 +432,7 @@ class EventContoller extends Controller
             return $q->where('is_correct', true);
         })->exists();
         
-        if (!$isSetCorrectAnswers) {
+        if (!$isSetCorrectAnswers && $event->category && strtolower($event->category->name) == 'quiz') {
             return response()->json([
                 'title' => 'Warning',
                 'message' => 'Please set correct answers first',
