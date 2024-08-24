@@ -28,13 +28,19 @@ class EventDataTable extends BaseDataTable
                 $path = $parseUrl['path'] ?? '';
                 $id = str_replace(['/', '.php'], ['', ''], $path);
 
-                return '<a href="' . route('user.event.form', ['id' => $id]) . '" target="_blank">' . route('user.event.form', ['id' => $id]) . '</a>';
+                return '<a class="text-decoration-none" href="' . route('user.event.form', ['id' => $id]) . '" target="_blank">' . route('user.event.form', ['id' => $id]) . '</a>';
             })
             ->addColumn('action', function ($event) {
                 return view('admin.adminpanel.event.action', compact('event'));
             })
             ->editColumn('status', function ($event) {
                 return '<span class="badge badge-' . ($event->status == 1 ? 'success' : 'danger') . '">' . ($event->status == 1 ? 'Active' : 'Inactive') . '</span>';
+            })
+            ->addColumn('category', function ($event) {
+                return optional($event->category)->name ?? 'N/A';
+            })
+            ->addColumn('department', function ($event) {
+                return optional($event->department)->name ?? 'N/A';
             })
             ->setRowId('id')
             ->rawColumns(['url', 'action', 'status']);
@@ -75,7 +81,9 @@ class EventDataTable extends BaseDataTable
             Column::make('url')->sortable(false)->searchable(false),
             Column::make('start_date'),
             Column::make('close_date'),
-            Column::make('status'),
+            Column::make('status')->addClass('text-center'),
+            Column::make('category')->addClass('text-center'),
+            Column::make('department')->addClass('text-center'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

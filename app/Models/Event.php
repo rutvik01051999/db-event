@@ -31,4 +31,11 @@ class Event extends Model
         return $this->hasMany(PersonalInformation::class);
     }
     
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function department() {
+        return $this->belongsTo(Department::class, 'department_id');
+    }
 }

@@ -183,7 +183,7 @@
         }
         google.setOnLoadCallback(onLoad);
 
-        function changeStatus(id, status) {
+        function changeStatus(id, status, approved = 'no') {
             let url = "{{ route('event.change-status', ':id') }}";
             url = url.replace(':id', id);
 
@@ -192,15 +192,50 @@
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
-                    status: status
+                    status: status,
+                    approved: approved
                 },
                 success: function(response, status, xhr) {
                     if (xhr.status === 200) {
-                        Swal.fire({
-                            title: response.title,
-                            text: response.message,
-                            icon: 'success'
-                        });
+                        if (response.need_correct_answers != undefined && response.need_correct_answers) {
+                            Swal.fire({
+                                title: response.title,
+                                text: response.message,
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes, Set it!'
+                            },).then((result) => {
+                                if (result.isConfirmed) {
+                                    url = "{{ route('event.set-correct-answer', ':id') }}";
+                                    url = url.replace(':id', id);
+
+                                    window.location.href = url;
+                                }
+                            })
+                        } else if (response.is_started != undefined && response.is_started) {
+                            Swal.fire({
+                                title: response.title,
+                                text: response.message,
+                                icon: 'success',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes, Inactivate it!'
+                            },).then((result) => {
+                                if (result.isConfirmed) {
+                                    changeStatus(id, status, 'yes');
+                                }
+                            })
+                        } else {
+                            Swal.fire({
+                                title: response.title,
+                                text: response.message,
+                                icon: 'success'
+                            });
+                        } 
+
                         window.showTable();
                         return;
                     }

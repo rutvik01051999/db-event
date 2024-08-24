@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->after('id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');;
             $table->unsignedBigInteger('department_id')->after('category_id')->nullable();
-            $table->foreign('department_id')->references('id')->on('departmens')->onDelete('cascade');;
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');;
         });
     }
 

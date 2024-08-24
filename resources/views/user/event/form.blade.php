@@ -41,8 +41,12 @@
     </div>
 </div>
 
-<div class="row justify-content-center align-items-center h-100">
+<div class="row">
     <div class="col-12">
+
+        <div class="text-center mt-5" style="margin-bottom: 50px;">
+            <img src="{{ Storage::url($data->image) }}" alt="event logo" width="200px" hight="200px">
+        </div>
 
         <div class="event-name text-center mb-5">
             <h2>{{ $data->name }}</h2>
@@ -91,7 +95,7 @@
                                 <div class="input-group">
                                     <input type="number" class="form-control" id="mobile_otp"
                                         name="{{$perinfo->input_name}}"
-                                        {{ $perinfo->required == 1 ? 'required' : '' }} >
+                                        {{ $perinfo->required == 1 ? 'required' : '' }}>
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-primary get_otp">Get OTP</button>
                                     </div>
@@ -519,7 +523,7 @@
                     let select = '';
 
                     for (let i = 0; i < addresses.length; i++) {
-                        select += '<option value="' + addresses[i].Name + '">' + addresses[i].Name +
+                        select += '<option value="' + addresses[i].Name + '" data-state="' + addresses[i].State + '">' + addresses[i].Name +
                             '</option>';
                     }
 
@@ -536,6 +540,8 @@
     // On change addresses .addresses set value to area field
     $(document).on('change', '.addresses', function() {
         $('.area').val($(this).val());
+        let selectedEle = $(this).find('option:selected');
+        $('.state').val(selectedEle.data('state'));
     });
 
     $('.get_otp').click(function() {

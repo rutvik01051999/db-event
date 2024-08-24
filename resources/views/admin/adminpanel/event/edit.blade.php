@@ -93,7 +93,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Department</label>
-                                        <select class="form-control" name="departmen_name" id="departmen_name">
+                                        <select class="form-control" name="department_name" id="department_name">
                                             @foreach ($departments as $department)
                                                 <option value="{{ $department->id }}"
                                                     {{ $department->id == $event->department_id ? 'selected' : '' }}>
@@ -195,7 +195,7 @@
                 category_name: {
                     required: true
                 },
-                departmen_name: {
+                department_name: {
                     required: true
                 },
                 logo: {
@@ -218,7 +218,7 @@
                 },
                 event_response: "Please enter the event response",
                 category_name: "Please select a category",
-                departmen_name: "Please select a department",
+                department_name: "Please select a department",
                 logo: {
                     extension: "Please upload a valid image file (jpg, jpeg, png, gif)"
                 },
