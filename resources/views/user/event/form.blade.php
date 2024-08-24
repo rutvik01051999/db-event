@@ -68,8 +68,8 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
                                 <label for="name">{{ $perinfo->name }}</label>
-                                <input type="text" class="form-control {{ strtolower($perinfo->name) }}"
-                                    id="name" name="{{$perinfo->input_name}}"
+                                <input type="text" name="{{$perinfo->input_name}}" class="form-control {{ strtolower($perinfo->name) }}"
+                                    id="{{ $perinfo->input_name }}"
                                     {{ $perinfo->required == 1 ? 'required' : '' }}
                                     @if ('area'==strtolower($perinfo->name)) readonly @endif>
                             </div>
@@ -107,7 +107,7 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
                                 <label for="file">{{ $perinfo->name }}</label>
-                                <input type="file" class="form-control" id="file"
+                                <input type="file" class="form-control" id="{{ $perinfo->input_name }}"
                                     name="{{$perinfo->input_name}}[]"
                                     {{ $perinfo->required == 1 ? 'required' : '' }}
                                     @if ($perinfo->option_types == 'multiple_file') multiple @endif>
@@ -117,7 +117,7 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
                                 <label for="file">{{ $perinfo->name }}</label>
-                                <textarea id="w3review" class="form-control" name="{{$perinfo->input_name}}" rows="1"
+                                <textarea id="{{ $perinfo->input_name }}" class="form-control" name="{{$perinfo->input_name}}" rows="1"
                                     {{ $perinfo->required == 1 ? 'required' : '' }}></textarea>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
                                 <label for="number">{{ $perinfo->name }}</label>
-                                <input type="number" class="form-control" id="number"
+                                <input type="number" class="form-control" id="{{ $perinfo->input_name }}"
                                     name="{{$perinfo->input_name}}"
                                     {{ $perinfo->required == 1 ? 'required' : '' }}>
                             </div>
@@ -134,7 +134,7 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
                                 <label for="mobile">{{ $perinfo->name }}</label>
-                                <input type="number" class="form-control" id="mobile"
+                                <input type="number" class="form-control" id="{{ $perinfo->input_name }}"
                                     name="{{$perinfo->input_name}}"
                                     {{ $perinfo->required == 1 ? 'required' : '' }}>
                             </div>
@@ -142,8 +142,8 @@
                         @elseif($perinfo->option_types == 'dropdown')
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
-                                <label for="inputState">{{ $perinfo->name }}</label>
-                                <select id="inputState" name="{{$perinfo->input_name}}"
+                                <label for="{{ $perinfo->input_name }}">{{ $perinfo->name }}</label>
+                                <select id="{{ $perinfo->input_name }}" name="{{$perinfo->input_name}}"
                                     class="form-control" {{ $perinfo->required == 1 ? 'required' : '' }}>
                                     @foreach ($perinfo->options as $option)
                                     <option value="" selected>select option</option>
@@ -195,7 +195,7 @@
                                 <span class="pincode-loader" style="display:none;"><i
                                         class="fas fa-spinner fa-pulse"></i></span>
                                 <input type="text" class="form-control pincode"
-                                    id="pincode-{{ $perinfo->index_no }}"
+                                    id="{{ $perinfo->input_name }}"
                                     name="{{$perinfo->input_name}}"
                                     {{ $perinfo->required == 1 ? 'required' : '' }}>
                             </div>
@@ -313,6 +313,10 @@
 
 @section('content-js')
 <script>
+    $('form').submit(function() {
+        alert('j')
+    });
+
     const inputs = document.querySelectorAll(".otp-field > input");
     const button = document.querySelector(".btn");
 
@@ -445,7 +449,16 @@
                     $('#myModal').modal('hide');
                     $("#otp_mobile").val(mobile_num);
                     console.log(result)
-                    $('#name').val(result.userdata.full_name)
+                    if (result.userdata) {
+                        $('#full_name').val(result.userdata.full_name)
+                        $('#age').val(result.userdata.age)
+                        $('#gender').val(result.userdata.gender)
+                        $('#pincode').val(result.userdata.pincode)
+                        $('#city').val(result.userdata.city)
+                        $('#state').val(result.userdata.state)
+                        $('#area').val(result.userdata.area)
+                    }
+
                     Swal.fire({
                         title: "Good job!",
                         text: "You clicked the button!",
