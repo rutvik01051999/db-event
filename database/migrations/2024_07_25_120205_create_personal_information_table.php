@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('personal_information', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('option_types_id')->nullable();
             $table->unsignedBigInteger('event_id');
-            $table->foreign('option_types_id')->references('id')->on('option_types')->onDelete('cascade');;
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');;
             $table->string('name');
             $table->string('description')->nullable();

@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\EventDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\OptionTypes;
 use App\Models\Category;
-use App\Models\Departmen;
 use App\Models\Event;
 use App\Http\Requests\EventStoreRequest;
 use App\Http\Requests\EventUpdateRequest;
 use App\Http\Requests\QuetionInfoUpdateRequest;
+use App\Models\Department;
 use DB;
 use App\Models\Question;
 use App\Models\PersonalInformation;
 use App\Models\Option;
+use Carbon\Carbon;
 use DataTables;
 use Illuminate\Support\Facades\Storage;
 
@@ -32,10 +32,9 @@ class EventContoller extends Controller
 
     public function create()
     {
-        $option_type = OptionTypes::all();
         $category = Category::all();
-        $departmen = Departmen::all();
-        return view('admin.adminpanel.event.create', compact('option_type', 'category', 'departmen'));
+        $department = Department::all();
+        return view('admin.adminpanel.event.create', compact('category', 'department'));
     }
 
     public function store(EventStoreRequest $request)
@@ -56,9 +55,10 @@ class EventContoller extends Controller
                 'close_date' => $request->event_end,
                 'image' => $imagePath,
                 'category_id' => $request->category_name,
-                'department_id' => $request->departmen_name,
+                'department_id' => $request->department_name,
                 'event_url' => $url,
                 'response' => $request->event_response ?? '',
+                'status' => false
             ]);
 
             //for Personal information
@@ -91,7 +91,7 @@ class EventContoller extends Controller
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
                         'index_no' => $key,
-                        'input_name'=>$input_type
+                        'input_name' => $input_type
                     ]);
 
                     Option::create([
@@ -108,7 +108,7 @@ class EventContoller extends Controller
                         'option_types' => $type,
                         'option_name' => $request->p_option[$key],
                         'index_no' => $key,
-                        'input_name'=>$input_type
+                        'input_name' => $input_type
 
                     ]);
 
@@ -179,6 +179,11 @@ class EventContoller extends Controller
             }
 
             DB::commit();
+
+            if ($event->category && strtolower($event->category->name) == 'quiz') {
+                return redirect()->route('event.set-correct-answer', $event->id);;
+            }
+
             return redirect()->route('event.list')->with('success', config('const.success_message'));
         } catch (\Exception $e) {
             DB::rollback();
@@ -191,7 +196,7 @@ class EventContoller extends Controller
         try {
             $event = Event::findOrFail($id);
             $categories = Category::all();
-            $departments = Departmen::all();
+            $departments = Department::all();
             return view('admin.adminpanel.event.edit', compact('event', 'categories', 'departments'));
         } catch (\Exception $e) {
             return redirect()->route('event.list')->withErrors($e->getMessage());
@@ -213,7 +218,7 @@ class EventContoller extends Controller
 
         $event->update([
             'category_id' => $request->category_name,
-            'department_id' => $request->departmen_name,
+            'department_id' => $request->department_name,
             'name' => $request->event_title,
             'description' => $request->event_desc ?? '',
             'start_date' => $request->event_start,
@@ -282,7 +287,7 @@ class EventContoller extends Controller
                         'required' => $request->p_required[$key],
                         'option_types' => $type,
                         'index_no' => $key,
-                        'input_name'=>$input_type
+                        'input_name' => $input_type
                     ]);
 
                     Option::create([
@@ -298,7 +303,7 @@ class EventContoller extends Controller
                         'option_types' => $type,
                         'option_name' => $request->p_option[$key],
                         'index_no' => $key,
-                        'input_name'=>$input_type
+                        'input_name' => $input_type
                     ]);
 
                     if (count($options) > 1) {
@@ -410,6 +415,8 @@ class EventContoller extends Controller
                 $option->update(['is_correct' => false]);
             }
             Option::whereIn('id', $correctAnswerIds)->update(['is_correct' => true]);
+
+            Event::where('id', $id)->update(['status' => true]);
         }
 
         return redirect()->route('event.list')->with('success', 'Correct answer updated successfully');
@@ -419,13 +426,36 @@ class EventContoller extends Controller
     {
         $status = $request->status;
         $event = Event::find($id);
+        $approved = $request->approved;
+
+        $isSetCorrectAnswers = Event::where('id', $id)->whereHas('questions.options', function ($q) {
+            return $q->where('is_correct', true);
+        })->exists();
+        
+        if (!$isSetCorrectAnswers) {
+            return response()->json([
+                'title' => 'Warning',
+                'message' => 'Please set correct answers first',
+                'need_correct_answers' => true
+            ], 200);
+        }
+
+        $today = Carbon::now();
+        // If the event is already started then it cannot be changed
+        if ($event->start_date < $today && $event->status == 1 && $approved == 'no') {
+            return response()->json([
+                'title' => 'Are you sure?',
+                'message' => 'Event already started cannot be changed',
+                'is_started' => true
+            ], 200);
+        }
 
         if (!$event) {
             return response()->json(['message' => 'Event not found'], 404);
         }
 
         $event->update([
-            'status' => $status,
+            'status' => !$event->status
         ]);
 
         return response()->json(['message' => 'Event status updated successfully'], 200);

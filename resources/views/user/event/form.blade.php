@@ -41,8 +41,12 @@
         </div>
     </div>
 
-    <div class="row justify-content-center align-items-center h-100">
+    <div class="row">
         <div class="col-12">
+
+            <div class="text-center mt-5" style="margin-bottom: 50px;">
+                <img src="{{ Storage::url($data->image) }}" alt="event logo" width="200px" hight="200px">
+            </div>
 
             <div class="event-name text-center mb-5">
                 <h2>{{ $data->name }}</h2>
@@ -65,8 +69,7 @@
                                             <label for="name">{{ $perinfo->name }}</label>
                                             <input type="text" class="form-control {{ strtolower($perinfo->name) }}"
                                                 id="name" name="{{$perinfo->input_name}}"
-                                                {{ $perinfo->required == 1 ? 'required' : '' }}
-                                                @if ('area' == strtolower($perinfo->name)) readonly @endif>
+                                                {{ $perinfo->required == 1 ? 'required' : '' }}>
                                         </div>
                                     </div>
                                 @elseif($perinfo->option_types == 'rating')
@@ -508,7 +511,7 @@
                         let select = '';
 
                         for (let i = 0; i < addresses.length; i++) {
-                            select += '<option value="' + addresses[i].Name + '">' + addresses[i].Name +
+                            select += '<option value="' + addresses[i].Name + '" data-state="' + addresses[i].State + '">' + addresses[i].Name +
                                 '</option>';
                         }
 
@@ -525,6 +528,10 @@
         // On change addresses .addresses set value to area field
         $(document).on('change', '.addresses', function() {
             $('.area').val($(this).val());
+
+            let selectedEle = $(this).find('option:selected');
+
+            $('.state').val(selectedEle.data('state'));
         });
 
         $('.get_otp').click(function() {

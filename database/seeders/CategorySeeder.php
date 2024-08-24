@@ -13,12 +13,25 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create([
-            'name' => 'cat1',
-        ]);
+        $categories = [
+            [
+                'name' => 'Survey'
+            ],
+            [
+                'name' => 'Quiz'
+            ],
+            [
+                'name' => 'Property Expo'
+            ],
+            [
+                'name' => 'Photo - Video Upload'
+            ]
+        ];
 
-        Category::create([
-            'name' => 'cat2',
-        ]);
+        foreach ($categories as $category) {
+            Category::updateOrCreate([
+                'name' => $category['name']
+            ]);
+        }
     }
 }

@@ -98,7 +98,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Category<span class="text-danger">*</span></label>
-                                        <select class="form-control" name="category_name">
+                                        <select class="form-control" name="category_name" id="category_name">
                                             @foreach ($category as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
@@ -108,8 +108,8 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Department <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="departmen_name">
-                                            @foreach ($departmen as $item)
+                                        <select class="form-control" name="department_name" id="department_name">
+                                            @foreach ($department as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
@@ -878,7 +878,7 @@
                 category_name: {
                     required: true
                 },
-                departmen_name: {
+                department_name: {
                     required: true
                 },
                 logo: {
@@ -927,7 +927,7 @@
                 },
                 event_response: "Please enter the event response",
                 category_name: "Please select a category",
-                departmen_name: "Please select a department",
+                department_name: "Please select a department",
                 logo: {
                     required: "Please upload a logo",
                     extension: "Please upload a valid image file (jpg, jpeg, png, gif)"
