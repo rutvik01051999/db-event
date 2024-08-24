@@ -151,7 +151,7 @@ class UserEventHandlingController extends Controller
         'full_name' => $request->full_name,
         'gender' => $request->gender,
         'age' => $request->age,
-        'mobile_number' => $request->mobile_number,
+        'mobile_number' => $request->otp_mobile,
         'pincode' => $request->pincode,
         'area' => $request->area,
         'state' => $request->state,
