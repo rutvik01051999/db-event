@@ -68,21 +68,24 @@ class LoginController extends Controller
                 $userData = Employee::getUserDetails($username);
                 $name = $userData['DISPLAYNAME'];
                 $email = $userData['EMAIL'];
-                $contact_no = $userData['MOBILE'];
-                $emp_code = $userData['EMPLOYEECODE'];
                 $designation = $userData['DESIGNATION'];
+                $employeeId  = $username = $userData['EMPLOYEEID'];
+                $phoneNumber = $userData['MOBILE'];
+                list($firstName, $lastName) = explode(' ', $name);
 
-                $user = User::updateOrCreate([
-                    'username' => $username,
-                    'contact_no' => $contact_no,
-                ],[
-                    'email' => $email,
+                User::updateOrCreate([
+                    'username' => $username
+                ], [
                     'name' => $name,
-                    'emp_code' => $emp_code,
+                    'email' => $email,
+                    'password' => Hash::make($password),
+                    'employee_id' => $employeeId,
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
+                    'phone_number' => $phoneNumber,
                     'designation' => $designation,
-                    'password' => $password,
                 ]);
- 
+
                 if ($this->attemptLogin($request)) {
                     if ($request->hasSession()) {
                         $request->session()->put('auth.password_confirmed_at', time());

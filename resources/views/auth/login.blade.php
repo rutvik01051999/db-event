@@ -7,7 +7,7 @@
                 
                 <div class="login-box">
                     <div class="login-logo">
-                        <a href="{{ URL::to('/') }}"><b>Matrix</b> DB Event</a>
+                        <a href="{{ URL::to('/') }}" class="text-decoration-none"><b>Matrix</b> DB Event</a>
                     </div>
                 </div>
             </div>

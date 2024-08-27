@@ -86,7 +86,7 @@ class Employee extends Authenticatable
             'picture_new',
             'KEYBOARD',
             'default_theme',
-            'mycloud_last_login'
+            'mycloud_last_login',
         ];
 
         $query = self::select($selectable);

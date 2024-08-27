@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\EventContoller;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserEventHandlingController;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,4 +52,12 @@ Route::controller(UserEventHandlingController::class)->group(function () {
     Route::post('user/event/store', 'eventDataStore')->name('user.event.submit');
     Route::post('user/event/save-location', 'saveLocation')->name('user.event.save-location');
 });
+
+Route::prefix('permission')->middleware(['auth'])->group(function () {
+    Route::get('/assign', [PermissionController::class, 'assign'])->name('permission.assign');
+    Route::post('/store', [PermissionController::class, 'store'])->name('permission.store');
+    // permissions.searchByEmployeeId
+    Route::post('/search-by-employee-id', [PermissionController::class, 'searchByEmployeeId'])->name('permission.search-by-employee-id');
+});
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
