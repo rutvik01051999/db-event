@@ -55,7 +55,7 @@
             @csrf
             <input type="hidden" value="{{ $data->id }}" name="event_id">
             <input type="hidden" value="" id="otp_mobile" name="otp_mobile">
-            <input type="hidden" value="" name="otp_verify">
+            <input type="hidden" value="" name="otp_verify" id="otp_verify">
 
             <div class="card shadow-lg">
                 <div class="card-header text-center">
@@ -322,7 +322,20 @@
 @section('content-js')
 <script>
     $('form').submit(function() {
-        alert('j')
+        let check_otp = $('#otp_verify').val()
+        console.log(check_otp)
+        if (check_otp == 1) {
+            return true
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please verify OTP",
+                footer: '<a href="#">Why do I have this issue?</a>'
+            });
+            console.log('enter 25')
+            return false
+        }
     });
 
     const inputs = document.querySelectorAll(".otp-field > input");
@@ -456,6 +469,7 @@
                     $(".get_otp").prop('disabled', true);
                     $('#myModal').modal('hide');
                     $("#otp_mobile").val(mobile_num);
+                    $('#otp_verify').val(1)
                     console.log(result)
                     if (result.userdata) {
                         $('#full_name').val(result.userdata.full_name)
