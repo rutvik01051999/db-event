@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MobileVerification;
+use App\Models\UserEventPersonalData;
 
 class MobileOtpController extends Controller
 {
     public function getNumber(Request $request){
         $numbers = $request->mobile_num;
-        $otp = mt_rand(000001, 999999);
+        // $otp = mt_rand(000001, 999999);
+        $otp = 123456;
         $message = $otp." Thank you to connect Bhaskar Group. -Bhaskar Group";
 
         if(strlen($numbers)>10 || strlen($numbers)<10){
@@ -45,7 +47,8 @@ class MobileOtpController extends Controller
     }
 
     public function otpCheck(Request $request){
-       $latestOtp = MobileVerification::where('mobile','91'.$request->mobile_num)->latest()->first();     
+       $latestOtp = MobileVerification::where('mobile','91'.$request->mobile_num)->latest()->first();   
+       $userdata = UserEventPersonalData::where('mobile_number',$request->mobile_num)->first();  
        if(!$latestOtp){
         return response()->json([
           'number' => 'invalid',
@@ -54,6 +57,7 @@ class MobileOtpController extends Controller
        if($latestOtp->otp == $request->otp){
         return response()->json([
           'number' => 'valid',
+          'userdata' => $userdata
          ]);
        }
        return response()->json([
