@@ -39,6 +39,7 @@ class EventContoller extends Controller
 
     public function store(EventStoreRequest $request)
     {
+        // dd($request->all());
         DB::beginTransaction();
         try {
             $url = env('APP_URL') . '/' . str()->random(25);
@@ -81,6 +82,8 @@ class EventContoller extends Controller
                     $input_type = 'city';
                 } else if ($key == 8) {
                     $input_type = 'mobile_number';
+                } else if ($key == 9) {
+                    $input_type = 'dob';
                 } else {
                 }
                 if ($type == 'input' || $type == 'textarea' || $type == 'pincode') {
@@ -277,7 +280,10 @@ class EventContoller extends Controller
                     $input_type = 'city';
                 } else if ($key == 8) {
                     $input_type = 'mobile_number';
-                } else {
+                } else if ($key == 9) {
+                    $input_type = 'dob';
+                }
+                 else {
                 }
                 if ($type == 'input' || $type == 'textarea' || $type == 'pincode') {
                     $question = PersonalInformation::create([

@@ -88,6 +88,7 @@
                                 </div>
                             </div>
                         </div>
+
                         @elseif($perinfo->option_types == 'mobile_otp')
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
@@ -208,6 +209,15 @@
                                 </select>
                             </div>
                         </div>
+                        @elseif($perinfo->option_types == 'date')
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="inputState">{{ $perinfo->name }}</label>
+                                <input type="text" name="event_end" class="form-control datepicker"
+                                    name="que_date_{{ $perinfo->index_no }}" placeholder="Enter ..."
+                                    id="datepicker2" readonly>
+                            </div>
+                        </div>
                         @endif
                         @endforeach
                     </div>
@@ -282,7 +292,6 @@
                                 for="checkbox-{{ $option->id }}">{{ $option->name }}</label>
                         </div>
                         @endforeach
-
                     </div>
                     @elseif($perinfo->option_types == 'radio')
                     <div class="form-group mb-3">
@@ -298,7 +307,6 @@
                             </label>
                         </div>
                         @endforeach
-
                     </div>
                     @endif
                     @endforeach
