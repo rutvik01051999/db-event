@@ -29,7 +29,7 @@
                 @endcan
 
                 @if ($user->hasRole('super-admin'))
-                    <li class="nav-item {{ request()->routeIs('permission.*') ? 'menu-is-opening menu-open' : '' }}">
+                    <li class="nav-item d-none {{ request()->routeIs('permission.*') ? 'menu-is-opening menu-open' : '' }}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-shield-alt"></i>
                             <p>
