@@ -55,7 +55,7 @@
             @csrf
             <input type="hidden" value="{{ $data->id }}" name="event_id">
             <input type="hidden" value="" id="otp_mobile" name="otp_mobile">
-            <input type="hidden" value="" name="otp_verify">
+            <input type="hidden" value="" name="otp_verify" id="otp_verify">
 
             <div class="card shadow-lg">
                 <div class="card-header text-center">
@@ -321,8 +321,10 @@
 
 @section('content-js')
 <script>
+
     $('form').submit(function() {
-        alert('j')
+        let check_otp = $('#otp_verify').val()
+        console.log(check_otp)
     });
 
     const inputs = document.querySelectorAll(".otp-field > input");
@@ -458,6 +460,7 @@
                     $("#otp_mobile").val(mobile_num);
                     console.log(result)
                     if (result.userdata) {
+                        $('#otp_verify').val(1)
                         $('#full_name').val(result.userdata.full_name)
                         $('#age').val(result.userdata.age)
                         $('#gender').val(result.userdata.gender)
