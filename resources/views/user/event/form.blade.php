@@ -321,10 +321,21 @@
 
 @section('content-js')
 <script>
-
     $('form').submit(function() {
         let check_otp = $('#otp_verify').val()
         console.log(check_otp)
+        if (check_otp == 1) {
+            return true
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please verify OTP",
+                footer: '<a href="#">Why do I have this issue?</a>'
+            });
+            console.log('enter 25')
+            return false
+        }
     });
 
     const inputs = document.querySelectorAll(".otp-field > input");
@@ -458,9 +469,9 @@
                     $(".get_otp").prop('disabled', true);
                     $('#myModal').modal('hide');
                     $("#otp_mobile").val(mobile_num);
+                    $('#otp_verify').val(1)
                     console.log(result)
                     if (result.userdata) {
-                        $('#otp_verify').val(1)
                         $('#full_name').val(result.userdata.full_name)
                         $('#age').val(result.userdata.age)
                         $('#gender').val(result.userdata.gender)
