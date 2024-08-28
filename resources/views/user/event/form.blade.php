@@ -275,7 +275,7 @@
                     @elseif($perinfo->option_types == 'date')
                     <div class="form-group mb-3">
                         <label for="inputState">{{ $perinfo->name }}</label>
-                        <input type="text" name="event_end" class="form-control datepicker"
+                        <input type="text" class="form-control datepicker"
                             name="que_date_{{ $perinfo->index_no }}" placeholder="Enter ..."
                             id="datepicker2" readonly>
                     </div>
@@ -408,7 +408,7 @@
     });
 
     $(".datepicker").datepicker({
-        minDate: 0,
+        // minDate: 0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(date) {
             console.log(date)
