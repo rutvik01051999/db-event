@@ -192,11 +192,13 @@ class UserEventHandlingController extends Controller
         } else if ($val->option_types == 'checkbox') {
           $checkbox = array();
           foreach ($val->options as $key2 => $val2) {
-            if (isset($request['per_checkbox_' . $val2->index_no . '_' . $val->index_no])) {
-              $checkbox[] = $request['per_checkbox_' . $val2->index_no . '_' . $val->index_no];
+            // dd($request->all());
+            if (isset($request['que_checkbox_' . $val2->index_no . '_' . $val->index_no])) {
+              $checkbox[] = $request['que_checkbox_' . $val2->index_no . '_' . $val->index_no];
             }
           }
           $string_version = implode(',', $checkbox);
+          // dd($request->all(),$request['que_checkbox_2_2'],$val->index_no,$val2->index_no);
           //$destination_array = explode(',', $string_version);
           UserEventData::create([
             'event_id' => $request->event_id,
@@ -235,6 +237,17 @@ class UserEventHandlingController extends Controller
               'question_index' => $val->index_no,
               'option_val' => $request['que_rating_' . $val->index_no],
               'option_types' => 'rating',
+              'personal_id'=>$user_per_info->id
+
+            ]);
+          }
+        }else if ($val->option_types == 'date') {
+          if (isset($request['que_date_' . $val->index_no])) {
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'question_index' => $val->index_no,
+              'option_val' => $request['que_date_' . $val->index_no],
+              'option_types' => 'date',
               'personal_id'=>$user_per_info->id
 
             ]);

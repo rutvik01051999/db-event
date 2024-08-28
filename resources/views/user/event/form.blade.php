@@ -268,14 +268,14 @@
                             {{ $perinfo->required == 1 ? 'required' : '' }}
                             name="que_dropdown_{{ $perinfo->index_no }}">
                             @foreach ($perinfo->options as $option)
-                            <option selected>{{ $option->name }}</option>
+                            <option selected value="{{$option->index_no}}">{{ $option->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     @elseif($perinfo->option_types == 'date')
                     <div class="form-group mb-3">
                         <label for="inputState">{{ $perinfo->name }}</label>
-                        <input type="text" name="event_end" class="form-control datepicker"
+                        <input type="text" class="form-control datepicker"
                             name="que_date_{{ $perinfo->index_no }}" placeholder="Enter ..."
                             id="datepicker2" readonly>
                     </div>
@@ -287,7 +287,7 @@
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input"
                                 id="checkbox-{{ $option->id }}"
-                                name="que_checkbox_{{ $option->id }}">
+                                name="que_checkbox_{{ $option->index_no }}_{{ $perinfo->index_no }}" value="{{ $option->index_no }}">
                             <label class="custom-control-label"
                                 for="checkbox-{{ $option->id }}">{{ $option->name }}</label>
                         </div>
@@ -408,7 +408,7 @@
     });
 
     $(".datepicker").datepicker({
-        minDate: 0,
+        // minDate: 0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(date) {
             console.log(date)
