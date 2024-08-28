@@ -239,6 +239,17 @@ class UserEventHandlingController extends Controller
 
             ]);
           }
+        }else if ($val->option_types == 'date') {
+          if (isset($request['que_date_' . $val->index_no])) {
+            UserEventData::create([
+              'event_id' => $request->event_id,
+              'question_index' => $val->index_no,
+              'option_val' => $request['que_date_' . $val->index_no],
+              'option_types' => 'date',
+              'personal_id'=>$user_per_info->id
+
+            ]);
+          }
         } else if ($val->option_types == 'radio') {
           if (isset($request['que_radio_' . $val->index_no])) {
             UserEventData::create([
