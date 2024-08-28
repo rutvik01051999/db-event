@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\UserEventReportDataTable;
 use App\Exports\UserEventExport;
+use App\Models\Event;
 use App\Models\Question;
 use App\Models\UserEventPersonalData;
 use Illuminate\Http\Request;
@@ -23,6 +24,9 @@ class ReportController extends Controller
         $start = $request->get('start') ?? 0;
         $length = $request->get('length') ?? 10;
 
+        $event = Event::find($eventId);
+        $eventQuestions = $event->questions;
+
         $query = UserEventPersonalData::withWhereHas('events', function ($query) use ($eventId) {
             $query->where('event_id', $eventId);
         });
@@ -31,34 +35,72 @@ class ReportController extends Controller
 
         $users = $query->offset($start)->limit($length)->get();
 
-        $columns = [];
         $data = [];
+        
+        $columns = [
+            'title' => 'Full Name', 'data' => 'full_name'
+        ];
+
+        foreach ($eventQuestions as $key => $question) {
+            $columns[] = [
+                'title' => $question->name,
+                'data' => "question_$question->index_no",
+            ];
+        }
 
         foreach ($users as $k => $user) {
-            if ($k === 0) {
-                $columns[] = ['title' => 'Full Name', 'data' => 'full_name'];
-                $columns[] = ['title' => 'Event ID', 'data' => 'event_id'];
-            }
-
             $data[$k] = ['full_name' => $user->full_name];
-
             $eventResponses = $user->events;
+            foreach ($eventResponses as $eventResponse) {
 
-            foreach ($eventResponses as $kk => $eventResponse) {
-                if ($eventResponse->option_types == 'input') {
-                    if ($kk === 0) {
-                        $data[$k]['event_id'] = $eventResponse->event_id;
-                    }
-
-                    if ($k == 0) {
-                        $columns[] = [
-                            'title' => $eventResponse->option_val,
-                            'data' => "question_$eventResponse->question_index",
-                        ];
-                    }
-
-                    $data[$k]["question_$eventResponse->question_index"] = $eventResponse->option_val;
+                $answer = '';
+                switch ($eventResponse->option_types) {
+                    case 'input':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    case 'textarea':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    case 'checkbox':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    case 'dropdown':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    case 'radio':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    case 'file':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    case 'date':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    case 'rating':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    case 'number':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    case 'multiple_file':
+                        $answer =  $eventResponse->option_val;
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
                 }
+
+                $data[$k]["question_$eventResponse->question_index"] = $eventResponse->option_val;
             }
         }
 
@@ -95,17 +137,15 @@ class ReportController extends Controller
                 $eventResponses = $user->events;
 
                 foreach ($eventResponses as $kk => $eventResponse) {
-                    if ($eventResponse->option_types == 'input') {
-                        if ($kk === 0) {
-                            $data[$k]['event_id'] = $eventResponse->event_id;
-                        }
-
-                        if ($k == 0) {
-                            $columns[] = $eventResponse->option_val;
-                        }
-
-                        $data[$k][] = $eventResponse->option_val;
+                    if ($kk === 0) {
+                        $data[$k]['event_id'] = $eventResponse->event_id;
                     }
+
+                    if ($k == 0) {
+                        $columns[] = $eventResponse->question->name;
+                    }
+
+                    $data[$k][] = $eventResponse->question->name;
                 }
             }
 

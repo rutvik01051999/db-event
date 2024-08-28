@@ -28,4 +28,9 @@ class UserEventData extends Model
     {
         return $this->morphMany(Attachment::class, 'attachmentable');
     }
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class, 'event_id', 'event_id')->where('index_no', $this->question_index);
+    }
 }
