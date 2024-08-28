@@ -778,6 +778,7 @@
 
                 // Add newly added input fields to translatable fields
                 onLoad();
+                languageChangeHandler();
                 x++; //Increase field counter
             } else {
                 alert('A maximum of ' + maxField + ' fields are allowed to be added. ');
@@ -812,6 +813,7 @@
 
                 // Add newly added input fields to translatable fields
                 onLoad();
+                languageChangeHandler();
 
                 y++; //Increase field counter
             } else {
