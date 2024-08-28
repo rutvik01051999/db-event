@@ -41,6 +41,9 @@
     <script type="text/javascript" src="{{ asset('dist/js/main_transliteration.js') }}"></script>
     <script type="text/javascript" src="{{ asset('dist/js/transliteration.I.js') }}"></script>
 
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -49,8 +52,8 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60"
-                width="60">
+            <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
+                height="60" width="60">
         </div>
 
         <!-- Navbar -->
@@ -71,7 +74,8 @@
         <!-- /.control-sidebar -->
 
         <footer class="main-footer">
-            <strong>Copyright &copy; {{ date('Y') }} <a href="javascript:void(0)">{{ config('app.name')}}</a>.</strong> All rights
+            <strong>Copyright &copy; {{ date('Y') }} <a
+                    href="javascript:void(0)">{{ config('app.name') }}</a>.</strong> All rights
             reserved.
         </footer>
     </div>
@@ -79,13 +83,12 @@
 
     <!-- jQuery -->
     {{-- <script src="plugins/jquery/jquery.min.js"></script> --}}
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-
-      <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-  <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
 
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
@@ -95,6 +98,8 @@
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- ChartJS -->
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->

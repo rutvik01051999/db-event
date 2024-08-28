@@ -20,4 +20,9 @@ class UserEventPersonalData extends Model
         'city',
         'mobile_number'
     ];
+
+    public function events()
+    {
+        return $this->hasMany(UserEventData::class, 'personal_id', 'id');
+    }
 }
