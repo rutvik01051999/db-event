@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\EventDataTable;
+use App\DataTables\EventUserListDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -465,5 +466,9 @@ class EventContoller extends Controller
         ]);
 
         return response()->json(['message' => 'Event status updated successfully'], 200);
+    }
+
+    public function userList(EventUserListDataTable $dataTable){
+        return $dataTable->render('admin.adminpanel.event.index');
     }
 }

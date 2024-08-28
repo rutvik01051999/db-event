@@ -47,6 +47,8 @@ Route::middleware(['web'])->group(function () {
         Route::get('event/set-correct-answer/{id}', 'setCorrectAnswer')->name('event.set-correct-answer');
         Route::post('event/set-correct-answer/{id}', 'saveCorrectAnswer')->name('event.save-correct-answer');
         Route::post('event/change-status/{id}', 'changeStatus')->name('event.change-status');
+        Route::get('user/list', 'userList')->name('user.list');
+
     });
 });
 Route::controller(UserEventHandlingController::class)->group(function () {
