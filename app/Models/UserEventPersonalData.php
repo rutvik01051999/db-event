@@ -18,6 +18,7 @@ class UserEventPersonalData extends Model
         'area',
         'state',
         'city',
-        'mobile_number'
+        'mobile_number',
+        'dob'
     ];
 }
