@@ -866,6 +866,8 @@
         console.log(translatableFieldIds);
 
         control.makeTransliteratable(translatableFieldIds);
+
+        control.enableTransliteration();
     }
 
     function languageChangeHandler() {
