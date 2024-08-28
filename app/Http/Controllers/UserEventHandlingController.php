@@ -143,11 +143,7 @@ class UserEventHandlingController extends Controller
 
       //store personal info of user
       $user_per_data = UserEventPersonalData::where('mobile_number', $request->otp_mobile);
-      if ($user_per_data->count()) {
-        $user_per_data->delete();
-      } else {
-      }
-      $user_per_info = UserEventPersonalData::create([
+      $user_data = [
         'full_name' => $request->full_name,
         'gender' => $request->gender,
         'age' => $request->age,
@@ -158,7 +154,27 @@ class UserEventHandlingController extends Controller
         'city' => $request->city,
         'dob'=>$request->dob,
         'address'=>$request->address
-      ]);
+      ];
+
+      if ($user_per_data->count()) {
+        // $user_per_data->delete();
+        $user_per_info = $user_per_data->first();
+        UserEventPersonalData::where('mobile_number',$request->otp_mobile)->update($user_data);
+      } else {
+        $user_per_info = UserEventPersonalData::create($user_data);
+      }
+      // $user_per_info = UserEventPersonalData::create([
+      //   'full_name' => $request->full_name,
+      //   'gender' => $request->gender,
+      //   'age' => $request->age,
+      //   'mobile_number' => $request->otp_mobile,
+      //   'pincode' => $request->pincode,
+      //   'area' => $request->area,
+      //   'state' => $request->state,
+      //   'city' => $request->city,
+      //   'dob'=>$request->dob,
+      //   'address'=>$request->address
+      // ]);
       
       //end here
 
