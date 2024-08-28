@@ -176,7 +176,7 @@
                                 <div class="col-sm-10">
                                     @foreach ($perinfo->options as $option)
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio"
+                                        <input class="form-check-input radio{{$option->index_no}}" type="radio"
                                             name="{{$perinfo->input_name}}"
                                             id="radio-{{ $option->id }}"
                                             value="{{ $option->index_no }}"
@@ -213,9 +213,9 @@
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label for="inputState">{{ $perinfo->name }}</label>
-                                <input type="text" name="event_end" class="form-control datepicker"
-                                    name="que_date_{{ $perinfo->index_no }}" placeholder="Enter ..."
-                                    id="datepicker2" readonly>
+                                <input type="text" name="{{$perinfo->input_name}}"  class="form-control datepicker"
+                                    placeholder="Enter ..."
+                                    id="{{$perinfo->input_name}}" readonly>
                             </div>
                         </div>
                         @endif
@@ -474,11 +474,14 @@
                     if (result.userdata) {
                         $('#full_name').val(result.userdata.full_name)
                         $('#age').val(result.userdata.age)
-                        $('#gender').val(result.userdata.gender)
+                        // $('#gender').val(result.userdata.gender)
                         $('#pincode').val(result.userdata.pincode)
                         $('#city').val(result.userdata.city)
                         $('#state').val(result.userdata.state)
                         $('#area').val(result.userdata.area)
+                        $('#dob').val(result.userdata.dob)
+                        $('#address').val(result.userdata.address)
+                        $(".radio"+result.userdata.gender).attr('checked', 'checked');
                     }
 
                     Swal.fire({

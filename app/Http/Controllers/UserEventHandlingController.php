@@ -30,9 +30,9 @@ class UserEventHandlingController extends Controller
   }
   public function eventDataStore(Request $request)
   {
+    // dd($request->all());
     DB::beginTransaction();
     try {
-      // dd($request->all());
       $data = Event::with('questions', 'personalinfo')->where('id', $request->event_id)->first();
 
       // foreach ($data->personalinfo as $key => $val) {
@@ -142,8 +142,8 @@ class UserEventHandlingController extends Controller
       // }
 
       //store personal info of user
-      $user_per_data = UserEventPersonalData::where('mobile_number', $request->mobile_number)->first();
-      if ($user_per_data) {
+      $user_per_data = UserEventPersonalData::where('mobile_number', $request->otp_mobile);
+      if ($user_per_data->count()) {
         $user_per_data->delete();
       } else {
       }
@@ -155,11 +155,11 @@ class UserEventHandlingController extends Controller
         'pincode' => $request->pincode,
         'area' => $request->area,
         'state' => $request->state,
-        'city' => $request->city
+        'city' => $request->city,
+        'dob'=>$request->dob,
+        'address'=>$request->address
       ]);
-
-      // dd($user_per_info);
-
+      
       //end here
 
       foreach ($data->questions as $key => $val) {

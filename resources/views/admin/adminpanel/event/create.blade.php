@@ -593,7 +593,7 @@
                                     <label></label>
                                     <select class="form-control" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
-                                        <option value="{{ $key }}">
+                                        <option value="{{ $key }}" {{ $key == 'mobile_otp' ? 'selected' : '' }}>
                                             {{ $option }}
                                         </option>
                                         @endforeach
@@ -881,7 +881,12 @@
             $('#p_quation_7').val('State')
             $('#p_quation_8').val('City')
             $('#p_quation_9').val('Mobile No')
-            control.disableTransliteration();
+            $('#p_quation_10').val('Birthday')
+            control.enableTransliteration();
+            control.setLanguagePair(
+                google.elements.transliteration.LanguageCode.ENGLISH,
+                dropdown.options[dropdown.selectedIndex].value
+            );
 
         } else if (dropdown.options[dropdown.selectedIndex].value == "gu") {
             $('#p_quation_1').val('પૂરું નામ')
@@ -893,6 +898,12 @@
             $('#p_quation_7').val('રાજ્ય')
             $('#p_quation_8').val('શહેર')
             $('#p_quation_9').val('મોબાઇલ')
+            $('#p_quation_10').val('જન્મદિવસ')
+            control.enableTransliteration();
+            control.setLanguagePair(
+                google.elements.transliteration.LanguageCode.ENGLISH,
+                dropdown.options[dropdown.selectedIndex].value
+            );
 
         } else if (dropdown.options[dropdown.selectedIndex].value == "hi") {
             $('#p_quation_1').val('पूरा नाम')
@@ -904,6 +915,12 @@
             $('#p_quation_7').val('राज्य')
             $('#p_quation_8').val('शहर')
             $('#p_quation_9').val('मोबाइल नंबर')
+            $('#p_quation_10').val('जन्मदिन')
+            control.enableTransliteration();
+            control.setLanguagePair(
+                google.elements.transliteration.LanguageCode.ENGLISH,
+                dropdown.options[dropdown.selectedIndex].value
+            );
 
         } else if (dropdown.options[dropdown.selectedIndex].value == "mr") {
             $('#p_quation_1').val('पूर्ण नाव')
@@ -915,6 +932,12 @@
             $('#p_quation_7').val('राज्य')
             $('#p_quation_8').val('शहर')
             $('#p_quation_9').val('मोबाइल नंबर')
+            $('#p_quation_10').val('वाढदिवस')
+            control.enableTransliteration();
+            control.setLanguagePair(
+                google.elements.transliteration.LanguageCode.ENGLISH,
+                dropdown.options[dropdown.selectedIndex].value
+            );
 
         } else {
             control.enableTransliteration();
