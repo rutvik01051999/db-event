@@ -186,7 +186,8 @@ class UserEventHandlingController extends Controller
               'question_index' => $val->index_no,
               'option_val' => $request['que_input_' . $val->index_no],
               'option_types' => 'input',
-              'personal_id'=>$user_per_info->id
+              'personal_id'=>$user_per_info->id,
+              'question_id'=>$val->id
             ]);
           }
         } else if ($val->option_types == 'checkbox') {
@@ -205,8 +206,8 @@ class UserEventHandlingController extends Controller
             'question_index' => $val->index_no,
             'option_val' => $string_version,
             'option_types' => 'checkbox',
-            'personal_id'=>$user_per_info->id
-
+            'personal_id'=>$user_per_info->id,
+            'question_id'=>$val->id
           ]);
         } else if ($val->option_types == 'number') {
           if (isset($request['que_num_' . $val->index_no])) {
@@ -215,8 +216,8 @@ class UserEventHandlingController extends Controller
               'question_index' => $val->index_no,
               'option_val' => $request['que_num_' . $val->index_no],
               'option_types' => 'number',
-              'personal_id'=>$user_per_info->id
-
+              'personal_id'=>$user_per_info->id,
+              'question_id'=>$val->id
             ]);
           }
         } else if ($val->option_types == 'textarea') {
@@ -226,8 +227,8 @@ class UserEventHandlingController extends Controller
               'question_index' => $val->index_no,
               'option_val' => $request['que_textarea_' . $val->index_no],
               'option_types' => 'textarea',
-              'personal_id'=>$user_per_info->id
-
+              'personal_id'=>$user_per_info->id,
+              'question_id'=>$val->id
             ]);
           }
         } else if ($val->option_types == 'rating') {
@@ -237,7 +238,8 @@ class UserEventHandlingController extends Controller
               'question_index' => $val->index_no,
               'option_val' => $request['que_rating_' . $val->index_no],
               'option_types' => 'rating',
-              'personal_id'=>$user_per_info->id
+              'personal_id'=>$user_per_info->id,
+              'question_id'=>$val->id,
 
             ]);
           }
@@ -248,8 +250,8 @@ class UserEventHandlingController extends Controller
               'question_index' => $val->index_no,
               'option_val' => $request['que_date_' . $val->index_no],
               'option_types' => 'date',
-              'personal_id'=>$user_per_info->id
-
+              'personal_id'=>$user_per_info->id,
+              'question_id'=>$val->id
             ]);
           }
         } else if ($val->option_types == 'radio') {
@@ -259,8 +261,8 @@ class UserEventHandlingController extends Controller
               'question_index' => $val->index_no,
               'option_val' => $request['que_radio_' . $val->index_no],
               'option_types' => 'radio',
-              'personal_id'=>$user_per_info->id
-
+              'personal_id'=>$user_per_info->id,
+              'question_id'=>$val->id
             ]);
           }
         } else if ($val->option_types == 'dropdown') {
@@ -270,8 +272,8 @@ class UserEventHandlingController extends Controller
               'question_index' => $val->index_no,
               'option_val' => $request['que_dropdown_' . $val->index_no],
               'option_types' => 'dropdown',
-              'personal_id'=>$user_per_info->id
-
+              'personal_id'=>$user_per_info->id,
+              'question_id'=>$val->id
             ]);
           }
         }
