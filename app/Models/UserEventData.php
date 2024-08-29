@@ -13,7 +13,8 @@ class UserEventData extends Model
         'question_index',
         'option_val',
         'option_types',
-        'personal_id'
+        'personal_id',
+        'question_id'
     ];
 
     /**
