@@ -280,9 +280,9 @@ class UserEventHandlingController extends Controller
     
                 $userEvent = UserEventData::create([
                   'event_id' => $request->event_id,
-                  'personal_index' => $val->index_no,
                   'option_val' => '',
-                  'option_types' => $val->option_types
+                  'option_types' => $val->option_types,
+                  'question_index' => $val->index_no,
                 ]);
                 $filePaths = [];
                 foreach ($files as $key => $file) {

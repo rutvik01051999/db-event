@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('user_event_personal_data', function (Blueprint $table) {
-            //
+            $table->dropColumn('dob');
         });
     }
 };
