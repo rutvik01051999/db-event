@@ -36,9 +36,11 @@
             <div class="container-fluid">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <table id="report-table" class="table table-bordered table-striped">
-
-                        </table>
+                        <div class="table-responsive">
+                            <table id="report-table" class="table table-bordered table-striped">
+    
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

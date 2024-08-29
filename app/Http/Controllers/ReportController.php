@@ -39,12 +39,12 @@ class ReportController extends Controller
 
         $data = [];
         
-        $columns[] = [
+        $columns[0] = [
             'title' => 'Full Name', 'data' => 'full_name'
         ];
 
         foreach ($eventQuestions as $key => $question) {
-            $columns[$key] = [
+            $columns[$key+1] = [
                 'title' => $question->name,
                 'data' => "question_$question->index_no",
             ];
@@ -54,7 +54,6 @@ class ReportController extends Controller
             $data[$k]['full_name'] = $user->full_name;
             $eventResponses = $user->events;
             foreach ($eventResponses as $eventResponse) {
-                // dd($eventResponse);
                 $answer = '';
                 switch ($eventResponse->option_types) {
                     case 'input':
@@ -70,7 +69,7 @@ class ReportController extends Controller
                     case 'radio':
                         $answer =  $eventResponse->option_val;
                         $answer = explode(',', $answer);
-                        $answer = Option::whereIn('index_no', $answer)->pluck('name')->implode(', ');
+                        $answer = Option::whereIn('index_no', $answer)->where('question_id', $eventResponse->question_id)->pluck('name')->implode(', ');
                         break;
                     
                     case 'file':
@@ -80,7 +79,7 @@ class ReportController extends Controller
                         $answer = json_decode($answer);
                         $html = '<ul class="list-group">';
                         foreach ($answer as $key => $value) {
-                            $html .= '<li class="list-group-item">'.Storage::url($value).'</li>';
+                            $html .= '<a href="'.Storage::url($value).'" target="_blank" class="list-group-item">'.basename($value).'</a>';
                         }
                         $html .= '</ul>';
                         $answer = $html;

@@ -52,8 +52,8 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('dist/img/loader.png') }}" alt="AdminLTELogo"
-                height="60" width="60">
+            <img class="animation__shake" src="{{ asset('dist/img/loader.png') }}" alt="AdminLTELogo" height="60"
+                width="60">
         </div>
 
         <!-- Navbar -->
@@ -84,7 +84,7 @@
     <!-- jQuery -->
     {{-- <script src="plugins/jquery/jquery.min.js"></script> --}}
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
