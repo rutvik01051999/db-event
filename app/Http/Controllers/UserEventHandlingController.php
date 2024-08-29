@@ -274,7 +274,30 @@ class UserEventHandlingController extends Controller
 
             ]);
           }
-        }
+        } else if ($val->option_types == 'file' || $val->option_types == 'multiple_file') {
+              if (isset($request['files'])) {
+                $files = $request['files'] ?? [];
+    
+                $userEvent = UserEventData::create([
+                  'event_id' => $request->event_id,
+                  'personal_index' => $val->index_no,
+                  'option_val' => '',
+                  'option_types' => $val->option_types
+                ]);
+                $filePaths = [];
+                foreach ($files as $key => $file) {
+                  $attachment = AttachmentService::save($file, 'user-uploaded-file', 'users/uploaded-files', $userEvent);
+    
+                  if ($attachment) {
+                    $filePaths[] = $attachment->file_path;
+                  }
+                }
+    
+                $userEvent->update([
+                  'option_val' => json_encode($filePaths)
+                ]);
+              }
+            }
       }
       DB::commit();
       return view('user.event.thankyou', compact('data'));

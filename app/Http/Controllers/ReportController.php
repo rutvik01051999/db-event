@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\DataTables\UserEventReportDataTable;
 use App\Exports\UserEventExport;
 use App\Models\Event;
+use App\Models\Option;
 use App\Models\Question;
 use App\Models\UserEventPersonalData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
@@ -37,72 +39,66 @@ class ReportController extends Controller
 
         $data = [];
         
-        $columns = [
+        $columns[] = [
             'title' => 'Full Name', 'data' => 'full_name'
         ];
 
         foreach ($eventQuestions as $key => $question) {
-            $columns[] = [
+            $columns[$key] = [
                 'title' => $question->name,
                 'data' => "question_$question->index_no",
             ];
         }
 
         foreach ($users as $k => $user) {
-            $data[$k] = ['full_name' => $user->full_name];
+            $data[$k]['full_name'] = $user->full_name;
             $eventResponses = $user->events;
             foreach ($eventResponses as $eventResponse) {
-
+                // dd($eventResponse);
                 $answer = '';
                 switch ($eventResponse->option_types) {
                     case 'input':
-                        $answer =  $eventResponse->option_val;
-                        break;
-                    
                     case 'textarea':
-                        $answer =  $eventResponse->option_val;
-                        break;
-                    
-                    case 'checkbox':
-                        $answer =  $eventResponse->option_val;
-                        break;
-                    
-                    case 'dropdown':
-                        $answer =  $eventResponse->option_val;
-                        break;
-                    
-                    case 'radio':
-                        $answer =  $eventResponse->option_val;
-                        break;
-                    
-                    case 'file':
-                        $answer =  $eventResponse->option_val;
-                        break;
-                    
                     case 'date':
-                        $answer =  $eventResponse->option_val;
-                        break;
-                    
                     case 'rating':
-                        $answer =  $eventResponse->option_val;
-                        break;
-                    
                     case 'number':
                         $answer =  $eventResponse->option_val;
                         break;
                     
+                    case 'checkbox':
+                    case 'dropdown':
+                    case 'radio':
+                        $answer =  $eventResponse->option_val;
+                        $answer = explode(',', $answer);
+                        $answer = Option::whereIn('index_no', $answer)->pluck('name')->implode(', ');
+                        break;
+                    
+                    case 'file':
                     case 'multiple_file':
+                        $html = '';
+                        $answer =  $eventResponse->option_val;
+                        $answer = json_decode($answer);
+                        $html = '<ul class="list-group">';
+                        foreach ($answer as $key => $value) {
+                            $html .= '<li class="list-group-item">'.Storage::url($value).'</li>';
+                        }
+                        $html .= '</ul>';
+                        $answer = $html;
+                        break;
+                    
                         $answer =  $eventResponse->option_val;
                         break;
                     
                     default:
-                        # code...
+                        $answer =  '';
                         break;
                 }
 
-                $data[$k]["question_$eventResponse->question_index"] = $eventResponse->option_val;
+                $data[$k]["question_$eventResponse->question_index"] = $answer;
             }
         }
+
+        // dd($data, $columns, $total);
 
         return response()->json([
             'draw' => intval($request->get('draw')), // DataTables draw parameter

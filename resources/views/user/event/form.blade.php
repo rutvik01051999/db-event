@@ -104,16 +104,6 @@
                                 <div class="mobile_otp_error" style="color: red;"></div>
                             </div>
                         </div>
-                        @elseif($perinfo->option_types == 'file' || $perinfo->option_types == 'multiple_file')
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group mb-3">
-                                <label for="file">{{ $perinfo->name }}</label>
-                                <input type="file" class="form-control" id="{{ $perinfo->input_name }}"
-                                    name="{{$perinfo->input_name}}[]"
-                                    {{ $perinfo->required == 1 ? 'required' : '' }}
-                                    @if ($perinfo->option_types == 'multiple_file') multiple @endif>
-                            </div>
-                        </div>
                         @elseif($perinfo->option_types == 'textarea')
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
@@ -308,6 +298,16 @@
                         </div>
                         @endforeach
                     </div>
+                    @elseif($perinfo->option_types == 'file' || $perinfo->option_types == 'multiple_file')
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label for="file">{{ $perinfo->name }}</label>
+                                <input type="file" class="form-control"
+                                    name="files[]"
+                                    {{ $perinfo->required == 1 ? 'required' : '' }}
+                                    @if ($perinfo->option_types == 'multiple_file') multiple @endif>
+                            </div>
+                        </div>
                     @endif
                     @endforeach
                 </div>
@@ -408,11 +408,14 @@
     });
 
     $(".datepicker").datepicker({
-        // minDate: 0,
         dateFormat: 'yy-mm-dd',
         onSelect: function(date) {
             console.log(date)
-        }
+        },
+        changeMonth: true,
+        changeYear: true,
+        autoClose: true,
+        yearRange: "1900:2050"
     });
 
 
