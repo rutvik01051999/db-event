@@ -136,8 +136,8 @@
                                             <label for="{{ $perinfo->input_name }}">{{ $perinfo->name }}</label>
                                             <select id="{{ $perinfo->input_name }}" name="{{ $perinfo->input_name }}"
                                                 class="form-control" {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                                <option value="" selected>select option</option>
                                                 @foreach ($perinfo->options as $option)
-                                                    <option value="" selected>select option</option>
                                                     <option value="{{ $option->index_no }}">{{ $option->name }}</option>
                                                 @endforeach
                                             </select>
