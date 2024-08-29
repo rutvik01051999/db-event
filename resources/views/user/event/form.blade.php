@@ -82,7 +82,7 @@
                                 <header>{{ $perinfo->name }}</header>
                                 <div class="stars" data-id="1">
                                     @for ($i = 0; $i < 5; $i++)
-                                        <i class="fa-solid fa-star perstar prstar{{ $i + 1 }}{{ $perinfo->index_no }}"
+                                        <i class="fa fa-star perstar prstar{{ $i + 1 }}{{ $perinfo->index_no }}"
                                         data-id="{{ $i + 1 }}_{{ $perinfo->index_no }}"></i>
                                         @endfor
                                 </div>
@@ -249,7 +249,7 @@
                         <header>{{ $perinfo->name }}</header>
                         <div class="stars" data-id="1">
                             @for ($i = 0; $i < 5; $i++)
-                                <i class="fa-solid fa-star questar qrstar{{ $i + 1 }}{{ $perinfo->index_no }}"
+                                <i class="fa fa-star questar qrstar{{ $i + 1 }}{{ $perinfo->index_no }}"
                                 data-id="{{ $i + 1 }}_{{ $perinfo->index_no }}"></i>
                                 @endfor
                         </div>
