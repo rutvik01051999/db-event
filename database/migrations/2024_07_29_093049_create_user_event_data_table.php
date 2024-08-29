@@ -16,9 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->integer('question_index')->nullable();
-            $table->integer('personal_index')->nullable();
-            $table->string('image')->nullable();
-            $table->string('input_text')->nullable();
             $table->string('option_val')->nullable();
             $table->enum('option_types', ['input', 'textarea', 'checkbox','dropdown','radio','file','rating','number','date','mobile']);
             $table->timestamps();
