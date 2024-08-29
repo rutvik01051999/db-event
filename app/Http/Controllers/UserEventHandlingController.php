@@ -202,7 +202,7 @@ class UserEventHandlingController extends Controller
           //$destination_array = explode(',', $string_version);
           UserEventData::create([
             'event_id' => $request->event_id,
-            'personal_index' => $val->index_no,
+            'question_index' => $val->index_no,
             'option_val' => $string_version,
             'option_types' => 'checkbox',
             'personal_id'=>$user_per_info->id
