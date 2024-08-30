@@ -80,7 +80,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select class="form-control" name="category_name" id="category_name">
+                                        <select class="form-select" name="category_name" id="category_name">
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ $category->id == $event->category_id ? 'selected' : '' }}>
@@ -93,7 +93,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Department</label>
-                                        <select class="form-control" name="department_name" id="department_name">
+                                        <select class="form-select" name="department_name" id="department_name">
                                             @foreach ($departments as $department)
                                                 <option value="{{ $department->id }}"
                                                     {{ $department->id == $event->department_id ? 'selected' : '' }}>

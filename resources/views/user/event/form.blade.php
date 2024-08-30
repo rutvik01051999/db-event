@@ -271,8 +271,9 @@
                                                 @endif
                                             </label>
                                             <input type="text" name="{{ $perinfo->input_name }}"
-                                                class="form-control datepicker" placeholder="Enter ..."
+                                                class="form-control datepicker" placeholder="{{ $perinfo->name }}"
                                                 id="{{ $perinfo->input_name }}" readonly
+                                                {{ $perinfo->required == 1 ? 'required' : '' }}
                                                 placeholder="{{ $perinfo->name }}">
                                         </div>
                                     </div>
@@ -730,5 +731,14 @@
                 }
             });
         });
+
+        // If session has success
+
+        @if (Session::has('success'))
+            Swal.fire({
+                text: "{{ Session::get('success') }}",
+                icon: "success"
+            });
+        @endif
     </script>
 @endsection

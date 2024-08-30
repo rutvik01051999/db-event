@@ -188,7 +188,7 @@ class EventContoller extends Controller
                 return redirect()->route('event.set-correct-answer', $event->id);;
             }
 
-            return redirect()->route('event.list')->with('success', config('const.success_message'));
+            return redirect()->route('event.index')->with('success', config('const.success_message'));
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->withInput()->withErrors($e->getMessage());
@@ -203,7 +203,7 @@ class EventContoller extends Controller
             $departments = Department::all();
             return view('admin.adminpanel.event.edit', compact('event', 'categories', 'departments'));
         } catch (\Exception $e) {
-            return redirect()->route('event.list')->withErrors($e->getMessage());
+            return redirect()->route('event.index')->withErrors($e->getMessage());
         }
     }
     public function update(EventUpdateRequest $request, $id)
@@ -211,7 +211,7 @@ class EventContoller extends Controller
         $event = Event::find($id);
 
         if (!$event) {
-            return redirect()->route('event.list')->with('error', 'Event not found');
+            return redirect()->route('event.index')->with('error', 'Event not found');
         }
 
         $imagePath = $event->image ?? '';
@@ -231,7 +231,7 @@ class EventContoller extends Controller
             'response' => $request->event_response ?? '',
         ]);
 
-        return redirect()->route('event.list')->with('success', 'Event updated successfully');
+        return redirect()->route('event.index')->with('success', 'Event updated successfully');
     }
 
     public function delete(Request $request)
@@ -426,7 +426,7 @@ class EventContoller extends Controller
             Event::where('id', $id)->update(['status' => true]);
         }
 
-        return redirect()->route('event.list')->with('success', 'Correct answer updated successfully');
+        return redirect()->route('event.index')->with('success', 'Correct answer updated successfully');
     }
 
     public function changeStatus(Request $request, $id)
@@ -466,9 +466,5 @@ class EventContoller extends Controller
         ]);
 
         return response()->json(['message' => 'Event status updated successfully'], 200);
-    }
-
-    public function userList(EventUserListDataTable $dataTable){
-        return $dataTable->render('admin.adminpanel.event.index');
     }
 }
