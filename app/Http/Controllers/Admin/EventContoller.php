@@ -467,8 +467,4 @@ class EventContoller extends Controller
 
         return response()->json(['message' => 'Event status updated successfully'], 200);
     }
-
-    public function userList(EventUserListDataTable $dataTable){
-        return $dataTable->render('admin.adminpanel.event.index');
-    }
 }
