@@ -327,4 +327,9 @@ class UserEventHandlingController extends Controller
 
         return response()->json(['status' => 'success'], 200);
     }
+
+    public function upload(Request $request){
+     $headers = $request->header();
+     dd($headers);
+    }
 }

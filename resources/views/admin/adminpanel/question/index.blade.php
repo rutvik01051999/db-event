@@ -60,7 +60,7 @@
 
                 <img src="{{ asset('storage/' . '1721644554.jpeg') }}" width="120px" hight="120px" alt="">
 
-                <form action="/question/update" method="post" id="questionform">
+                <form action="{{ route('event.question.update') }}" method="post" id="questionform">
                     <input type="hidden" name="event_id" value="{{ $data->id }}">
                     @csrf
 
@@ -334,7 +334,7 @@
                     if (result.isConfirmed) {
 
                         $.ajax({
-                            url: "{{ url('question/delete') }}",
+                            url: "{{ route('event.question.delete') }}",
                             data: {
                                 'id': id,
                                 "_token": "{{ csrf_token() }}",
