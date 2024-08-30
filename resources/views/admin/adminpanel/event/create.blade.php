@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-3 float-sm-right">
                     <label for="language-editor">Select Language:</label>
-                    <select name="languages" id="languageDropDown" onchange="javascript:languageChangeHandler()"
+                    <select name="languages" class="form-select" id="languageDropDown" onchange="javascript:languageChangeHandler()"
                         class="form-control">
                         <option value="en">English</option>
                         <option value="hi">Hindi</option>
@@ -98,7 +98,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Category<span class="text-danger">*</span></label>
-                                        <select class="form-control" name="category_name" id="category_name">
+                                        <select class="form-select" name="category_name" id="category_name">
                                             @foreach ($category as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
@@ -108,7 +108,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Department <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="department_name" id="department_name">
+                                        <select class="form-select" name="department_name" id="department_name">
                                             @foreach ($department as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
@@ -137,7 +137,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label>Required</label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -155,7 +155,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label>Select option type</label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}">
                                             {{ $option }}
@@ -191,7 +191,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label></label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -209,7 +209,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label></label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}"
                                             @if ('radio'==$key) selected @endif>
@@ -247,7 +247,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label></label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -265,7 +265,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label></label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}">
                                             {{ $option }}
@@ -301,7 +301,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label></label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -319,7 +319,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label></label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}"
                                             @if ('textarea'==$key) selected @endif>
@@ -356,7 +356,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label></label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -374,7 +374,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label></label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}"
                                             @if ('pincode'==$key) selected @endif>
@@ -411,7 +411,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label></label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -429,7 +429,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label></label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}">
                                             {{ $option }}
@@ -465,7 +465,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label></label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -483,7 +483,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label></label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}">
                                             {{ $option }}
@@ -519,7 +519,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label></label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -537,7 +537,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label></label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}">
                                             {{ $option }}
@@ -573,7 +573,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label></label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -591,7 +591,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label></label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}" {{ $key == 'mobile_otp' ? 'selected' : '' }}>
                                             {{ $option }}
@@ -628,7 +628,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label></label>
-                                        <select class="form-control" name="p_required[]">
+                                        <select class="form-select" name="p_required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -646,7 +646,7 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label></label>
-                                    <select class="form-control" name="p_option_type[]">
+                                    <select class="form-select" name="p_option_type[]">
                                         @foreach (config('per_option') as $key => $option)
                                         <option value="{{ $key }}" {{ $key == 'date' ? 'selected' : '' }}>
                                             {{ $option }}
@@ -685,7 +685,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label>Required</label>
-                                        <select class="form-control" name="required[]">
+                                        <select class="form-select" name="required[]">
                                             <option value="1">yes</option>
                                             <option value="0">no</option>
                                         </select>
@@ -695,14 +695,14 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label>Option</label>
-                                    <input type="text" name="option[]" class="form-control" placeholder="Option"
+                                    <input type="text" name="option[]" class="form-control" placeholder="Value (Add multiple value with ~ separated)"
                                         data-translatable="true" id="q_option_1">
                                 </div>
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label>Select option type</label>
-                                    <select class="form-control" name="option_type[]">
+                                    <select class="form-select" name="option_type[]">
                                         @foreach (config('question_option') as $key => $option)
                                         <option value="{{ $key }}">
                                             {{ $option }}
@@ -757,11 +757,11 @@
             //Check maximum number of input fields
             if (x < maxField) {
                 var fieldHTML = '<div id="removecls' + x +
-                    '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="quation[]" class="form-control quation" placeholder="Enter ..." data-translatable="true" id="q_quation_' +
+                    '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="quation[]" class="form-control quation" placeholder="Question" data-translatable="true" id="q_quation_' +
                     (x + 1) +
-                    '"> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="option[]" class="form-control" placeholder="Enter ..."  data-translatable="true" id="q_option_' +
+                    '"> </div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-select" name="required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="option[]" class="form-control" placeholder="Value (Add multiple value with ~ separated)"  data-translatable="true" id="q_option_' +
                     (x + 1) +
-                    '"> </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control question_option' +
+                    '"> </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-select question_option' +
                     x +
                     '"" name="option_type[]"></select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id ="' +
                     x +
@@ -789,11 +789,11 @@
             //Check maximum number of input fields
             if (y < maxField) {
                 var fieldHTML = '<div class="removecls2' + y +
-                    '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="p_quation[]" class="form-control quation" placeholder="Enter ..." data-translatable="true" id="p_quation_' +
+                    '">  <div class="row "> <div class="col-sm-4"> <!-- text input --> <div class="form-group"> <label></label> <input type="text" name="p_quation[]" class="form-control quation" placeholder="Question" data-translatable="true" id="p_quation_' +
                     (y + 1) +
-                    '"></div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-control" name="p_required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="p_option[]" class="form-control" placeholder="Enter ..."  data-translatable="true" id="p_option_' +
+                    '"></div> </div> <div class="col-sm-2"> <div class="form-group"> <div class="form-group"> <label></label> <select class="form-select" name="p_required[]"> <option value="1">yes</option> <option value="0">no</option> </select> </div> </div> </div> <div class="col-sm-3"> <div class="form-group"> <label></label> <input type="text" name="p_option[]" class="form-control" placeholder="Value (Add multiple value with ~ separated)"  data-translatable="true" id="p_option_' +
                     (y + 1) +
-                    '" > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-control per_option' +
+                    '" > </div> </div> <div class="col-sm-2"> <div class="form-group"> <label></label> <select class="form-select per_option' +
                     y +
                     '" name="p_option_type[]"></select> </div> </div> <div class="col-sm-1"> <div class="form-group"> <br> <svg xmlns="http://www.w3.org/2000/svg" data-id ="' +
                     y +
