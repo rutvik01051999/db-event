@@ -38,13 +38,14 @@ class ReportController extends Controller
         $users = $query->offset($start)->limit($length)->get();
 
         $data = [];
-        
+
         $columns[0] = [
-            'title' => 'Full Name', 'data' => 'full_name'
+            'title' => 'Full Name',
+            'data' => 'full_name',
         ];
 
         foreach ($eventQuestions as $key => $question) {
-            $columns[$key+1] = [
+            $columns[$key + 1] = [
                 'title' => $question->name,
                 'data' => "question_$question->index_no",
             ];
@@ -61,35 +62,38 @@ class ReportController extends Controller
                     case 'date':
                     case 'rating':
                     case 'number':
-                        $answer =  $eventResponse->option_val;
+                        $answer = $eventResponse->option_val;
                         break;
-                    
+
                     case 'checkbox':
                     case 'dropdown':
                     case 'radio':
-                        $answer =  $eventResponse->option_val;
+                        $answer = $eventResponse->option_val;
                         $answer = explode(',', $answer);
-                        $answer = Option::whereIn('index_no', $answer)->where('question_id', $eventResponse->question_id)->pluck('name')->implode(', ');
+                        $answer = Option::whereIn('index_no', $answer)
+                            ->where('question_id', $eventResponse->question_id)
+                            ->pluck('name')
+                            ->implode(', ');
                         break;
-                    
+
                     case 'file':
                     case 'multiple_file':
                         $html = '';
-                        $answer =  $eventResponse->option_val;
+                        $answer = $eventResponse->option_val;
                         $answer = json_decode($answer);
                         $html = '<ul class="list-group">';
                         foreach ($answer as $key => $value) {
-                            $html .= '<a href="'.Storage::url($value).'" target="_blank" class="list-group-item">'.basename($value).'</a>';
+                            $html .= '<a href="' . Storage::url($value) . '" target="_blank" class="list-group-item">' . basename($value) . '</a>';
                         }
                         $html .= '</ul>';
                         $answer = $html;
                         break;
-                    
-                        $answer =  $eventResponse->option_val;
+
+                        $answer = $eventResponse->option_val;
                         break;
-                    
+
                     default:
-                        $answer =  '';
+                        $answer = '';
                         break;
                 }
 
@@ -121,26 +125,55 @@ class ReportController extends Controller
             $columns = [];
             $data = [];
 
-            foreach ($users as $k => $user) {
-                if ($k === 0) {
-                    $columns[] = 'Full Name';
-                    $columns[] = 'Event ID';
-                }
+            $columns = ['Full Name'];
 
+            foreach ($users as $k => $user) {
                 $data[$k] = [$user->full_name];
 
                 $eventResponses = $user->events;
-
                 foreach ($eventResponses as $kk => $eventResponse) {
-                    if ($kk === 0) {
-                        $data[$k]['event_id'] = $eventResponse->event_id;
-                    }
-
                     if ($k == 0) {
                         $columns[] = $eventResponse->question->name;
                     }
 
-                    $data[$k][] = $eventResponse->question->name;
+                    $answer = '';
+                    switch ($eventResponse->option_types) {
+                        case 'input':
+                        case 'textarea':
+                        case 'date':
+                        case 'rating':
+                        case 'number':
+                            $answer = $eventResponse->option_val;
+                            break;
+
+                        case 'checkbox':
+                        case 'dropdown':
+                        case 'radio':
+                            $answer = $eventResponse->option_val;
+                            $answer = explode(',', $answer);
+                            $answer = Option::whereIn('index_no', $answer)
+                                ->where('question_id', $eventResponse->question_id)
+                                ->pluck('name')
+                                ->implode(', ');
+                            break;
+
+                        case 'file':
+                        case 'multiple_file':
+                            $fileUrls = [];
+                            $answer = $eventResponse->option_val;
+                            $answer = json_decode($answer);
+                            foreach ($answer as $value) {
+                                $fileUrls[] = Storage::url($value);
+                            }
+                            $answer = collect($fileUrls)->implode(', ');
+                            break;
+
+                        default:
+                            $answer = '';
+                            break;
+                    }
+
+                    $data[$k][] = $answer;
                 }
             }
 

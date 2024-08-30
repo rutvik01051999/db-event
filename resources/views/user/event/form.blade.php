@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -43,14 +44,19 @@
 
     <div class="row">
         <div class="col-12">
-
-            <div class="text-center mt-5" style="margin-bottom: 50px;">
-                <img src="{{ Storage::url($data->image) }}" alt="event logo" width="200px" hight="200px">
+            <div class="mb-3 p-3">
+                <div class="row align-items-center">
+                    <div class="col-sm-12 col-md-4 text-center">
+                        <img src="{{ Storage::url($data->image) }}" alt="event logo" class="img-fluid rounded"
+                            style="max-height: 500px;">
+                    </div>
+                    <div class="col-sm-12 col-md-8">
+                        <h2 class="text-primary font-weight-bold">{{ $data->name }}</h2>
+                        <p class="text-muted">{{ $data->description }}</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="event-name text-center mb-5">
-                <h2>{{ $data->name }}</h2>
-            </div>
             <form method="post" action="{{ route('user.event.submit') }}" enctype="multipart/form-data" id="userform">
                 @csrf
                 <input type="hidden" value="{{ $data->id }}" name="event_id">
@@ -67,20 +73,31 @@
                                 @if ($perinfo->option_types == 'input')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label for="name">{{ $perinfo->name }}</label>
+                                            <label for="name">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
                                             <input type="text" name="{{ $perinfo->input_name }}"
                                                 class="form-control {{ strtolower($perinfo->name) }}"
                                                 id="{{ $perinfo->input_name }}"
                                                 {{ $perinfo->required == 1 ? 'required' : '' }}
-                                                @if ('area' == strtolower($perinfo->name)) readonly @endif>
+                                                @if ('area' == strtolower($perinfo->name)) readonly @endif
+                                                placeholder="{{ $perinfo->name }}">
                                         </div>
                                     </div>
                                 @elseif($perinfo->option_types == 'rating')
                                     <div class="col-md-6 col-sm-12">
+                                        <label for="name">
+                                            {{ $perinfo->name }}
+                                            @if ($perinfo->required)
+                                                <span class="text-danger">*</span>
+                                            @endif
+                                        </label>
                                         <input type="hidden" name="{{ $perinfo->input_name }}"
                                             id="perinfo_rating_{{ $perinfo->index_no }}" value="">
                                         <div class="rating-box">
-                                            <header>{{ $perinfo->name }}</header>
                                             <div class="stars" data-id="1">
                                                 @for ($i = 0; $i < 5; $i++)
                                                     <i class="fa fa-star perstar prstar{{ $i + 1 }}{{ $perinfo->index_no }}"
@@ -92,11 +109,17 @@
                                 @elseif($perinfo->option_types == 'mobile_otp')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label for="name">{{ $perinfo->name }}</label>
+                                            <label for="name">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
                                             <div class="input-group">
                                                 <input type="number" class="form-control" id="mobile_otp"
                                                     name="{{ $perinfo->input_name }}"
-                                                    {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                                    {{ $perinfo->required == 1 ? 'required' : '' }}
+                                                    placeholder="{{ $perinfo->name }}">
                                                 <div class="input-group-append">
                                                     <button type="button" class="btn btn-primary get_otp">Get OTP</button>
                                                 </div>
@@ -107,35 +130,57 @@
                                 @elseif($perinfo->option_types == 'textarea')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label for="file">{{ $perinfo->name }}</label>
-                                            <textarea id="{{ $perinfo->input_name }}" class="form-control" name="{{ $perinfo->input_name }}" rows="1"
-                                                {{ $perinfo->required == 1 ? 'required' : '' }}></textarea>
+                                            <label for="file">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
+                                            <textarea placeholder="{{ $perinfo->name }}" id="{{ $perinfo->input_name }}" class="form-control"
+                                                name="{{ $perinfo->input_name }}" rows="1" {{ $perinfo->required == 1 ? 'required' : '' }}></textarea>
                                         </div>
                                     </div>
                                 @elseif($perinfo->option_types == 'number')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label for="number">{{ $perinfo->name }}</label>
+                                            <label for="number">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
                                             <input type="number" class="form-control" id="{{ $perinfo->input_name }}"
                                                 name="{{ $perinfo->input_name }}"
-                                                {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                                {{ $perinfo->required == 1 ? 'required' : '' }}
+                                                placeholder="{{ $perinfo->name }}">
                                         </div>
                                     </div>
                                 @elseif($perinfo->option_types == 'mobile')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label for="mobile">{{ $perinfo->name }}</label>
+                                            <label for="mobile">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
                                             <input type="number" class="form-control" id="{{ $perinfo->input_name }}"
                                                 name="{{ $perinfo->input_name }}"
-                                                {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                                {{ $perinfo->required == 1 ? 'required' : '' }}
+                                                placeholder="{{ $perinfo->name }}">
                                         </div>
                                     </div>
                                 @elseif($perinfo->option_types == 'dropdown')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label for="{{ $perinfo->input_name }}">{{ $perinfo->name }}</label>
+                                            <label for="{{ $perinfo->input_name }}">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
                                             <select id="{{ $perinfo->input_name }}" name="{{ $perinfo->input_name }}"
-                                                class="form-control" {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                                class="form-select" {{ $perinfo->required == 1 ? 'required' : '' }}>
                                                 <option value="" selected>select option</option>
                                                 @foreach ($perinfo->options as $option)
                                                     <option value="{{ $option->index_no }}">{{ $option->name }}</option>
@@ -146,7 +191,12 @@
                                 @elseif($perinfo->option_types == 'checkbox')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label for="inputState">{{ $perinfo->name }}</label>
+                                            <label for="inputState">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
                                             @foreach ($perinfo->options as $index => $option)
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" name="{{ $perinfo->input_name }}"
@@ -161,7 +211,12 @@
                                 @elseif($perinfo->option_types == 'radio')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label class="col-sm-2">{{ $perinfo->name }}</label>
+                                            <label class="col-sm-2">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
                                             <div class="col-sm-10">
                                                 @foreach ($perinfo->options as $option)
                                                     <div class="form-check form-check-inline">
@@ -181,18 +236,27 @@
                                 @elseif ($perinfo->option_types == 'pincode')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label for="pincode">{{ $perinfo->name }}</label>
+                                            <label for="pincode">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
                                             <span class="pincode-loader" style="display:none;"><i
                                                     class="fas fa-spinner fa-pulse"></i></span>
                                             <input type="text" class="form-control pincode"
                                                 id="{{ $perinfo->input_name }}" name="{{ $perinfo->input_name }}"
-                                                {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                                {{ $perinfo->required == 1 ? 'required' : '' }}
+                                                placeholder="{{ $perinfo->name }}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-6 col-sm-12 addresses-div" style="display:none">
                                         <div class="form-group">
-                                            <label for="addresses">Select Area</label>
+                                            <label for="addresses">
+                                                Select Area
+                                                <span class="text-danger">*</span>
+                                            </label>
                                             <select class="form-select addresses" name="addresses">
                                             </select>
                                         </div>
@@ -200,10 +264,16 @@
                                 @elseif($perinfo->option_types == 'date')
                                     <div class="col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label for="inputState">{{ $perinfo->name }}</label>
+                                            <label for="inputState">
+                                                {{ $perinfo->name }}
+                                                @if ($perinfo->required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label>
                                             <input type="text" name="{{ $perinfo->input_name }}"
                                                 class="form-control datepicker" placeholder="Enter ..."
-                                                id="{{ $perinfo->input_name }}" readonly>
+                                                id="{{ $perinfo->input_name }}" readonly
+                                                placeholder="{{ $perinfo->name }}">
                                         </div>
                                     </div>
                                 @endif
@@ -219,22 +289,38 @@
                         @foreach ($data->questions as $key => $perinfo)
                             @if ($perinfo->option_types == 'input')
                                 <div class="form-group mb-3">
-                                    <label for="formGroupExampleInput2">{{ $perinfo->name }}</label>
+                                    <label for="formGroupExampleInput2">
+                                        {{ $perinfo->name }}
+                                        @if ($perinfo->required)
+                                            <span class="text-danger">*</span>
+                                        @endif
+                                    </label>
                                     <input type="text" class="form-control" id="formGroupExampleInput2"
                                         name="que_input_{{ $perinfo->index_no }}"
-                                        {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                        {{ $perinfo->required == 1 ? 'required' : '' }}
+                                        placeholder="{{ $perinfo->name }}">
                                 </div>
                             @elseif($perinfo->option_types == 'textarea')
                                 <div class="form-group mb-3">
-                                    <label for="file">{{ $perinfo->name }}</label>
+                                    <label for="file">
+                                        {{ $perinfo->name }}
+                                        @if ($perinfo->required)
+                                            <span class="text-danger">*</span>
+                                        @endif
+                                    </label>
                                     <textarea id="w3review" class="form-control" name="que_textarea_{{ $perinfo->index_no }}"
-                                        {{ $perinfo->required == 1 ? 'required' : '' }}></textarea>
+                                        {{ $perinfo->required == 1 ? 'required' : '' }} placeholder="{{ $perinfo->name }}"></textarea>
                                 </div>
                             @elseif($perinfo->option_types == 'rating')
+                                <label for="name">
+                                    {{ $perinfo->name }}
+                                    @if ($perinfo->required)
+                                        <span class="text-danger">*</span>
+                                    @endif
+                                </label>
                                 <input type="hidden" name="que_rating_{{ $perinfo->index_no }}"
                                     id="que_rating_{{ $perinfo->index_no }}" value="">
                                 <div class="rating-box">
-                                    <header>{{ $perinfo->name }}</header>
                                     <div class="stars" data-id="1">
                                         @for ($i = 0; $i < 5; $i++)
                                             <i class="fa fa-star questar qrstar{{ $i + 1 }}{{ $perinfo->index_no }}"
@@ -244,15 +330,26 @@
                                 </div>
                             @elseif($perinfo->option_types == 'number')
                                 <div class="form-group mb-3">
-                                    <label for="formGroupExampleNumber2">{{ $perinfo->name }}</label>
+                                    <label for="formGroupExampleNumber2">
+                                        {{ $perinfo->name }}
+                                        @if ($perinfo->required)
+                                            <span class="text-danger">*</span>
+                                        @endif
+                                    </label>
                                     <input type="number" class="form-control" id="formGroupExampleNumber2"
                                         name="que_num_{{ $perinfo->index_no }}"
-                                        {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                        {{ $perinfo->required == 1 ? 'required' : '' }}
+                                        placeholder="{{ $perinfo->name }}">
                                 </div>
                             @elseif($perinfo->option_types == 'dropdown')
                                 <div class="form-group mb-3">
-                                    <label for="inputState">{{ $perinfo->name }}</label>
-                                    <select id="inputState" class="form-control"
+                                    <label for="inputState">
+                                        {{ $perinfo->name }}
+                                        @if ($perinfo->required)
+                                            <span class="text-danger">*</span>
+                                        @endif
+                                    </label>
+                                    <select id="inputState" class="form-select"
                                         {{ $perinfo->required == 1 ? 'required' : '' }}
                                         name="que_dropdown_{{ $perinfo->index_no }}">
                                         @foreach ($perinfo->options as $option)
@@ -262,21 +359,32 @@
                                 </div>
                             @elseif($perinfo->option_types == 'date')
                                 <div class="form-group mb-3">
-                                    <label for="inputState">{{ $perinfo->name }}</label>
+                                    <label for="inputState">
+                                        {{ $perinfo->name }}
+                                        @if ($perinfo->required)
+                                            <span class="text-danger">*</span>
+                                        @endif
+                                    </label>
                                     <input type="text" class="form-control datepicker"
-                                        name="que_date_{{ $perinfo->index_no }}" placeholder="Enter ..."
+                                        {{ $perinfo->required == 1 ? 'required' : '' }}
+                                        name="que_date_{{ $perinfo->index_no }}" placeholder="{{ $perinfo->name }}"
                                         id="datepicker2" readonly>
                                 </div>
                             @elseif($perinfo->option_types == 'checkbox')
                                 <div class="form-group mb-3">
-                                    <label for="inputState">{{ $perinfo->name }}</label>
-
+                                    <label for="inputState">
+                                        {{ $perinfo->name }}
+                                        @if ($perinfo->required)
+                                            <span class="text-danger">*</span>
+                                        @endif
+                                    </label>
                                     @foreach ($perinfo->options as $option)
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input"
                                                 id="checkbox-{{ $option->id }}"
                                                 name="que_checkbox_{{ $option->index_no }}_{{ $perinfo->index_no }}"
-                                                value="{{ $option->index_no }}">
+                                                value="{{ $option->index_no }}"
+                                                {{ $perinfo->required == 1 ? 'required' : '' }}>
                                             <label class="custom-control-label"
                                                 for="checkbox-{{ $option->id }}">{{ $option->name }}</label>
                                         </div>
@@ -284,12 +392,17 @@
                                 </div>
                             @elseif($perinfo->option_types == 'radio')
                                 <div class="form-group mb-3">
-                                    <label for="inputState">{{ $perinfo->name }}</label>
+                                    <label for="inputState">
+                                        {{ $perinfo->name }}
+                                        @if ($perinfo->required)
+                                            <span class="text-danger">*</span>
+                                        @endif
+                                    </label>
                                     @foreach ($perinfo->options as $option)
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio"
-                                                name="que_radio_{{ $perinfo->index_no }}" id="radio-{{ $option->id }}"
-                                                value="{{ $option->index_no }}"
+                                                name="que_radio_{{ $perinfo->index_no }}"
+                                                id="radio-{{ $option->id }}" value="{{ $option->index_no }}"
                                                 {{ $perinfo->required == 1 ? 'required' : '' }}>
                                             <label class="form-check-label" for="radio-{{ $option->id }}">
                                                 {{ $option->name }}
@@ -300,8 +413,14 @@
                             @elseif($perinfo->option_types == 'file' || $perinfo->option_types == 'multiple_file')
                                 <div class="col-md-6 col-sm-12">
                                     <div class="form-group mb-3">
-                                        <label for="file">{{ $perinfo->name }}</label>
-                                        <input type="file" class="form-control" name="{{ $perinfo->option_types }}s[]"
+                                        <label for="file">
+                                            {{ $perinfo->name }}
+                                            @if ($perinfo->required)
+                                                <span class="text-danger">*</span>
+                                            @endif
+                                        </label>
+                                        <input type="file" class="form-control"
+                                            name="{{ $perinfo->option_types }}s[]"
                                             {{ $perinfo->required == 1 ? 'required' : '' }}
                                             @if ($perinfo->option_types == 'multiple_file') multiple @endif>
                                     </div>
@@ -559,7 +678,7 @@
                         let addressDropdownEle = $('.addresses');
 
                         // Create the select dropdown for addresses
-                        let select = '';
+                        let select = '<option value="" data-state="">Select Area</option>';
 
                         for (let i = 0; i < addresses.length; i++) {
                             select += '<option value="' + addresses[i].Name + '" data-state="' +
