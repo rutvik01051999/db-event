@@ -731,5 +731,14 @@
                 }
             });
         });
+
+        // If session has success
+
+        @if (Session::has('success'))
+            Swal.fire({
+                text: "{{ Session::get('success') }}",
+                icon: "success"
+            });
+        @endif
     </script>
 @endsection

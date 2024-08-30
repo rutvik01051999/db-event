@@ -25,31 +25,31 @@ Route::get('/', function () {
 });
 
 // Dashboard
-Route::middleware(['web'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
         Route::get('dashboard/count', 'counts')->name('dashboard.counts');
     });
 
-    Route::controller(EventContoller::class)->group(function () {
-        Route::get('/create', 'create')->name('event.create');
-        Route::post('/store', 'store');
-        Route::get('/list', 'index')->name('event.list');
-        // Route::post('event/edit', 'edit');
-        Route::get('event/edit/{id}', 'edit')->name('event.edit');
-        Route::get('event/show/{id}', 'show')->name('event.show');
-        Route::post('event/delete', 'delete');
-        Route::post('personal/info/delete', 'PersonalInfodelete');
-        Route::post('event/update/{id}', 'update')->name('event.update');
-        Route::get('question/list/{id}', 'questionList')->name('question.list');
-        Route::post('question/update', 'questionUpdate');
-        Route::post('question/delete', 'questionDelete');
-        Route::get('event/set-correct-answer/{id}', 'setCorrectAnswer')->name('event.set-correct-answer');
-        Route::post('event/set-correct-answer/{id}', 'saveCorrectAnswer')->name('event.save-correct-answer');
-        Route::post('event/change-status/{id}', 'changeStatus')->name('event.change-status');
-        Route::get('user/list', 'userList')->name('user.list');
-
-    });
+    Route::prefix('event')
+        ->as('event.')
+        ->group(function () {
+            Route::get('/create', [EventContoller::class, 'create'])->name('create');
+            Route::post('/store', [EventContoller::class, 'store'])->name('store');
+            Route::get('/list', [EventContoller::class, 'index'])->name('index');
+            Route::get('event/edit/{id}', [EventContoller::class, 'edit'])->name('edit');
+            Route::get('event/show/{id}', [EventContoller::class, 'show'])->name('show');
+            Route::post('event/delete', [EventContoller::class, 'delete'])->name('delete');
+            Route::post('personal/info/delete', [EventContoller::class, 'PersonalInfodelete']);
+            Route::post('event/update/{id}', [EventContoller::class, 'update'])->name('update');
+            Route::get('question/list/{id}', [EventContoller::class, 'questionList'])->name('question.list');
+            Route::post('question/update', [EventContoller::class, 'questionUpdate']);
+            Route::post('question/delete', [EventContoller::class, 'questionDelete']);
+            Route::get('event/set-correct-answer/{id}', [EventContoller::class, 'setCorrectAnswer'])->name('set-correct-answer');
+            Route::post('event/set-correct-answer/{id}', [EventContoller::class, 'saveCorrectAnswer'])->name('save-correct-answer');
+            Route::post('event/change-status/{id}', [EventContoller::class, 'changeStatus'])->name('change-status');
+            Route::get('user/list', [EventContoller::class, 'userList'])->name('user.list');
+        });
 });
 Route::controller(UserEventHandlingController::class)->group(function () {
     Route::get('user/event/{id}', 'index')->name('user.event.form');

@@ -7,8 +7,15 @@
                     <div class="col-sm-9">
                         <h1>Events</h1>
                     </div>
+                    <div class="col-sm-3 text-right">
+                        <a href="{{ route('event.create') }}" class="btn btn-primary">
+                            <i class="fa fas fa-plus"></i>
+                            Create
+                        </a>
+                    </div>
                 </div>
             </div>
+
         </section>
 
         <section class="content">
@@ -206,7 +213,7 @@
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
                                 confirmButtonText: 'Yes, Set it!'
-                            },).then((result) => {
+                            }, ).then((result) => {
                                 if (result.isConfirmed) {
                                     url = "{{ route('event.set-correct-answer', ':id') }}";
                                     url = url.replace(':id', id);
@@ -223,7 +230,7 @@
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
                                 confirmButtonText: 'Yes, Inactivate it!'
-                            },).then((result) => {
+                            }, ).then((result) => {
                                 if (result.isConfirmed) {
                                     changeStatus(id, status, 'yes');
                                 }
@@ -234,7 +241,7 @@
                                 text: response.message,
                                 icon: 'success'
                             });
-                        } 
+                        }
 
                         window.showTable();
                         return;

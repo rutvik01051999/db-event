@@ -311,7 +311,9 @@ class UserEventHandlingController extends Controller
                 }
             }
             DB::commit();
-            return view('user.event.thankyou', compact('data'));
+
+            return redirect()->back()->with('success', $data->response);
+            // return view('user.event.thankyou', compact('data'));
         } catch (\Exception $e) {
             dd($e);
             DB::rollback();
