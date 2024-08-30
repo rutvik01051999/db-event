@@ -77,8 +77,9 @@ Route::prefix('report')
     });
 
 // select2.events
-Route::prefix('select2')->group(function () {
-    Route::get('events', [Select2Controller::class, 'events'])->name('select2.events');
+Route::prefix('select2')->as('select2.')->group(function () {
+    Route::get('events', [Select2Controller::class, 'events'])->name('events');
+    Route::get('departments', [Select2Controller::class, 'departments'])->name('departments');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

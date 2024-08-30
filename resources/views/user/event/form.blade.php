@@ -384,8 +384,7 @@
                                             <input type="checkbox" class="custom-control-input"
                                                 id="checkbox-{{ $option->id }}"
                                                 name="que_checkbox_{{ $option->index_no }}_{{ $perinfo->index_no }}"
-                                                value="{{ $option->index_no }}"
-                                                {{ $perinfo->required == 1 ? 'required' : '' }}>
+                                                value="{{ $option->index_no }}">
                                             <label class="custom-control-label"
                                                 for="checkbox-{{ $option->id }}">{{ $option->name }}</label>
                                         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,18 @@ class Select2Controller extends Controller
         
         return response()->json([
             'events' => $events
+        ]);
+    }
+
+    public function departments(Request $request) {
+        $search = $request->q;
+        
+        $departments = Department ::when($search, function ($query) use ($search) {
+            $query->where('name', 'like', '%'.$search.'%');
+        })->select(DB::raw('name as text'), 'id')->latest()->get();
+
+        return response()->json([
+            'departments' => $departments
         ]);
     }
 }

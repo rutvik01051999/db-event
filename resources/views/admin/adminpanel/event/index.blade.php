@@ -39,7 +39,7 @@
                 <div class="card shadow-lg">
                     <div class="card-body">
                         {{ $dataTable->table([
-                            'class' => 'w-100',
+                            'class' => 'w-100 table table-striped table-bordered',
                         ]) }}
                     </div>
                     <!-- /.card-body -->

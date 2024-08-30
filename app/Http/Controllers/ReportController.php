@@ -117,7 +117,7 @@ class ReportController extends Controller
         $eventId = $request->get('event_id');
         $type = $request->get('type');
 
-        if ($type == 'csv') {
+        if ($type == 'excel') {
             $users = UserEventPersonalData::withWhereHas('events', function ($query) use ($eventId) {
                 $query->where('event_id', $eventId);
             })->get();
@@ -177,7 +177,7 @@ class ReportController extends Controller
                 }
             }
 
-            return Excel::download(new UserEventExport($data, $columns), 'event.csv');
+            return Excel::download(new UserEventExport($data, $columns), 'users.xlsx');
         }
     }
 }

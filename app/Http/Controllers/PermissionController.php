@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,19 +19,26 @@ class PermissionController extends Controller
 
     public function assign()
     {
-        return view('auth.permissions.assign');
+        $departments = Department::all();
+        return view('auth.permissions.assign', compact('departments'));
     }
 
     public function store(Request $request)
     {
         $permissions = $request->permissions ?? [];
         $username = $request->username;
+        $departments = $request->departments ?? [];
 
         $user = User::where('username', $username)->latest()->first();
 
         $user->syncPermissions($permissions);
 
-        return redirect()->route('permission.assign')->withSuccess('Permissions assigned successfully');
+        $user->departments()->sync($departments);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Permissions assigned successfully',
+        ]);
     }
 
     public function searchByEmployeeId(Request $request)
@@ -102,13 +110,16 @@ class PermissionController extends Controller
 
         $userPermissions = $user->getAllPermissions()->pluck('id')->toArray();
 
-        $view = view('auth.permissions.all', compact('permissions', 'userPermissions'))->render();
+        $userDepartments = $user->departments->pluck('id')->toArray();
+
+        $view = view('auth.permissions.all', compact('permissions', 'userPermissions', 'userDepartments'))->render();
 
         return response()->json([
             'view' => $view,
             'username' => $username,
             'fullName' => $name,
-            'user' => $user
+            'user' => $user,
+            'userDepartments' => $userDepartments
         ]);
     }
 }
