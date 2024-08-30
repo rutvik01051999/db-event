@@ -273,6 +273,7 @@
                                             <input type="text" name="{{ $perinfo->input_name }}"
                                                 class="form-control datepicker" placeholder="{{ $perinfo->name }}"
                                                 id="{{ $perinfo->input_name }}" readonly
+                                                {{ $perinfo->required == 1 ? 'required' : '' }}
                                                 placeholder="{{ $perinfo->name }}">
                                         </div>
                                     </div>
