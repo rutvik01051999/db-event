@@ -150,7 +150,7 @@ class EventContoller extends Controller
                     Option::create([
                         'question_id' => $question->id,
                     ]);
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'multiple_file' || $type == 'rating' || $type == 'date' || $type == 'number' || $type == 'mobile') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'multiple_file' || $type == 'rating' || $type == 'date' || $type == 'number' || $type == 'mobile' || $type == 'pdf' || $type == 'video' || $type == 'audio' || $type == 'image' || $type == 'pdf_multiple' || $type == 'image_multiple' || $type == 'video_multiple' || $type == 'audio_multiple') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
                         'event_id' => $event->id,
@@ -348,7 +348,7 @@ class EventContoller extends Controller
                     Option::create([
                         'question_id' => $question->id,
                     ]);
-                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'multiple_file' || $type == 'rating' || $type == 'date' || $type == 'number' || $type == 'mobile') {
+                } else if ($type == 'radio' || $type == 'dropdown' || $type == 'checkbox' || $type == 'file' || $type == 'multiple_file' || $type == 'rating' || $type == 'date' || $type == 'number' || $type == 'mobile' || $type == 'pdf' || $type == 'video' || $type == 'audio' || $type == 'image' || $type == 'pdf_multiple' || $type == 'image_multiple' || $type == 'video_multiple' || $type == 'audio_multiple') {
                     $options = explode("~", $request->option[$key]);
                     $question = Question::create([
                         'event_id' => $request->event_id,
