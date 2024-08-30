@@ -183,7 +183,7 @@
                                                 class="form-select" {{ $perinfo->required == 1 ? 'required' : '' }}>
                                                 <option value="" selected>select option</option>
                                                 @foreach ($perinfo->options as $option)
-                                                    <option value="{{ $option->index_no }}">{{ $option->name }}</option>
+                                                    <option>{{ $option->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -223,7 +223,7 @@
                                                         <input class="form-check-input radio{{ $option->index_no }}"
                                                             type="radio" name="{{ $perinfo->input_name }}"
                                                             id="radio-{{ $option->id }}"
-                                                            value="{{ $option->index_no }}"
+                                                            value="{{ $option->name }}"
                                                             {{ $perinfo->required == 1 ? 'required' : '' }}>
                                                         <label class="form-check-label" for="radio-{{ $option->id }}">
                                                             {{ $option->name }}
