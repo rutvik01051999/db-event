@@ -18,8 +18,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
 </head>
 
 <body class="login-page">
@@ -32,10 +33,12 @@
     <script src="{{ asset('dist/js/adminlte.min.js?v=3.2.0') }}"></script>
     <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
 
 
     @yield('content-js')
+   
 
     <script>
         function togglePassword(id, element) {

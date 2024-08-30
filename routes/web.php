@@ -43,8 +43,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('personal/info/delete', [EventContoller::class, 'PersonalInfodelete']);
             Route::post('event/update/{id}', [EventContoller::class, 'update'])->name('update');
             Route::get('question/list/{id}', [EventContoller::class, 'questionList'])->name('question.list');
-            Route::post('question/update', [EventContoller::class, 'questionUpdate']);
-            Route::post('question/delete', [EventContoller::class, 'questionDelete']);
+            Route::post('question/update', [EventContoller::class, 'questionUpdate'])->name('question.update');
+            Route::post('question/delete', [EventContoller::class, 'questionDelete'])->name('question.delete');
             Route::get('event/set-correct-answer/{id}', [EventContoller::class, 'setCorrectAnswer'])->name('set-correct-answer');
             Route::post('event/set-correct-answer/{id}', [EventContoller::class, 'saveCorrectAnswer'])->name('save-correct-answer');
             Route::post('event/change-status/{id}', [EventContoller::class, 'changeStatus'])->name('change-status');
@@ -54,6 +54,10 @@ Route::controller(UserEventHandlingController::class)->group(function () {
     Route::get('user/event/{id}', 'index')->name('user.event.form');
     Route::post('user/event/store', 'eventDataStore')->name('user.event.submit');
     Route::post('user/event/save-location', 'saveLocation')->name('user.event.save-location');
+    Route::get('dropzone', 'dropzone');
+    Route::post('dropzone/upload', 'upload')->name('dropzone.upload');
+    Route::get('dropzone/fetch', 'fetch')->name('dropzone.fetch');
+    Route::get('dropzone/delete', 'delete')->name('dropzone.delete');
 });
 
 Route::prefix('permission')
