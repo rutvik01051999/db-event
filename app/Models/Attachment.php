@@ -18,6 +18,9 @@ class Attachment extends Model
         'collection',
         'attachmentable_id',
         'attachmentable_type',
+        'question_index',
+        'event_id',
+        'default_id'
     ];
 
     public function attachmentable()

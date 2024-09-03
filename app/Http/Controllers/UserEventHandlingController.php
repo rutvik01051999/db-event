@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\UserEventData;
 use App\Models\UserEventLocation;
 use App\Services\AttachmentService;
+use App\Models\Attachment;
 use Carbon\Carbon;
 use DB;
 use App\Models\UserEventPersonalData;
@@ -279,9 +280,9 @@ class UserEventHandlingController extends Controller
                             'question_id' => $val->id,
                         ]);
                     }
-                } elseif ($val->option_types == 'file' || $val->option_types == 'multiple_file') {
+                } elseif ($val->option_types == 'pdf' || $val->option_types == 'video' || $val->option_types == 'audio' || $val->option_types == 'image') {
                     $files = [];
-                    if ($val->option_types == 'file' && isset($request['files'])) {
+                    if ($val->option_types == 'pdf' || $val->option_types == 'video' || $val->option_types == 'audio' || $val->option_types == 'image' && isset($request['files'])) {
                         $files = $request['files'];
                     } elseif ($val->option_types == 'multiple_file' && isset($request['multiple_files'])) {
                         $files = $request['multiple_files'];
@@ -308,6 +309,24 @@ class UserEventHandlingController extends Controller
                     $userEvent->update([
                         'option_val' => json_encode($filePaths),
                     ]);
+                }else if($val->option_types == 'pdf_multiple' || $val->option_types == 'image_multiple' || $val->option_types == 'video_multiple' || $val->option_types == 'audio_multiple'){
+                    $userEvent = UserEventData::create([
+                        'event_id' => $request->event_id,
+                        'option_val' => '',
+                        'option_types' => $val->option_types,
+                        'question_index' => $val->index_no,
+                        'question_id' => $val->id,
+                        'personal_id' => $user_per_info->id,
+                    ]);
+                    DB::table('attachments')->where('event_id',$request->event_id)->where('question_index',$val->index_no)->where('default_id',$request->default_id)->update([
+                        'attachmentable_id'=>$userEvent->id,
+                        'attachmentable_type'=>'App\Models\UserEventData'
+                     ]);
+
+                    // Attachment::where('event_id',$request->event_id)->where('question_index',$val->index_no)->update([
+                    //    'attachmentable_id'=>$userEvent->id,
+                    //    'attachmentable_type'=>'App\Models\UserEventData'
+                    // ]);
                 }
             }
             DB::commit();
@@ -328,8 +347,11 @@ class UserEventHandlingController extends Controller
         return response()->json(['status' => 'success'], 200);
     }
 
-    public function upload(Request $request){
-     $headers = $request->header();
-     dd($headers);
+    public function upload(Request $request)
+    {
+        $headers = $request->header();
+        $file =  $request->file('file');
+        AttachmentService::multipleFileSaveDropzone($file, 'user-uploaded-file', 'users/uploaded-files', $headers);
+        return response()->json(['status' => 'success'], 200);
     }
 }

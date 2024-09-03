@@ -367,7 +367,9 @@
             <input type="hidden" value="{{ $data->id }}" name="event_id">
             <input type="hidden" value="" id="otp_mobile" name="otp_mobile">
             <input type="hidden" value="" name="otp_verify" id="otp_verify">
+            <input type="hidden" value="" name="default_id" id="default_id">
 
+        
             <div class="card shadow-lg">
                 <div class="card-header text-center">
                     <h4 class="m-0 font-weight-bold text-primary">Personal Information</h4>
@@ -412,7 +414,7 @@
                             </div>
                         </div>
                         @elseif($perinfo->option_types == 'mobile_otp')
-                        <!-- <div class="col-md-6 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
                                 <label for="name">
                                     {{ $perinfo->name }}
@@ -431,7 +433,7 @@
                                 </div>
                                 <div class="mobile_otp_error" style="color: red;"></div>
                             </div>
-                        </div> -->
+                        </div>
                         @elseif($perinfo->option_types == 'textarea')
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group mb-3">
@@ -751,10 +753,7 @@
                                 <span class="text-danger">*</span>
                                 @endif
                             </label>
-                            <div id="dropzone" class="dropzone"></div>
-
-
-
+                            <div id="dropzone{{$perinfo->index_no}}" class="dropzone"></div>
                         </div>
                     </div>
                     @endif
@@ -770,18 +769,27 @@
 
 @section('content-js')
 <script>
+    var default_id  = Math.random().toString(36).substring(3,98)
+    $('#default_id').val(default_id)
     Dropzone.autoDiscover = false;
 
-        var zdrop = new Dropzone('#dropzone', {
+    var dropzoneEls = [];
+    $('.dropzone').each(function(i, obj) {
+        console.log(i)
+        var zid = obj.id
+        var id_zid = zid.substring(8)
+        var zdrop = new Dropzone('#' + zid, {
             headers: {
                 'X-CSRF-TOKEN': "{{ csrf_token() }}", // Pass CSRF token
-                'id':45
+                'id': id_zid,
+                'event_id': "{{ $data->id }}",
+                'default_id': default_id,
             },
             url: "{{ url('dropzone/upload') }}",
             maxFiles: 9,
             maxFilesize: 30,
             addRemoveLinks: true,
-            autoProcessQueue : false,
+            autoProcessQueue: false,
             removeFilePromise: function() {
                 return new Promise((resolve, reject) => {
                     let rand = Math.floor(Math.random() * 3)
@@ -791,13 +799,26 @@
                 });
             }
         });
-   
+        dropzoneEls[i] = zdrop
+    });
+
     $('form').submit(function(e) {
+        let mobile = $('#otp_mobile').val()
+
         e.preventDefault();
         let check_otp = $('#otp_verify').val()
-        zdrop.processQueue();
+        // zdrop.processQueue();
+        console.log(dropzoneEls.length)
+        
+        for (var i = 0; i < dropzoneEls.length; i++) {
+            console.log(i)
+            dropzoneEls[i].processQueue();
+            console.log(dropzoneEls[i])
+        }
+
         console.log(check_otp)
         if (check_otp == 1) {
+            $("#userform").submit();
             return true
         } else {
             Swal.fire({
@@ -844,7 +865,7 @@
             const prevInput = input.previousElementSibling;
 
             if (currentInput.value.length > 1) {
-                currentInput.value = "";
+                currentInput.value = ""; 
                 return;
             }
 

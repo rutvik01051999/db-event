@@ -14,13 +14,16 @@ return new class extends Migration
         Schema::create('attachments', function (Blueprint $table) {
             $table->id();
             $table->string('original_name');
+            $table->string('event_id')->nullable();
+            $table->string('default_id')->nullable();
+            $table->string('question_index')->nullable();
             $table->string('file_name');
             $table->string('file_path');
             $table->integer('file_size');
             $table->string('file_type');
             $table->string('collection');
-            $table->unsignedBigInteger('attachmentable_id');
-            $table->string('attachmentable_type');
+            $table->unsignedBigInteger('attachmentable_id')->nullable();
+            $table->string('attachmentable_type')->nullable();
             $table->timestamps();
         });
     }

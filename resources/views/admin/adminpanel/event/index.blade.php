@@ -120,7 +120,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: "{{ url('event/delete') }}",
+                        url: "{{ route('event.delete') }}",
                         data: {
                             'id': id,
                             "_token": "{{ csrf_token() }}",

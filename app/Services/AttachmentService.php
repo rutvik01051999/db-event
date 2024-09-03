@@ -175,4 +175,32 @@ class AttachmentService
         // currently we have only one default image for all collections
         return  public_path('images/media/default.png');
     }
+
+    public static function multipleFileSaveDropzone($file, $collection, $path,$data){
+        try {
+            $uniqueFileName = self::uniqueFileName();
+            $fileName = $file->getClientOriginalName();
+            $fileSize = $file->getSize();
+            $fileType = $file->getMimeType();
+            Storage::putFileAs($path, $file, $uniqueFileName . '.' . $file->getClientOriginalExtension());
+            $filePath = $path . '/' . $uniqueFileName . '.' . $file->getClientOriginalExtension();
+
+                $attachment = Attachment::create([
+                    'original_name' => $fileName,
+                    'file_name' => $uniqueFileName,
+                    'file_path' => $filePath,
+                    'file_size' => $fileSize,
+                    'file_type' => $fileType,
+                    'collection' => $collection,
+                    'event_id'=>$data['event-id'][0],
+                    'question_index'=>$data['id'][0],
+                    'default_id'=>$data['default-id'][0]
+                ]);
+
+            return $attachment;
+        } catch (\Exception $e) {
+            Log::error('Error saving attachment: ' . $e);
+            return null;
+        }
+    }
 }
