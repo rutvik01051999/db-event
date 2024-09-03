@@ -8,13 +8,9 @@ use App\Models\Option;
 use App\Models\PersonalInformation;
 use App\Models\Question;
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 use function Laravel\Prompts\progress;
 use function Laravel\Prompts\text;
 
@@ -254,7 +250,7 @@ class EventSeeder extends Seeder
                 'name' => 'Upload a picture of a historical monument.',
                 'description' => 'Please upload an image file.',
                 'required' => 1,
-                'option_types' => 'file',
+                'option_types' => 'image',
                 'option_name' => null,
                 'correct_answer' => null,
                 'sample_answer' => 'Uploaded image file',
@@ -298,7 +294,7 @@ class EventSeeder extends Seeder
                 'name' => 'Upload multiple images of famous historical leaders.',
                 'description' => 'Please upload multiple image files.',
                 'required' => 1,
-                'option_types' => 'multiple_file',
+                'option_types' => 'image_multiple',
                 'option_name' => null,
                 'correct_answer' => null,
                 'sample_answer' => 'Multiple uploaded image files',

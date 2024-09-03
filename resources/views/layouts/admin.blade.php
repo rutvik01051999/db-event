@@ -49,6 +49,8 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
@@ -147,6 +149,8 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('dist/js/custom.js') }}"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.min.js"></script>
     @yield('content-js')
     @stack('scripts')
 </body>

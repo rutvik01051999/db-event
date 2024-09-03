@@ -71,11 +71,57 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            {{-- Event Report --}}
                             <li class="nav-item">
                                 <a href="{{ route('report.event') }}"
                                     class="nav-link {{ request()->routeIs('report.event') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Event Report</p>
+                                </a>
+                            </li>
+
+                            {{-- State Wise Report --}}
+                            <li class="nav-item">
+                                <a href="{{ route('report.state') }}"
+                                    class="nav-link {{ request()->routeIs('report.state') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>State Report</p>
+                                </a>
+                            </li>
+
+                            {{-- Time Band Wise Report --}}
+                            <li class="nav-item">
+                                <a href="{{ route('report.timeband') }}"
+                                    class="nav-link {{ request()->routeIs('report.timeband') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Time Band Report</p>
+                                </a>
+                            </li>
+
+                            {{-- Time Band - Date Wise Report --}}
+                            <li class="nav-item">
+                                <a href="{{ route('report.timeband-date') }}"
+                                    class="nav-link {{ request()->routeIs('report.timeband-date') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Time Band - Date Report</p>
+                                </a>
+                            </li>
+
+                            {{-- Age Mix Report --}}
+                            <li class="nav-item">
+                                <a href="{{ route('report.agemix') }}"
+                                    class="nav-link {{ request()->routeIs('report.agemix') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Age Mix Report</p>
+                                </a>
+                            </li>
+
+                            {{-- Age - Date Wise Mix Report --}}
+                            <li class="nav-item">
+                                <a href="{{ route('report.agemix-date') }}"
+                                    class="nav-link {{ request()->routeIs('report.agemix-date') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Age - Date Wise Mix Report</p>
                                 </a>
                             </li>
                         </ul>
