@@ -579,6 +579,7 @@
                 data: {
                     'mobile_num': mobile_num,
                     "otp": otp,
+                    'event_id': "{{ $data->id }}",
                     "_token": "{{ csrf_token() }}",
                 },
                 type: 'POST',
@@ -713,11 +714,21 @@
                 data: {
                     'mobile_num': mobile_num,
                     "_token": "{{ csrf_token() }}",
+                    'event_id': "{{ $data->id }}",
                 },
-
                 type: 'POST',
                 dataType: 'json',
                 success: function(result) {
+                    if (result.already_submitted) {
+                        Swal.fire({
+                            title: 'Already participated',
+                            text: 'You have already participated in this event.',
+                            icon: 'warning',
+                        });
+
+                        return false;
+                    }
+
                     if (result.number == 'invalid') {
                         $('.mobile_otp_error').html('Please enter valid mobile number');
                         setTimeout(function() {

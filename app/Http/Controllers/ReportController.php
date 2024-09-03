@@ -27,6 +27,7 @@ class ReportController extends Controller
         $start = $request->get('start') ?? 0;
         $length = $request->get('length') ?? 10;
         $period = $request->get('period');
+        $searchStr = $request->get('search')['value'] ?? '';
 
         $startDate = $endDate = null;
         if (!empty($period)) {
@@ -41,6 +42,15 @@ class ReportController extends Controller
         })->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
             $query->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
         });
+
+        if (!empty($searchStr)) {
+            $query->where(function ($query) use ($searchStr) {
+                $query->where('full_name', 'like', '%' . $searchStr . '%')
+                    ->orWhereHas('events', function ($query) use ($searchStr) {
+                        $query->where('option_val', 'like', '%' . $searchStr . '%');
+                    });
+            });
+        }
 
         $total = $query->count();
 
@@ -140,10 +150,19 @@ class ReportController extends Controller
     {
         $eventId = $request->get('event_id');
         $type = $request->get('type');
+        $searchStr = $request->get('searchStr');
 
         if ($type == 'excel') {
             $users = UserEventPersonalData::withWhereHas('events', function ($query) use ($eventId) {
                 $query->where('event_id', $eventId);
+            })
+            ->when($searchStr, function ($query) use ($searchStr) {
+                $query->where(function ($query) use ($searchStr) {
+                    $query->where('full_name', 'like', '%' . $searchStr . '%')
+                        ->orWhereHas('events', function ($query) use ($searchStr) {
+                            $query->where('option_val', 'like', '%' . $searchStr . '%');
+                        });
+                });
             })->get();
 
             $columns = [];

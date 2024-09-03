@@ -72,7 +72,8 @@
                                     <div class="form-group">
                                         <label>Response</label>
                                         <input type="text" name="event_response" class="form-control"
-                                            placeholder="Event Response" id="event_response" data-translatable="true" value="{{ $event->response }}">
+                                            placeholder="Event Response" id="event_response" data-translatable="true"
+                                            value="{{ $event->response }}">
                                     </div>
                                 </div>
                             </div>
@@ -99,6 +100,18 @@
                                                     {{ $department->id == $event->department_id ? 'selected' : '' }}>
                                                     {{ $department->name }}
                                                 </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Event Type <span class="text-danger">*</span></label>
+                                        <select class="form-select" name="event_type" id="event_type">
+                                            @foreach (\App\Enums\EventType::toArray() as $item)
+                                                <option value="{{ $item['id'] }}"
+                                                    {{ $event->event_type ? $event->event_type->value == $item['id'] ? 'selected' : '' : '' }}>
+                                                    {{ $item['text'] }}</option>
                                             @endforeach
                                         </select>
                                     </div>

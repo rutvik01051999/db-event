@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\EventDataTable;
 use App\DataTables\EventUserListDataTable;
+use App\Enums\EventType;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -62,6 +63,7 @@ class EventContoller extends Controller
                 'event_url' => $url,
                 'response' => $request->event_response ?? '',
                 'status' => false,
+                'event_type' => EventType::fromValue($request->event_type),
             ]);
 
             //for Personal information
@@ -232,6 +234,7 @@ class EventContoller extends Controller
             'close_date' => $request->event_end,
             'image' => $imagePath,
             'response' => $request->event_response ?? '',
+            'event_type' => EventType::fromValue($request->event_type),
         ]);
 
         return redirect()->route('event.index')->with('success', 'Event updated successfully');

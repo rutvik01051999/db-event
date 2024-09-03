@@ -117,6 +117,16 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
+                                        <label>Event Type <span class="text-danger">*</span></label>
+                                        <select class="form-select" name="event_type" id="event_type">
+                                            @foreach (\App\Enums\EventType::toArray() as $item)
+                                                <option value="{{ $item['id'] }}">{{ $item['text'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
 
                                     </div>
                                 </div>

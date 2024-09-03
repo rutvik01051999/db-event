@@ -49,7 +49,7 @@
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
 
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -91,6 +91,8 @@
     <!-- jQuery -->
     {{-- <script src="plugins/jquery/jquery.min.js"></script> --}}
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -150,7 +152,6 @@
 
     <script type="text/javascript" src="{{ asset('dist/js/custom.js') }}"></script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.min.js"></script>
     @yield('content-js')
     @stack('scripts')
 </body>
