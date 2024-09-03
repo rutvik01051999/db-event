@@ -73,7 +73,12 @@ Route::prefix('report')
     ->group(function () {
         Route::get('/event-report', [ReportController::class, 'eventReport'])->name('event');
         Route::post('/event-report/fetch', [ReportController::class, 'fetch'])->name('event.fetch');
-
+        Route::get('/state', [ReportController::class, 'state'])->name('state');
+        Route::get('/timeband', [ReportController::class, 'timeband'])->name('timeband');
+        Route::get('/timeband-date', [ReportController::class, 'timebandDate'])->name('timeband-date');
+        Route::get('/agemix', [ReportController::class, 'agemix'])->name('agemix');
+        Route::get('/agemix-date', [ReportController::class, 'agemixDate'])->name('agemix-date');
+        
         // Export
         Route::post('/event-report/export', [ReportController::class, 'export'])->name('event.export');
     });

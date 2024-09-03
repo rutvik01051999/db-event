@@ -30,7 +30,7 @@ class ReportController extends Controller
 
         $startDate = $endDate = null;
         if (!empty($period)) {
-            list($startDate, $endDate) = explode(' - ', $period);
+            [$startDate, $endDate] = explode(' - ', $period);
         }
 
         $event = Event::find($eventId);
@@ -44,14 +44,15 @@ class ReportController extends Controller
 
         $total = $query->count();
 
-        
         $users = $query->offset($start)->limit($length)->get();
-        
+
         $data = [];
-        
-        $columns[0] = [
-            'title' => 'Full Name',
-            'data' => 'full_name',
+
+        $columns = [
+            [
+                'title' => 'Full Name',
+                'data' => 'full_name',
+            ]
         ];
 
         if ($total == 0) {
@@ -90,14 +91,23 @@ class ReportController extends Controller
                             ->implode(', ');
                         break;
 
-                    case 'file':
-                    case 'multiple_file':
+                    case 'image':
+                    case 'image_multiple':
                         $html = '';
                         $answer = $eventResponse->option_val;
                         $answer = json_decode($answer);
                         $html = '<ul class="list-group">';
                         foreach ($answer as $key => $value) {
-                            $html .= '<a href="' . Storage::url($value) . '" target="_blank" class="list-group-item">' . basename($value) . '</a>';
+                            $html .=
+                                '<a href="' .
+                                Storage::url($value) .
+                                '" class="list-group-item" data-lightbox="image' .
+                                $eventResponse->id .
+                                '">
+                                <img src="' .
+                                Storage::url($value) .
+                                '" class="img-fluid">
+                            </a>';
                         }
                         $html .= '</ul>';
                         $answer = $html;
@@ -171,8 +181,8 @@ class ReportController extends Controller
                                 ->implode(', ');
                             break;
 
-                        case 'file':
-                        case 'multiple_file':
+                        case 'image':
+                        case 'image_multiple':
                             $fileUrls = [];
                             $answer = $eventResponse->option_val;
                             $answer = json_decode($answer);
@@ -193,5 +203,30 @@ class ReportController extends Controller
 
             return Excel::download(new UserEventExport($data, $columns), 'users.xlsx');
         }
+    }
+
+    public function state()
+    {
+        return view('report.state');
+    }
+
+    public function timeband()
+    {
+        return view('report.timeband');
+    }
+
+    public function timebandDate()
+    {
+        return view('report.timeband-date');
+    }
+
+    public function agemix()
+    {
+        return view('report.agemix');
+    }
+
+    public function agemixDate()
+    {
+        return view('report.agemix-date');
     }
 }
