@@ -42,8 +42,11 @@ class EventDataTable extends BaseDataTable
             ->addColumn('department', function ($event) {
                 return optional($event->department)->name ?? 'N/A';
             })
+            ->editColumn('event_type', function ($event) {
+                return $event->event_type ? $event->event_type->getHtmlBadge() : 'N/A';
+            })
             ->setRowId('id')
-            ->rawColumns(['url', 'action', 'status']);
+            ->rawColumns(['url', 'action', 'status', 'event_type']);
     }
 
     /**
@@ -84,6 +87,7 @@ class EventDataTable extends BaseDataTable
             Column::make('status')->addClass('text-center'),
             Column::make('category')->addClass('text-center'),
             Column::make('department')->addClass('text-center'),
+            Column::make('event_type')->addClass('text-center'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

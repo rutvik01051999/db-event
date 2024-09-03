@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EventType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,7 +23,12 @@ class Event extends Model
         'response',
         'status',
         'qr_code_id',
-        'qr_code_path'
+        'qr_code_path',
+        'event_type'
+    ];
+
+    protected $casts = [
+        'event_type' => EventType::class
     ];
 
     public function questions(): HasMany

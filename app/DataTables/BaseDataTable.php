@@ -12,7 +12,7 @@ class BaseDataTable extends DataTable
      * @var array
      */
     protected array $parameters = [
-        
+        'dom' => '<"row"<"col-12"B>><"row mt-3"<"col-md-6"l><"col-md-6"f>>r<"col-12 table-responsive"t><"row"<"col-md-6"i><"col-md-6"p>>',        
     ];
 
     /**

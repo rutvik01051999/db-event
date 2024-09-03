@@ -206,6 +206,10 @@
                                         "{{ route('report.event.export') }}";
                                     let method = 'POST';
 
+                                    // Get datatable search value
+                                    let searchStr = $(
+                                        `#report-table_filter input`
+                                    ).val();
                                     $.ajax({
                                         url: url,
                                         type: method,
@@ -213,7 +217,8 @@
                                             _token: "{{ csrf_token() }}",
                                             event_id: $('#event')
                                                 .val(),
-                                            type: 'excel'
+                                            type: 'excel',
+                                            searchStr: searchStr,
                                         },
                                         xhrFields: {
                                             responseType: 'blob'
@@ -248,7 +253,7 @@
                             pageLength: perPage,
                             paging: true, // Enable pagination
                             lengthChange: false, // Disable changing page length
-                            searching: false, // Disable search
+                            searching: true, // Disable search
                             ordering: false, // Disable ordering
                         });
                     }

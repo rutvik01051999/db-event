@@ -917,48 +917,49 @@
         }
     });
 
-    $('.get_otp_check').click(function() {
-        var mobile_num = $('#mobile_otp').val()
-        var otp = $('#otp_1').val() + $('#otp_2').val() + $('#otp_3').val() + $('#otp_4').val() + $('#otp_5')
-            .val() + $('#otp_6').val()
-        if (!mobile_num) {
-            alert('please enter mobile number')
-        }
-        if (!otp) {
-            alert('please enter valid otp')
-        }
-        $.ajax({
-            // headers: {
-            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            // },
-            url: "{{ url('api/check/otp') }}",
-            data: {
-                'mobile_num': mobile_num,
-                "otp": otp,
-                "_token": "{{ csrf_token() }}",
-            },
-            type: 'POST',
-            dataType: 'json',
-            success: function(result) {
-                if (result.number == 'valid') {
-                    $("#mobile_otp").prop('disabled', true);
-                    $(".get_otp").prop('disabled', true);
-                    $('#myModal').modal('hide');
-                    $("#otp_mobile").val(mobile_num);
-                    $('#otp_verify').val(1)
-                    console.log(result)
-                    if (result.userdata) {
-                        $('#full_name').val(result.userdata.full_name)
-                        $('#age').val(result.userdata.age)
-                        // $('#gender').val(result.userdata.gender)
-                        $('#pincode').val(result.userdata.pincode)
-                        $('#city').val(result.userdata.city)
-                        $('#state').val(result.userdata.state)
-                        $('#area').val(result.userdata.area)
-                        $('#dob').val(result.userdata.dob)
-                        $('#address').val(result.userdata.address)
-                        $(".radio" + result.userdata.gender).attr('checked', 'checked');
-                    }
+        $('.get_otp_check').click(function() {
+            var mobile_num = $('#mobile_otp').val()
+            var otp = $('#otp_1').val() + $('#otp_2').val() + $('#otp_3').val() + $('#otp_4').val() + $('#otp_5')
+                .val() + $('#otp_6').val()
+            if (!mobile_num) {
+                alert('please enter mobile number')
+            }
+            if (!otp) {
+                alert('please enter valid otp')
+            }
+            $.ajax({
+                // headers: {
+                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // },
+                url: "{{ url('api/check/otp') }}",
+                data: {
+                    'mobile_num': mobile_num,
+                    "otp": otp,
+                    'event_id': "{{ $data->id }}",
+                    "_token": "{{ csrf_token() }}",
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    if (result.number == 'valid') {
+                        $("#mobile_otp").prop('disabled', true);
+                        $(".get_otp").prop('disabled', true);
+                        $('#myModal').modal('hide');
+                        $("#otp_mobile").val(mobile_num);
+                        $('#otp_verify').val(1)
+                        console.log(result)
+                        if (result.userdata) {
+                            $('#full_name').val(result.userdata.full_name)
+                            $('#age').val(result.userdata.age)
+                            // $('#gender').val(result.userdata.gender)
+                            $('#pincode').val(result.userdata.pincode)
+                            $('#city').val(result.userdata.city)
+                            $('#state').val(result.userdata.state)
+                            $('#area').val(result.userdata.area)
+                            $('#dob').val(result.userdata.dob)
+                            $('#address').val(result.userdata.address)
+                            $(".radio" + result.userdata.gender).attr('checked', 'checked');
+                        }
 
                     Swal.fire({
                         title: "Good job!",
@@ -1059,25 +1060,35 @@
         $('.state').val(selectedEle.data('state'));
     });
 
-    $('.get_otp').click(function() {
-        var mobile_num = $('#mobile_otp').val()
-        $.ajax({
-            // headers: {
-            //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            // },
-            url: "{{ url('api/send/number') }}",
-            data: {
-                'mobile_num': mobile_num,
-                "_token": "{{ csrf_token() }}",
-            },
+        $('.get_otp').click(function() {
+            var mobile_num = $('#mobile_otp').val()
+            $.ajax({
+                // headers: {
+                //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                // },
+                url: "{{ url('api/send/number') }}",
+                data: {
+                    'mobile_num': mobile_num,
+                    "_token": "{{ csrf_token() }}",
+                    'event_id': "{{ $data->id }}",
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function(result) {
+                    if (result.already_submitted) {
+                        Swal.fire({
+                            title: 'Already participated',
+                            text: 'You have already participated in this event.',
+                            icon: 'warning',
+                        });
 
-            type: 'POST',
-            dataType: 'json',
-            success: function(result) {
-                if (result.number == 'invalid') {
-                    $('.mobile_otp_error').html('Please enter valid mobile number');
-                    setTimeout(function() {
-                        $('.mobile_otp_error').html('');
+                        return false;
+                    }
+
+                    if (result.number == 'invalid') {
+                        $('.mobile_otp_error').html('Please enter valid mobile number');
+                        setTimeout(function() {
+                            $('.mobile_otp_error').html('');
 
                     }, 3000);
                 } else {

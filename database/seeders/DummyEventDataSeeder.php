@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\table;
+use function Laravel\Prompts\text;
 
 class DummyEventDataSeeder extends Seeder
 {
@@ -24,137 +25,150 @@ class DummyEventDataSeeder extends Seeder
      */
     public function run(): void
     {
-        $event = Event::where('status', 1)->latest()->first();
+        $howMany = text(
+            label: 'How many times do you want to seed data?',
+            default: 1,
+            required: true,
+            validate: fn(string $value) => match (true) {
+                !ctype_digit($value) => 'Please enter a valid number.',
+                $value < 0 => 'Please enter a positive number.',
+                default => null,
+            },
+        );
 
-        $startDate = $event->start_date;
-        $closeDate = $event->close_date;
+        for ($i = 0; $i < $howMany; $i++) {
+            $event = Event::where('status', 1)->latest()->first();
 
-        $randomDate = $this->getRandomDateBetween($startDate, $closeDate);
+            $startDate = $event->start_date;
+            $closeDate = $event->close_date;
 
-        Carbon::setTestNow($randomDate);
+            $randomDate = $this->getRandomDateBetween($startDate, $closeDate);
 
-        // Random india pincode
-        $pincodes = $this->pincodes();
-        $pincode = $pincodes[array_rand($pincodes)];
-        $url = "https://api.postalpincode.in/pincode/$pincode";
+            Carbon::setTestNow($randomDate);
 
-        $response = Http::get($url)->json();
-        $status = data_get($response, '0.Status');
-
-        while ($status != 'Success') {
+            // Random india pincode
+            $pincodes = $this->pincodes();
             $pincode = $pincodes[array_rand($pincodes)];
             $url = "https://api.postalpincode.in/pincode/$pincode";
 
             $response = Http::get($url)->json();
             $status = data_get($response, '0.Status');
-        }
 
-        $postOffices = data_get($response, '0.PostOffice');
-        // Pick random post office
-        $postOffice = $postOffices[array_rand($postOffices)];
+            while ($status != 'Success') {
+                $pincode = $pincodes[array_rand($pincodes)];
+                $url = "https://api.postalpincode.in/pincode/$pincode";
 
-        $area = $postOffice['Name'];
-        $state = $postOffice['State'];
-        $city = $postOffice['District'];
-
-        $userPersonalInfo = [
-            'full_name' => fake()->name(),
-            'gender' => fake()->randomElement(['male', 'female']),
-            'age' => fake()->numberBetween(18, 60),
-            'address' => fake()->address(),
-            'pincode' => fake()->numberBetween(100000, 999999),
-            'area' => $area,
-            'state' => $state,
-            'city' => $city,
-            'mobile_number' => fake()->numberBetween(1000000000, 9999999999),
-            'dob' => fake()->date(),
-        ];
-
-        $userPersonalInfo = UserEventPersonalData::create($userPersonalInfo);
-
-        $questions = $event->questions;
-
-        foreach ($questions as $question) {
-            $type = $question->option_types;
-
-            $answer = '';
-            $files = [];
-            switch ($type) {
-                case 'input':
-                    $answer = fake()->sentence();
-                    break;
-
-                case 'checkbox':
-                case 'radio':
-                case 'dropdown':
-                    $limit = $type == 'checkbox' ? rand(1, 3) : 1;
-                    $options = $question->options()->inRandomOrder()->limit($limit)->pluck('index_no')->toArray();
-                    $answer = implode(',', $options);
-                    break;
-
-                case 'textarea':
-                    $answer = fake()->paragraph();
-                    break;
-
-                case 'date':
-                    $answer = fake()->date();
-                    break;
-
-                case 'image':
-                case 'image_multiple':
-                    $totalFiles = $type == 'image' ? 1 : fake()->numberBetween(2, 3);
-                    for ($i = 0; $i < $totalFiles; $i++) {
-                        $pathToSave = 'event_images/' . $event->id . '/' . $question->index_no;
-                        $filename = time() . '.png';
-
-                        // Random image
-                        $url = 'https://picsum.photos/1200/800';
-                        if (Storage::disk('public')->put($pathToSave . '/' . $filename, Http::get($url)->body())) {
-                            $path = Storage::disk('public')->path($pathToSave . '/' . $filename);
-                            $file = new UploadedFile($path, $filename, 'image/png', null, true);
-                            $files[] = $file;
-                        }
-                    }
-                    break;
-
-                case 'rating':
-                    $answer = fake()->numberBetween(1, 5);
-
-                case 'number':
-                    $answer = fake()->numberBetween(1, 100000);
-
-                default:
-                    $answer = fake()->sentence();
-                    break;
+                $response = Http::get($url)->json();
+                $status = data_get($response, '0.Status');
             }
 
-            $answerArr = [
-                'event_id' => $event->id,
-                'question_index' => $question->index_no,
-                'option_val' => $answer,
-                'option_types' => $type,
-                'personal_id' => $userPersonalInfo->id,
-                'question_id' => $question->id,
+            $postOffices = data_get($response, '0.PostOffice');
+            // Pick random post office
+            $postOffice = $postOffices[array_rand($postOffices)];
+
+            $area = $postOffice['Name'];
+            $state = $postOffice['State'];
+            $city = $postOffice['District'];
+
+            $userPersonalInfo = [
+                'full_name' => fake()->name(),
+                'gender' => fake()->randomElement(['male', 'female']),
+                'age' => fake()->numberBetween(18, 60),
+                'address' => fake()->address(),
+                'pincode' => fake()->numberBetween(100000, 999999),
+                'area' => $area,
+                'state' => $state,
+                'city' => $city,
+                'mobile_number' => fake()->numberBetween(1000000000, 9999999999),
+                'dob' => fake()->date(),
             ];
 
-            $userEvent = UserEventData::create($answerArr);
+            $userPersonalInfo = UserEventPersonalData::create($userPersonalInfo);
 
-            $filePaths = [];
+            $questions = $event->questions;
 
-            foreach ($files as $file) {
-                $attachment = AttachmentService::save($file, 'user-uploaded-file', 'users/uploaded-files', $userEvent);
+            foreach ($questions as $question) {
+                $type = $question->option_types;
 
-                if ($attachment) {
-                    $filePaths[] = $attachment->file_path;
+                $answer = '';
+                $files = [];
+                switch ($type) {
+                    case 'input':
+                        $answer = fake()->sentence();
+                        break;
+
+                    case 'checkbox':
+                    case 'radio':
+                    case 'dropdown':
+                        $limit = $type == 'checkbox' ? rand(1, 3) : 1;
+                        $options = $question->options()->inRandomOrder()->limit($limit)->pluck('index_no')->toArray();
+                        $answer = implode(',', $options);
+                        break;
+
+                    case 'textarea':
+                        $answer = fake()->paragraph();
+                        break;
+
+                    case 'date':
+                        $answer = fake()->date();
+                        break;
+
+                    case 'image':
+                    case 'image_multiple':
+                        $totalFiles = $type == 'image' ? 1 : fake()->numberBetween(2, 3);
+                        for ($i = 0; $i < $totalFiles; $i++) {
+                            $pathToSave = 'event_images/' . $event->id . '/' . $question->index_no;
+                            $filename = time() . '.png';
+
+                            // Random image
+                            $url = 'https://picsum.photos/1200/800';
+                            if (Storage::disk('public')->put($pathToSave . '/' . $filename, Http::get($url)->body())) {
+                                $path = Storage::disk('public')->path($pathToSave . '/' . $filename);
+                                $file = new UploadedFile($path, $filename, 'image/png', null, true);
+                                $files[] = $file;
+                            }
+                        }
+                        break;
+
+                    case 'rating':
+                        $answer = fake()->numberBetween(1, 5);
+
+                    case 'number':
+                        $answer = fake()->numberBetween(1, 100000);
+
+                    default:
+                        $answer = fake()->sentence();
+                        break;
+                }
+
+                $answerArr = [
+                    'event_id' => $event->id,
+                    'question_index' => $question->index_no,
+                    'option_val' => $answer,
+                    'option_types' => $type,
+                    'personal_id' => $userPersonalInfo->id,
+                    'question_id' => $question->id,
+                ];
+
+                $userEvent = UserEventData::create($answerArr);
+
+                $filePaths = [];
+
+                foreach ($files as $file) {
+                    $attachment = AttachmentService::save($file, 'user-uploaded-file', 'users/uploaded-files', $userEvent);
+
+                    if ($attachment) {
+                        $filePaths[] = $attachment->file_path;
+                    }
+                }
+
+                if (!empty($filePaths)) {
+                    $userEvent->update(['option_val' => json_encode($filePaths)]);
                 }
             }
 
-            if (!empty($filePaths)) {
-                $userEvent->update(['option_val' => json_encode($filePaths)]);
-            }
+            info('Dummy Response seeded successfully');
         }
-
-        info('Dummy Response seeded successfully');
     }
 
     public function pincodes()
