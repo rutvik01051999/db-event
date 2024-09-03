@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\UserEventPersonalData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -25,24 +26,37 @@ class ReportController extends Controller
         $eventId = $request->get('event_id');
         $start = $request->get('start') ?? 0;
         $length = $request->get('length') ?? 10;
+        $period = $request->get('period');
+
+        $startDate = $endDate = null;
+        if (!empty($period)) {
+            list($startDate, $endDate) = explode(' - ', $period);
+        }
 
         $event = Event::find($eventId);
         $eventQuestions = $event->questions;
 
         $query = UserEventPersonalData::withWhereHas('events', function ($query) use ($eventId) {
             $query->where('event_id', $eventId);
+        })->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            $query->whereDate('created_at', '>=', $startDate)->whereDate('created_at', '<=', $endDate);
         });
 
         $total = $query->count();
 
+        
         $users = $query->offset($start)->limit($length)->get();
-
+        
         $data = [];
-
+        
         $columns[0] = [
             'title' => 'Full Name',
             'data' => 'full_name',
         ];
+
+        if ($total == 0) {
+            $columns = $eventQuestions = $data = $users = [];
+        }
 
         foreach ($eventQuestions as $key => $question) {
             $columns[$key + 1] = [

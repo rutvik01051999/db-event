@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="card shadow-lg">
                         <div class="card-body">
-                            <div class="row justify-content-between">
+                            <div class="row justify-content-around">
                                 <div class="col-md-3 col-sm-12">
                                     <div class="input-group">
                                         <input type="text" class="form-control" id="search" name="search"

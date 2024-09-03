@@ -9,16 +9,19 @@
         <a class="text-danger mx-2 editor-delete" href="javascript:void(0)" data-id="{{ $event->id }}">
             <i class="fa fs-18 fa-regular fa-trash-alt"></i>
         </a>
+        <a class="text-warning mx-2 download-qr-code" href="{{ route('event.download-qr-code', $event->id) }}">
+            <i class="fa fs-18 fa-regular fa-qrcode"></i>
+        </a>
         @if ($event->status == 1)
-        <a class="text-success mx-2" href="javascript:void(0)" onclick="changeStatus({{ $event->id }}, 0)">
-            <i class="fa fs-24 fa-solid fa-toggle-on fa-toggle-on"></i>
-        </a>
+            <a class="text-success mx-2" href="javascript:void(0)" onclick="changeStatus({{ $event->id }}, 0)">
+                <i class="fa fs-24 fa-solid fa-toggle-on fa-toggle-on"></i>
+            </a>
         @else
-        <a class="text-danger mx-2" href="javascript:void(0)" onclick="changeStatus({{ $event->id }}, 1)">
-            <i class="fa fs-24 fa-solid fa-toggle-off mt-1"></i>
-        </a>
+            <a class="text-danger mx-2" href="javascript:void(0)" onclick="changeStatus({{ $event->id }}, 1)">
+                <i class="fa fs-24 fa-solid fa-toggle-off mt-1"></i>
+            </a>
         @endif
-        @if ($event->category && strtolower($event->category->name) == 'quiz') 
+        @if ($event->category && strtolower($event->category->name) == 'quiz')
             <a class="text-danger mx-2 set_coreect_answer" href="{{ route('event.set-correct-answer', $event->id) }}"
                 data-id="{{ $event->id }}">
                 <i class="fa fs-18 fa-regular fa-check"></i>

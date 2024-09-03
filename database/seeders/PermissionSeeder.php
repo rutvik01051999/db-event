@@ -35,6 +35,11 @@ class PermissionSeeder extends Seeder
                 'name' => 'delete events',
                 'guard_name' => 'web',
                 'collection' => 'event',
+            ],
+            [
+                'name' => 'view event reports',
+                'guard_name' => 'web',
+                'collection' => 'report',
             ]
         ];
 
