@@ -48,6 +48,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('event/set-correct-answer/{id}', [EventContoller::class, 'setCorrectAnswer'])->name('set-correct-answer');
             Route::post('event/set-correct-answer/{id}', [EventContoller::class, 'saveCorrectAnswer'])->name('save-correct-answer');
             Route::post('event/change-status/{id}', [EventContoller::class, 'changeStatus'])->name('change-status');
+            // event.download-qr-code
+            Route::get('download-qr-code/{id}', [EventContoller::class, 'downloadQrCode'])->name('download-qr-code');
         });
 });
 Route::controller(UserEventHandlingController::class)->group(function () {

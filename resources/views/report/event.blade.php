@@ -19,11 +19,34 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group">
+                                    <label for="department">Department</label>
+                                    <select name="department" id="department" class="form-control">
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group">
                                     <label for="event">Event</label>
                                     <select name="event" id="event" class="form-control">
 
                                     </select>
                                 </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="period">Date Range</label>
+                                    <input type="text" name="period" id="period" class="form-control" placeholder="Select Date Range" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Apply --}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button class="btn btn-warning" id="apply">Apply</button>
                             </div>
                         </div>
                     </div>
@@ -52,9 +75,59 @@
     <script>
         // Document on ready
         $(document).ready(function() {
+
+            // Date range picker
+            $('#period').daterangepicker({
+                locale: {
+                    format: 'YYYY-MM-DD'
+                },
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear',
+                },
+            }, function(start, end, label) {
+                $('#period').val(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+            });
+
+            // On cancel clear date range
+            $('#period').on('cancel.daterangepicker', function(ev, picker) {
+                $('#period').val('');
+            });
+
+            $('#department').select2({
+                placeholder: "Select Department",
+                allowClear: true,
+                theme: 'bootstrap4',
+                width: '100%',
+                ajax: {
+                    url: "{{ route('select2.departments') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term,
+                            show_all: 0
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data.departments,
+                        };
+                    },
+                    cache: true,
+                }
+            })
+
+            // On change departments reset events
+            $('#department').on('change', function() {
+                $('#event').val('').trigger('change');
+            });
+
             $('#event').select2({
                 placeholder: "Select Event",
                 theme: 'bootstrap4',
+                width: '100%',
+                allowClear: true,
                 ajax: {
                     url: "{{ route('select2.events') }}",
                     dataType: 'json',
@@ -62,6 +135,8 @@
                     data: function(params) {
                         return {
                             q: params.term,
+                            department_id: $('#department').val(),
+                            show_all: 0
                         };
                     },
                     processResults: function(data) {
@@ -73,16 +148,18 @@
                 },
             });
 
-
-            $('#event').on('change', function() {
-                let eventId = $(this).val();
+            // Apply
+            $('#apply').on('click', function() {
+                let eventId = $('#event').val();
+                let period = $('#period').val();
 
                 $.ajax({
                     url: "{{ route('report.event.fetch') }}",
                     data: {
                         _token: '{{ csrf_token() }}',
                         event_id: eventId,
-                        per_page: 10
+                        per_page: 10,
+                        period: period
                     },
                     type: 'POST',
                     dataType: 'json',

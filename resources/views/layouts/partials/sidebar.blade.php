@@ -60,6 +60,27 @@
                         </ul>
                     </li>
                 @endif
+
+                @can('view event reports')
+                    <li class="nav-item {{ request()->routeIs('report.*') ? 'menu-is-opening menu-open' : '' }}">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-file-alt"></i>
+                            <p>
+                                Reports
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('report.event') }}"
+                                    class="nav-link {{ request()->routeIs('report.event') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Event Report</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

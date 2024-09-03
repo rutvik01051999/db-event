@@ -20,8 +20,11 @@ class Event extends Model
         'department_id',
         'event_url',
         'response',
-        'status'
+        'status',
+        'qr_code_id',
+        'qr_code_path'
     ];
+
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class);
