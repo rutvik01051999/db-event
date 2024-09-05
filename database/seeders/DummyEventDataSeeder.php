@@ -36,7 +36,11 @@ class DummyEventDataSeeder extends Seeder
             },
         );
 
-        for ($i = 0; $i < $howMany; $i++) {
+        info("Will seed $howMany times");
+        for ($j = 0; $j < $howMany; $j++) {
+
+            info("Seeding $j time");
+
             $event = Event::where('status', 1)->latest()->first();
 
             $startDate = $event->start_date;
@@ -106,7 +110,7 @@ class DummyEventDataSeeder extends Seeder
                         break;
 
                     case 'textarea':
-                        $answer = fake()->paragraph();
+                        $answer = fake()->paragraph(2);
                         break;
 
                     case 'date':
@@ -116,7 +120,7 @@ class DummyEventDataSeeder extends Seeder
                     case 'image':
                     case 'image_multiple':
                         $totalFiles = $type == 'image' ? 1 : fake()->numberBetween(2, 3);
-                        for ($i = 0; $i < $totalFiles; $i++) {
+                    for ($i = 0; $i < $totalFiles; $i++) {
                             $pathToSave = 'event_images/' . $event->id . '/' . $question->index_no;
                             $filename = time() . '.png';
 

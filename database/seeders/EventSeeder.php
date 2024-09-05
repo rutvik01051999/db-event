@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Enums\EventType;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\Option;
 use App\Models\PersonalInformation;
 use App\Models\Question;
+use App\Services\QrCodeService;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
@@ -71,6 +73,7 @@ class EventSeeder extends Seeder
             'event_url' => env('APP_URL') . '/' . str()->random(25),
             'response' => 'Thank you! We will get back to you shortly.',
             'status' => true,
+            'event_type' => EventType::SINGLE_DAY,
         ]);
 
         $personalInformations = [
@@ -323,5 +326,8 @@ class EventSeeder extends Seeder
                 ]);
             }
         }
+
+        // Save QR Code
+        QrCodeService::generateAndSave($event);
     }
 }
